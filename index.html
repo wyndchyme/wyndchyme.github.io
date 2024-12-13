@@ -1,1 +1,54 @@
+<head>
+    <title>wyndchyme</title>
+    <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        body {
+            font-family: 'Mona Sans', sans-serif;
+            background-color: white;
+            color: black;
+            transition: 0.5s;
+        }
+        .dark-mode {
+            background-color: black;
+            color: white;
+            transition: 0.5s;
+        }
+        lamp-button {
+            padding: 30px;
+            display: block;
+            color: black;
+            text-align:center;
+            position: fixed;
+            top: 10px;
+            right: 10px;
+        }
+    </style>
+</head>
+<lamp-button>
+<button onclick="myFunction()"; style="background-color:";><img src="https://raw.githubusercontent.com/Mega3DS/mega3ds.github.io/refs/heads/main/icons/lightlamp.png"; width=28></button>
 
+
+<script>
+// Load the saved theme from localStorage
+document.addEventListener("DOMContentLoaded", () => {
+    const savedTheme = localStorage.getItem('theme');
+    if (savedTheme) {
+        document.body.classList.add(savedTheme);
+    }
+});
+
+// Function to toggle theme and save it
+function myFunction() {
+    const element = document.body;
+    if (element.classList.contains("dark-mode")) {
+        element.classList.remove("dark-mode");
+        localStorage.setItem("theme", ""); // Save empty to reset
+    } else {
+        element.classList.add("dark-mode");
+        localStorage.setItem("theme", "dark-mode");
+    }
+}
+</script>
+</lamp-button>
+<body>Hello World</body>
