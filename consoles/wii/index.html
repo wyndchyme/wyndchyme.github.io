@@ -1,0 +1,72 @@
+<head>
+    <title>wyndchyme</title>
+    <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preload" as="image" href="https://raw.githubusercontent.com/wyndchyme/wyndchyme.github.io/refs/heads/main/icons/lightlamp2.png">
+    <link href="https://fonts.googleapis.com/css2?family=Jersey+10&display=swap" rel="stylesheet">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        body {
+            font-family: 'Jersey 10', sans-serif;
+            background-color: white;
+            color: black;
+            transition: 0.5s;
+            font-size: 1.5rem;
+        }
+        .dark-mode {
+            background-color: black;
+            color: white;
+            transition: 0.5s;
+        }
+        lamp-button {
+            padding: 10px;
+            display: block;
+            color: black;
+            text-align: center;
+            position: fixed;
+            top: 5px;
+            right: 10px;
+        }
+        .image-hover {
+    width: 28px;
+    height: 28px;
+    background-image: url(https://raw.githubusercontent.com/wyndchyme/wyndchyme.github.io/refs/heads/main/icons/lightlamp.png);
+    background-size: cover;
+    transition: background-image 0.2s
+        }
+        .image-hover:hover {
+    background-image: url(https://raw.githubusercontent.com/wyndchyme/wyndchyme.github.io/refs/heads/main/icons/lightlamp2.png);
+        }
+    </style>
+</head>
+<lamp-button>
+<button onclick="myFunction()";><div class="image-hover"></div></button>
+<script>
+// Load the saved theme from localStorage
+document.addEventListener("DOMContentLoaded", () => {
+    const savedTheme = localStorage.getItem('theme');
+    if (savedTheme) {
+        document.body.classList.add(savedTheme);
+    }
+});
+
+// Function to toggle theme and save it
+function myFunction() {
+    const element = document.body;
+    if (element.classList.contains("dark-mode")) {
+        element.classList.remove("dark-mode");
+        localStorage.setItem("theme", ""); // Save empty to reset
+    } else {
+        element.classList.add("dark-mode");
+        localStorage.setItem("theme", "dark-mode");
+    }
+}
+</script>
+</lamp-button>
+<div style="text-align: center; font-size: 3rem; font-family: 'Jersey 10'; background-color: skyblue; color: white"><img src= https://raw.githubusercontent.com/wyndchyme/wyndchyme.github.io/refs/heads/main/icons/faviconalt.png> wyndchyme</div>
+<div style="text-align: center; font-size: 1.25rem; font-family: 'Jersey 10'">(sometimes i make things)</div>
+<p></p>
+<p style="font-size: 3rem; line-height: 0; text-align: center"><img src ="https://raw.githubusercontent.com/wyndchyme/wyndchyme.github.io/refs/heads/main/icons/consoles/iconwii.png"; style="position: relative; bottom: -2px"></img> Wii
+<p style="line-height: 0"></p>
+</body>
