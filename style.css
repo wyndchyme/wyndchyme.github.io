@@ -1,3 +1,7 @@
+html {
+    background-repeat: repeat;
+    background-image: url("https://raw.githubusercontent.com/wyndchyme/wyndchyme.github.io/refs/heads/main/images/background/moroccan-flower.png")
+}
 body {
     font-family: 'Jersey 10', sans-serif;
     background-color: white;
@@ -62,6 +66,6 @@ footer {
 }
 @media (max-width: 450px) {
 lamp-button {
-    transform: translateY(75px);
+    transform: translateY(60px);
 }
 }
