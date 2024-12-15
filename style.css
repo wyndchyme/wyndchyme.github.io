@@ -1,5 +1,5 @@
 html {
-    background: url("https://raw.githubusercontent.com/wyndchyme/wyndchyme.github.io/refs/heads/main/images/background/moroccan-flower.png");
+    background: url("/images/background/moroccan-flower.png");
     background-repeat: repeat;
 }
 body {
@@ -28,12 +28,12 @@ lamp-button {
 .image-hover {
     width: 28px;
     height: 28px;
-    background-image: url(https://raw.githubusercontent.com/wyndchyme/wyndchyme.github.io/refs/heads/main/icons/lightlamp.png);
+    background-image: url(/icons/lightlamp.png);
     background-size: cover;
     transition: background-image 0.2s
 }
 .image-hover:hover {
-    background-image: url(https://raw.githubusercontent.com/wyndchyme/wyndchyme.github.io/refs/heads/main/icons/lightlamp2.png);
+    background-image: url(/icons/lightlamp2.png);
 }
 a:link {
     color: skyblue;
