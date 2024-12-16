@@ -22,7 +22,6 @@ lamp-button {
     color: black;
     text-align: center;
     position: fixed;
-    top: 5px;
     right: 10px;
 }
 .image-hover {
