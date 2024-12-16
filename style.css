@@ -64,6 +64,11 @@ footer {
     width: 100%;
     color: black;
 }
+@media (max-width: 450px) {
+lamp-button {
+    transform: translateY(60px);
+}
+}
 .responsive-menu {
     font-size: 2rem;
     text-align: center;
@@ -81,14 +86,8 @@ footer {
     .responsive-menu {
       font-size: 1.2rem;
     }
-
+  }
     .responsive-menu a img {
       width: 24px;
       height: 24px;
     }
-}
-@media (max-width: 450px) {
-lamp-button {
-    transform: translateY(60px);
-}
-}
