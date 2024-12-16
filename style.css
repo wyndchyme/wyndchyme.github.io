@@ -64,8 +64,31 @@ footer {
     width: 100%;
     color: black;
 }
+.responsive-menu {
+    font-size: 2rem;
+    text-align: center;
+    background-color: #e4f7f7;
+    color: skyblue;
+  }
+
+  .responsive-menu a img {
+    position: relative;
+    bottom: -1px;
+    height: auto;
+  }
+
+  @media screen and (max-width: 320px) {
+    .responsive-menu {
+      font-size: 1.2rem;
+    }
+
+    .responsive-menu a img {
+      width: 24px;
+      height: 24px;
+    }
 @media (max-width: 450px) {
 lamp-button {
     transform: translateY(60px);
+}
 }
 }
