@@ -89,6 +89,6 @@ footer {
 }
 @media (max-width: 450px) {
 lamp-button {
-    transform: translateY(50px);
+    transform: translateY(42px);
 }
 }
