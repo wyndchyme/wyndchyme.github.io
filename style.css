@@ -86,9 +86,9 @@ footer {
       width: 24px;
       height: 24px;
     }
+}
 @media (max-width: 450px) {
 lamp-button {
     transform: translateY(60px);
-}
 }
 }
