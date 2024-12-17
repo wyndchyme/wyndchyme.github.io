@@ -10,6 +10,9 @@ body {
     font-size: 1.5rem;
     max-width: 1000px;
     margin: 0 auto;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
 }
 .dark-mode {
     background-color: #143136;
