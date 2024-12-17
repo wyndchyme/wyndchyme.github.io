@@ -8,6 +8,8 @@ html {
        url('font/Jersey10-Regular.ttf') format('truetype'),
        url('font/Jersey10-Regular.woff') format('woff'),
        url('font/Jersey10-Regular.woff2') format('woff2');
+    font-weight: normal;
+    font-style: normal;
 }
 body {
     font-family: 'Jersey10-Regular', sans-serif;
