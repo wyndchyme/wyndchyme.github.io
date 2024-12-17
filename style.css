@@ -10,7 +10,7 @@ html {
        url(/font/Jersey10-Regular.woff2) format('woff2');
 }
 body {
-    font-family: 'Jersey 10', sans-serif;
+    font-family: 'Jersey10-Regular', sans-serif;
     background-color: white;
     color: black;
     transition: 0.5s;
