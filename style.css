@@ -2,17 +2,8 @@ html {
     background: url("/images/background/moroccan-flower.png");
     background-repeat: repeat;
 }
-@font-face {
-  font-family: 'Jersey10-Regular';
-  src: url('font/Jersey10-Regular.otf') format('otf'),
-       url('font/Jersey10-Regular.ttf') format('truetype'),
-       url('font/Jersey10-Regular.woff') format('woff'),
-       url('font/Jersey10-Regular.woff2') format('woff2');
-    font-weight: normal;
-    font-style: normal;
-}
 body {
-    font-family: 'Jersey10-Regular', sans-serif;
+    font-family: 'Jersey 10', serif;
     background-color: white;
     color: black;
     transition: 0.5s;
