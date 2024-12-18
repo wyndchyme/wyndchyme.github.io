@@ -1,6 +1,7 @@
 html {
     background: url("/images/background/moroccan-flower.png");
     background-repeat: repeat;
+    background-attachment: fixed;
 }
 body {
     font-family: 'Jersey 10', serif;
