@@ -1,0 +1,82 @@
+<head>
+    <title>wyndchyme &#8226 docs &#8226 mc3ds-modern</title>
+    <meta property="og:title" content="wyndchyme &#8226 docs" />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://wyndchyme.github.io/" />
+    <meta name="description" content="documentation for mc3ds-modern" />
+    <meta property="og:image" content="/images/meta/preview.png" />
+        <meta property="twitter:card" content="summary_large_image" />
+<meta property="twitter:url" content="https://wyndchyme.github.io/" />
+<meta property="twitter:title" content="wyndchyme &#8226 docs" />
+<meta property="twitter:description" content="documentation for mc3ds-modern" />
+<meta property="twitter:image" content="/images/meta/preview.png" />
+    <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Jersey+10&display=swap" rel="stylesheet">
+    <link rel="preload" as="image" href="/icons/lightlamp2.png">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="/style.css">
+<style>
+        html {
+    background: "/images/background/moroccan-flower.png";
+    background-repeat: repeat;
+            background-attachment: fixed;
+            scroll-behavior: smooth;
+        }
+    </style>
+</head>
+<lamp-button>
+<button onclick="myFunction()";><div class="image-hover"></div></button>
+<script>
+// Load the saved theme from localStorage
+document.addEventListener("DOMContentLoaded", () => {
+    const savedTheme = localStorage.getItem('theme');
+    if (savedTheme) {
+        document.body.classList.add(savedTheme);
+    }
+});
+
+// Function to toggle theme and save it
+function myFunction() {
+    const element = document.body;
+    if (element.classList.contains("dark-mode")) {
+        element.classList.remove("dark-mode");
+        localStorage.setItem("theme", ""); // Save empty to reset
+    } else {
+        element.classList.add("dark-mode");
+        localStorage.setItem("theme", "dark-mode");
+    }
+}
+</script>
+</lamp-button>
+<div style="text-align: left; font-size: 2.2rem; font-family: 'Jersey 10'; background-color: skyblue; color: white;"> <a href="https://wyndchyme.github.io/"; style="color: white"><div style="margin-left: 5%;"><img src="/icons/faviconalt.png"; style="width: 1.5rem"> wyndchyme &#8226 docs</a></div></div>
+    <div style="margin-left: 5%; margin-right: 5%; font-family: 'Helvetica'; font-size: 14pt; line-height: 1.4">
+        <br>
+        <h2>All Pages</h2>
+        <p><i>This is a list of all pages on this website, organized by category.</i></p>
+        <br>
+        <hr>
+        <br>
+        <div style="margin-left: 5%; margin-right: 5%">
+            <h3>Home</h3>
+            <ul><li><a href="https://wyndchyme.github.io/">About Me</a></li></ul>
+            <h3>Consoles</h3>
+            <ul><li><a href="https://wyndchyme.github.io/consoles/wii/">Wii</a></li>
+            <li><a href="https://wyndchyme.github.io/consoles/3ds/">3DS</a></li></ul>
+            <h3>Other</h3>
+            <ul><li><a href="https://wyndchyme.github.io/other/">News</a></li></ul>
+            <h3>Docs</h3>
+            <ul><li><a href="https://wyndchyme.github.io/docs/all-pages/">All Pages</a></li>
+                <li><a href="https://wyndchyme.github.io/docs/mc3ds-modern/">mc3ds-modern</a></li>
+                <br>
+            </ul>
+            <br>
+        </div>
+        <hr>
+        <br>
+    </div>
+</div>
+<body>
+<footer>© 2024-2025 wyndchyme. All Rights Reserved.</footer>
+</body>
