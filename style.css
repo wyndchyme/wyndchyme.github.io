@@ -4,7 +4,7 @@ html {
     background-attachment: fixed;
 }
 body {
-    font-family: 'Jersey 10', serif;
+    font-family: 'Jersey 10', sans-serif;
     background-color: white;
     color: black;
     transition: 0.5s;
