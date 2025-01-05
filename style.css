@@ -16,6 +16,11 @@ body {
     text-rendering: optimizeLegibility;
     font-smooth: always;
 }
+wikibody {
+    font-family: 'Mona Sans', sans-serif;
+    font-size: 14pt;
+    line-height: 1.4;
+}
 .dark-mode {
     background-color: #143136;
     color: white;
@@ -28,6 +33,9 @@ lamp-button {
     text-align: center;
     position: fixed;
     right: 5px;
+}
+code {
+    font-size: 13pt;
 }
 .image-hover {
     width: 28px;

@@ -1,0 +1,140 @@
+<head>
+    <title>wyndchyme &#8226 docs &#8226 mc3ds-modern</title>
+    <meta property="og:title" content="wyndchyme" />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://wyndchyme.github.io/" />
+    <meta name="description" content="documentation for mc3ds-modern" />
+    <meta property="og:image" content="/images/meta/preview.png" />
+        <meta property="twitter:card" content="summary_large_image" />
+<meta property="twitter:url" content="https://wyndchyme.github.io/" />
+<meta property="twitter:title" content="wyndchyme" />
+<meta property="twitter:description" content="my personal website" />
+<meta property="twitter:image" content="/images/meta/preview.png" />
+    <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preload" as="image" href="/icons/lightlamp2.png">
+    <link href="https://fonts.googleapis.com/css2?family=Jersey+10&display=swap" rel="stylesheet">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="/style.css">
+<style>
+        html {
+    background: "/images/background/moroccan-flower.png";
+    background-repeat: repeat;
+            background-attachment: fixed;
+            scroll-behavior: smooth;
+        }
+    </style>
+</head>
+<lamp-button>
+<button onclick="myFunction()";><div class="image-hover"></div></button>
+<script>
+// Load the saved theme from localStorage
+document.addEventListener("DOMContentLoaded", () => {
+    const savedTheme = localStorage.getItem('theme');
+    if (savedTheme) {
+        document.body.classList.add(savedTheme);
+    }
+});
+
+// Function to toggle theme and save it
+function myFunction() {
+    const element = document.body;
+    if (element.classList.contains("dark-mode")) {
+        element.classList.remove("dark-mode");
+        localStorage.setItem("theme", ""); // Save empty to reset
+    } else {
+        element.classList.add("dark-mode");
+        localStorage.setItem("theme", "dark-mode");
+    }
+}
+</script>
+</lamp-button>
+<div style="text-align: left; font-size: 2.2rem; font-family: 'Jersey 10'; background-color: skyblue; color: white;"> <a href="https://wyndchyme.github.io/"; style="color: white"><div style="margin-left: 5%;"><img src="/icons/faviconalt.png"; style="width: 1.5rem"> wyndchyme &#8226 docs</a></div></div>
+<wikibody>
+    <div style="margin-left: 5%; margin-right: 5%;">
+        <br>
+        <br>
+    <img src="https://raw.githubusercontent.com/wyndchyme/mc3ds-modern/refs/heads/main/docs/icons/logo.png"; style=" width: 80vw; max-width: 25rem;">
+    <h2>Table of Contents</h2>
+    <hr>
+    <ul>
+    <li><a href="#Introduction">Introduction</a></li>
+    <li><a href="#Indexing-files">Indexing files</a>
+    <ul>
+        <li><a href="#Defining-file-version-with-variable-a">Defining file version with variable <code>a</code></a></li>
+    </ul></li>
+    <li><a href="#Loading-images-in-credits.txt">Loading images in <code>credits.txt</code></a><ul>
+<li><a href="#Defining-image-scale">Defining image scale</a>
+<ul>
+    <li><a href="#Variable-a">Variable <code>a</code></a></li>
+    <li><a href="#Variables-b-and-c">Variables <code>b</code> and <code>c</code></a></li>
+</ul></li>
+<li><a href="#Defining-image-offset">Defining image offset</a>
+<ul>
+    <li><a href="#Variables-d-and-e">Variables <code>d</code> and <code>e</code></a></li>
+</ul></li>
+<li><a href="#Defining-image-size">Defining image size</a>
+<ul>
+    <li><a href="#Variables-g-and-f">Variables <code>g</code> and <code>f</code></a></li>
+</ul></li>
+    </ul>
+    </li>
+    </ul>
+    <br>
+    <h2 id="Introduction">Introduction</h2>
+    <hr>
+    <p style="text-indent:2em;">Welcome to the documentation for <i>Modernization MegaPack.</i> This page describes techniques used in <i>Modernization MegaPack</i> and its integration in programs like Cracko298's MegaPack Updater.</p>
+    <p style="text-indent:2em;">This is not an exhaustive list of techniques employed within <i>Modernization MegaPack;</i> rather it serves as documentation for techniques used that may not have been documented in-depth in the past.</p>
+    <br>
+    <br>
+    <h2 id="Indexing-files">Indexing files</code></h2>
+    <hr>
+    <p style="text-indent:2em">The file <code>appConfiguration.info</code> in the root of the <code>romfs</code> directory is an index of all the files present in releases of <i>Modernization MegaPack,</i> and was introduced in version 2.0.0 "Romantic" in order to integrate with Cracko298's MegaPack Updater. As an example, the following syntax is used to list <code>en_US_pocket.blang</code>:</p>
+    <code>/loc/en_US-pocket.blang, 1</code>
+    <p style="text-indent:2em">Files are defined using their relative path within the <code>romfs</code> directory. The following is the format to list a file in <code>appConfiguration.info</code>:</p>
+    <code>/path/to/file.extension, (a)</code>
+    <p style="text-indent:2em">Refer back to this syntax format when variable <code>a</code> is defined in this documentation.</p>
+    <br>
+    <h3 id="Defining-file-version-with-variable-a">Defining file version with variable <code style="font-size:15.5pt">a</code></h3>
+    <p style="text-indent:2em">The variable <code>a</code> in the syntax format defines the file's version, and should be updated when a file is modified between releases. For a file's first revision, <code>a</code> should be set to <code>1</code>. If the file is modified, <code>a</code> should be set to <code>2</code>. If the file is modified again, <code>a</code> should be set to <code>3</code> and so on.</p>
+    <br>
+    <br>
+    <h2 id="Loading-images-in-credits.txt">Loading images in <code style="font-size: 20pt;">credits.txt</code></h2>
+    <hr>
+    <p style="text-indent: 2em;">In the vanilla game's <code>credits.txt</code>, only one texture is called to be displayed as an image, that being <code>Nintendo-Logo.3dst</code> to display the Nintendo logo at the end of the credits sequence immediately prior to the copyright and trademark information. The following syntax is used to call <code>Nintendo-Logo.3dst</code>:</p>
+    <p><code>gui/icons/Nintendo-Logo.png| tImage s1 iw128 ih32 iu0 iv0 isu128 isv32</code></p>
+    <p style="text-indent: 2em;">Textures are called by inputting their relative path within the vanilla resource pack's <code>textures</code> directory, and appending it with the required scaling, offset and sizing values. Note that textures are called in the PNG format despite being in the 3DST format in the ROM file system. This only affects the syntax and has no bearing on the texture's appearance in-game. The following is the format to load textures:</p>
+    <code>path/to/texture.png| tImage s(a) iw(b) ih(c) iu(d) iv(e) isu(f) isv(g)</code>
+    <p style="text-indent: 2em;">Refer back to this syntax format when variables <code>a</code> through <code>g</code> are defined in this documentation. <i>Modernization MegaPack</i> makes extensive use of the following techniques to display modder names, profile pictures, and other decorations in <code>credits.txt</code>. An example is shown below.</p>
+    <br>
+    <img src="/images/consoles/3ds/mc3ds-modern/credits.webp"; style="width: 80vw; max-width: 320px;">
+    <br>
+    <br>
+    <br>
+    <h3 id="Defining-image-scale">Defining image scale</h3>
+    <h4 id="Variable-a">Variable <code>a</code></h4>
+    <p style="text-indent: 2em;">The variable <code>a</code> in the syntax format defines the image scale; more specifically, it defines the size at which pixels are displayed in <code>credits.txt</code>. Nearest-neighbor scaling is always used for textures.</p>
+    <p style="text-indent: 2em;">Setting <code>a</code> to <code>1</code> scales the image to 100% of its original size; 1 pixel in the texture corresponds to 1 pixel in the image with 100% scaling. Setting <code>a</code> to <code>2</code> scales the image to 200% of its original size. 1 pixel corresponds to 4 pixels in the image with 200% scaling. Setting <code>a</code> to <code>3</code> scales the image to 300% of its original size, corresponding to 9 pixels in the image, and so on.</p>
+    <h4 id="Variables-b-and-c">Variables <code>b</code> and <code>c</code></h4>
+    <p style="text-indent: 2em">The variables <code>b</code> and <code>c</code> control horizontal and vertical scaling respectively. They are expressed as a quantity of pixels; setting <code>b</code> to <code>256</code> means the image will be stretched to a width of 256 pixels. Since nearest-neighbor scaling is the only scaling option avaliable, it is generally best to leave <code>b</code> and <code>c</code> equal to the width and height of the texture you are attempting to load as an image to prevent scaling artifacts.</p>
+    <p style="text-indent: 2em">Variables <code>b</code> and <code>c</code> are affected by variable <code>a</code>; if <code>c</code> is set to <code>32</code> and <code>a</code> is set to <code>2</code>, then the image will be displayed with a height of 64 pixels. In short, when the image is displayed, the width and height defined by variables <code>b</code> and <code>c</code> are multiplied by the scaling factor defined by <code>a</code>.</p>
+    <br>
+    <h3 id="Defining-image-offset">Defining image offset</h3>
+    <h4 id="Variables-d-and-e">Variables <code>d</code> and <code>e</code></h4>
+    <p style="text-indent: 2em">The variables <code>d</code> and <code>e</code> control the horizontal and vertical offset of a texture when it is loaded as an image into <code>credits.txt</code>. These variables have no bearing on the actual position of an image when displayed in <code>credits.txt</code>; rather they control what parts of a texture are shown when it is displayed as an image. <i>Modernization MegaPack</i> makes extensive use of these offsets to display different parts of an atlas; Shown below is the credits atlas texture as of version 2.0.0 "Romantic".</p>
+    <br>
+    <img src="/images/consoles/3ds/mc3ds-modern/creditsatlas.webp"; style="width: 80vw; max-width: 256px;">
+    <p style="text-indent: 2em">Offsets' anchor point (when <code>d</code> and <code>e</code> are both set to <code>0</code>) is the top left corner of an unflipped texture; your offset values should always be set according to your texture's appearance prior to it being flipped upside-down for correct display in-game. Offsets are most useful when used in tandem with variables <code>f</code> and <code>g</code>, which control the cropping of a texture. If you want to display the entire texture, set <code>d</code> and <code>e</code> to <code>0</code> to apply no offset.</p>
+    <br>
+    <h3 id="Defining-image-size">Defining image size</h3>
+    <h4 id="Variables-f-and-g">Variables <code>g</code> and <code>f</code></h4>
+    <p style="text-indent: 2em">The variables <code>g</code> and <code>f</code> control the horizontal and vertical cropping of an image. They are expressed as a quantity of pixels, and like offsets their anchor point is the top left corner of an unflipped texture. If you want to display the entire texture, set <code>g</code> and <code>f</code> to the width and height of your full texture.</p>
+    <br>
+    <br>
+    <hr>
+</div>
+</wikibody>
+<body>
+<footer>© 2024-2025 wyndchyme. All Rights Reserved.</footer>
+</body>
