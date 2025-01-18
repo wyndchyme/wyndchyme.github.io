@@ -25,6 +25,14 @@ h1 {
     color: #dbf5ff;
     font-weight: lighter;
 }
+.buttonbg {
+transition: 0.5s;
+}
+.dark-mode .buttonbg {
+    background-color: #9bc2d1 !important;
+    border: 2px #649cb3 solid !important;
+    transition: 0.5s;
+}
 lamp-button {
     padding: 10px;
     display: block;
