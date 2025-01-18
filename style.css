@@ -12,15 +12,18 @@ body {
     max-width: 1000px;
     margin: 0 auto;
 }
-wikibody {
-    font-family: 'Mona Sans', sans-serif !important;
-    font-size: 14pt;
-    line-height: 1.4;
-}
 .dark-mode {
     background-color: #143136;
     color: white;
     transition: 0.5s;
+}
+h1 {
+    color: #255263;
+    font-weight: lighter;
+}
+.dark-mode h1 {
+    color: #dbf5ff;
+    font-weight: lighter;
 }
 lamp-button {
     padding: 10px;
