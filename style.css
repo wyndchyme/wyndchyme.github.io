@@ -99,4 +99,7 @@ footer {
 lamp-button {
     transform: translateY(47px);
 }
+body {
+    font-size: 1.35rem;
+}
 }
