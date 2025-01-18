@@ -29,7 +29,7 @@ h1 {
 transition: 0.5s;
 }
 .dark-mode .buttonbg {
-    background-color: #9bc2d1 !important;
+    background-image: linear-gradient(#9bc2d1, #8fb9c9) !important;
     border: 2px #649cb3 solid !important;
     transition: 0.5s;
 }
