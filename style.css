@@ -88,6 +88,7 @@ footer {
     text-align: center;
     background-color: #e4f7f7;
     color: skyblue;
+    transition: 0.5s;
   }
 
   .responsive-menu a img {
@@ -95,7 +96,10 @@ footer {
     bottom: -1px;
     height: auto;
   }
-
+.dark-mode .responsive-menu {
+    background-color: #224559;
+    transition: 0.5s;
+}
   @media screen and (max-width: 320px) {
     .responsive-menu {
       font-size: 1.4rem;
