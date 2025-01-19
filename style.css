@@ -112,6 +112,7 @@ lamp-button {
     text-align: center;
     position: fixed;
     right: 5px;
+    z-index: 5;
 }
 code {
     font-size: 13pt;
