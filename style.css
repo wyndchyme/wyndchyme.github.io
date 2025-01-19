@@ -2,6 +2,7 @@ html {
     background: url("/images/background/moroccan-flower.png");
     background-repeat: repeat;
     background-attachment: fixed;
+    -webkit-font-smoothing: antialiased;
 }
 @font-face {
     font-family: 'Jersey 10';
