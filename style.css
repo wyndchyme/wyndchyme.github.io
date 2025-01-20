@@ -142,6 +142,24 @@ a:hover {
     background-color: transparent;
     text-decoration: none;
 }
+.boing:hover {
+    animation: squish 0.6s ease-in-out infinite;
+    transition: 0.5s;
+}
+@keyframes squish {
+    0%, 100% {
+      transform: scale(1, 1);
+    }
+    25% {
+      transform: scale(1.1, 0.9); /* Wider and shorter */
+    }
+    50% {
+      transform: scale(0.9, 1.1); /* Taller and narrower */
+    }
+    75% {
+      transform: scale(1.05, 0.95); /* Slightly wider and shorter */
+    }
+}
 a:active {
     color: skyblue;
     background-color: transparent;
