@@ -213,6 +213,9 @@ transition: 0.1s;
       transform: scale(1.05, 0.95); /* Slightly wider and shorter */
     }
 }
+button {
+    cursor: pointer;
+}
 .dtbutton {
     width: 64px;
     height: 64px;
