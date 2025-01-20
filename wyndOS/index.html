@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>wyndchyme</title>
+    <meta property="og:title" content="wyndchyme" />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://wyndchyme.github.io/" />
+    <meta name="description" content="my personal website" />
+    <meta property="og:image" content="/images/meta/preview.png" />
+    <meta property="twitter:card" content="summary_large_image" />
+    <meta property="twitter:url" content="https://wyndchyme.github.io/" />
+    <meta property="twitter:title" content="wyndchyme" />
+    <meta property="twitter:description" content="my personal website" />
+    <meta property="twitter:image" content="/images/meta/preview.png" />
+    <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="/wyndOS/style.css">
+    <link rel="preload" href="plugins/jersey/Jersey10-Regular.woff2" as="font" type="font/woff2" crossorigin>
+    <link rel="preload" href="plugins/jersey/Jersey25-Regular.woff2" as="font" type="font/woff2" crossorigin>
+    <script src="plugins/flickity/flickity.pkgd.js"></script>
+    <style>
+        html {
+            background: "background/moroccan-flower.png";
+            background-repeat: repeat;
+            background-attachment: fixed;
+        }
+    </style>
+</head>
+<body>
+    <div id="left"></div>
+    <div id="right"></div>
+    <div id="top"></div>
+    <div id="bottom"></div>
+
+    <div class="draggable">
+        <div class="header">About wyndOS <button class="close-btn">X</button></div>
+        
+        <div class="content">
+            <p style="text-align: center;"><img src="/icons/faviconalt.png"></p>
+            <p style="text-align: center; font-size: 16pt; position: relative; bottom: 14px;">wyndOS 0.1</p>
+            <p style="text-align: center; position: relative; bottom: 18px;">© 2024-2025 wyndchyme. All Rights Reserved.</p>
+            <p style="text-align: center; position: relative; bottom: 30px;">Powered by GitHub Pages.</p>
+        </div>
+    </div>
+    
+    <script>
+        // Select the draggable element and its header
+        const draggable = document.querySelector('.draggable');
+        const header = draggable.querySelector('.header');
+        const closeButton = draggable.querySelector('.close-btn');
+    
+        let isDragging = false;
+        let offsetX = 0;
+        let offsetY = 0;
+
+        closeButton.addEventListener('click', () => {
+        draggable.remove();
+    });
+    
+        header.addEventListener('mousedown', (e) => {
+            isDragging = true;
+            offsetX = e.clientX - draggable.offsetLeft;
+            offsetY = e.clientY - draggable.offsetTop;
+    
+            // Add mousemove and mouseup listeners
+            document.addEventListener('mousemove', onMouseMove);
+            document.addEventListener('mouseup', onMouseUp);
+        });
+    
+        function onMouseMove(e) {
+        if (isDragging) {
+            let x = e.clientX - offsetX;
+            let y = e.clientY - offsetY;
+
+            // Define boundaries using the dimensions of the div borders
+            const leftBoundary = 15; // Width of #left
+            const rightBoundary = window.innerWidth - 15; // Width of #right
+            const topBoundary = 15; // Height of #top
+            const bottomBoundary = window.innerHeight - 15; // Height of #bottom
+
+            // Restrict the draggable window within these boundaries
+            x = Math.max(leftBoundary, Math.min(x, rightBoundary - draggable.offsetWidth));
+            y = Math.max(topBoundary, Math.min(y, bottomBoundary - draggable.offsetHeight));
+
+            draggable.style.left = `${x}px`;
+            draggable.style.top = `${y}px`;
+        }
+    }
+    
+        function onMouseUp() {
+            isDragging = false;
+    
+            // Remove mousemove and mouseup listeners
+            document.removeEventListener('mousemove', onMouseMove);
+            document.removeEventListener('mouseup', onMouseUp);
+        }
+    </script>
+
+    <div class="toolbar">
+        <div class="tbicon" style="border-left: 3px solid skyblue;"><img src="/icons/faviconalt.png" style="position: relative; top: 3px;"></div>
+        <div class="tbicon"><img src="/icons/news.png" style="position: relative; top: 2px; left: 1px;"></div>
+        <div class="tbicon"><img src="/icons/aboutme/favoritecolor.png" style="position: relative; top: 2px"></div>
+        <div class="tbicon"><img src="/icons/contactme/email.png" style="position: relative; top: 2px"></div>
+        <div class="tbicon"><img src="/icons/contactme/git.png" style="position: relative; top: 3px"></div>
+        <div class="tbclock">put the time here</div>
+    </div>
+
+    <script>
+        function updateClock() {
+            const clockElement = document.querySelector('.tbclock');
+            const now = new Date();
+            const hours = now.getHours().toString().padStart(2, '0');
+            const minutes = now.getMinutes().toString().padStart(2, '0');
+            const seconds = now.getSeconds().toString().padStart(2, '0');
+            clockElement.textContent = `${hours}:${minutes}:${seconds}`;
+        }
+
+        // Update the clock immediately and set an interval to update it every second
+        updateClock();
+        setInterval(updateClock, 1000);
+    </script>
+</body>
+</html>
