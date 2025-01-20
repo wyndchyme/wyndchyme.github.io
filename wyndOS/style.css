@@ -6,19 +6,19 @@ html {
 }
 @font-face {
     font-family: 'Jersey 10';
-    src: url(plugins/jersey/Jersey10-Regular.woff2);
+    src: url(/plugins/jersey/Jersey10-Regular.woff2);
 }
 @font-face {
     font-family: 'Jersey 15';
-    src: url(plugins/jersey/Jersey15-Regular.woff2);
+    src: url(/plugins/jersey/Jersey15-Regular.woff2);
 }
 @font-face {
     font-family: 'Jersey 20';
-    src: url(plugins/jersey/Jersey20-Regular.woff2);
+    src: url(/plugins/jersey/Jersey20-Regular.woff2);
 }
 @font-face {
     font-family: 'Jersey 25';
-    src: url(plugins/jersey/Jersey25-Regular.woff2);
+    src: url(/plugins/jersey/Jersey25-Regular.woff2);
 }
 body {
     font-family: 'Jersey 10';
