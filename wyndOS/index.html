@@ -40,7 +40,19 @@
     <div class="dtcontainer"></div>
     <div class="dtshortcut"><img src="/icons/other/linkicon.png"></div>
 <div class="dtlabel">About</div>
+<button id="aboutButton" class="dtbutton"></button>
 </div>
+<script>
+    document.getElementById('aboutButton').addEventListener('click', function() {
+var div = document.getElementById('aboutDiv');
+if (div.style.display === 'none') {
+    div.style.display = 'block';
+} else {
+    div.style.display = 'none';
+}
+});
+
+</script>
 <br>
 <div class="dticon"><img src="/icons/news.png">
     <div class="dtcontainer"></div>
@@ -55,7 +67,7 @@
 </div>
 </div>
 
-<div class="dtcolumn" style="position: relative; left: 15px; bottom: 58px;">
+<div class="dtcolumn">
     <div class="dticon"><img src="/icons/contactme/email.png" style="position: relative; bottom: 2px;">
         <div class="dtcontainer" style="left: -13px;"></div>
         <div class="dtshortcut"><img src="/icons/other/linkicon.png"></div>
@@ -68,11 +80,15 @@
     <div class="dtlabel">Editor</div>
     </div>
     <br>
-
+    <a href="https://wyndchyme.github.io/" style="color: #252525; text-decoration: none;">
+<div class="dticon"><img src="/icons/aboutme/aboutme.webp">
+    <div class="dtcontainer" style="left: -13px;"></div>
+    <div class="dtshortcut"><img src="/icons/other/linkicon.png"></div>
+<div class="dtlabel">Back</div>
+</div>
     </div>
     </div>
-
-    <div class="draggable">
+    <div class="draggable" id="aboutDiv" style="display: none;">
         <div class="header">About wyndOS <button class="close-btn">X</button></div>
         
         <div class="content">
@@ -94,7 +110,12 @@
         let offsetY = 0;
 
         closeButton.addEventListener('click', () => {
-        draggable.remove();
+            var div = document.getElementById('aboutDiv');
+if (div.style.display === 'none') {
+    div.style.display = 'block';
+} else {
+    div.style.display = 'none';
+}
     });
     
         header.addEventListener('mousedown', (e) => {

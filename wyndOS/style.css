@@ -213,3 +213,12 @@ transition: 0.1s;
       transform: scale(1.05, 0.95); /* Slightly wider and shorter */
     }
 }
+.dtbutton {
+    width: 64px;
+    height: 64px;
+    position: relative;
+    bottom: 64px;
+    left: -11px;
+    border: none;
+    background-color: transparent;
+}
