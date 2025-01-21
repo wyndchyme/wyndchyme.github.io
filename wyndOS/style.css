@@ -4,6 +4,9 @@ html {
     background-attachment: fixed;
     -webkit-font-smoothing: antialiased;
 }
+html img {
+    filter: drop-shadow(1px 1px 1px black);
+}
 @font-face {
     font-family: 'Jersey 10';
     src: url(/plugins/jersey/Jersey10-Regular.woff2);
