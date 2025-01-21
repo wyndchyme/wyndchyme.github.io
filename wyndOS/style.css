@@ -3,6 +3,15 @@ html {
     background-repeat: repeat;
     background-attachment: fixed;
     -webkit-font-smoothing: antialiased;
+    animation: scrollBackground 10s linear infinite; 
+}
+@keyframes scrollBackground {
+    0% {
+        background-position: 0 0;
+    }
+    100% {
+        background-position: 0 100%; /* Adjust this depending on the size of your image */
+    }
 }
 html img {
     filter: drop-shadow(1px 1px 1px black);
