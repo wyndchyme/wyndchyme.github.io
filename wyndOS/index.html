@@ -54,13 +54,23 @@ if (div.style.display === 'none') {
 
 </script>
 <br>
-<a href="https://wyndchyme.github.io/other/" style="color: #252525; text-decoration: none;">
-<div class="dticon"><img src="/icons/news.png">
+<div class="dticon" id="newsButton"><img src="/icons/news.png">
     <div class="dtcontainer"></div>
     <div class="dtshortcut"><img src="/icons/other/linkicon.png"></div>
 <div class="dtlabel">News</div>
+<button id="newsButton" class="dtbutton"></button>
 </div>
-</a>
+<script>
+    document.getElementById('newsButton').addEventListener('click', function() {
+var div = document.getElementById('newsDiv');
+if (div.style.display === 'none') {
+    div.style.display = 'block';
+} else {
+    div.style.display = 'none';
+}
+});
+
+</script>
 <br>
 <div class="dticon"><img src="/icons/aboutme/favoritecolor.png">
     <div class="dtcontainer"></div>
@@ -99,6 +109,12 @@ if (div.style.display === 'none') {
             <p style="text-align: center; font-size: 16pt; position: relative; bottom: 14px;" class="boing">wyndOS 0.1</p>
             <p style="text-align: center; position: relative; bottom: 18px;">© 2024-2025 wyndchyme. All Rights Reserved.</p>
             <p style="text-align: center; position: relative; bottom: 30px;">Powered by GitHub Pages.</p>
+        </div>
+    </div>
+    <div class="draggable" id="newsDiv" style="display: none; resize: both; overflow: hidden; min-width: 320px; max-width: 1000px;">
+        <div class="header">News <button class="close-btn">X</button></div>
+        <div class="content">
+<iframe src="https://wyndchyme.github.io/other/" style="border: none; width: 100%; height: 160%; position: relative; clip-path: inset(150px 0px 0px); bottom: 160px;" id="iframeNews"></iframe>
         </div>
     </div>
     </div>
