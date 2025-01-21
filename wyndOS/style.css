@@ -5,6 +5,35 @@ html {
     -webkit-font-smoothing: antialiased;
     animation: scrollBackground 15s linear infinite; 
 }
+.dark-mode {
+   background: url("/images/background/moroccan-flower-dark.png");
+   animation: scrollBackground 15s linear infinite;
+}
+.dark-mode a {
+    color: white;
+ }
+ .dark-mode .dtlabel {
+    color: white;
+ }
+ .dark-mode .toolbar {
+    background-color: #195770;
+ }
+ .dark-mode .tbicon {
+    border-top: 3px solid #195770;
+    border-bottom: 3px solid #195770;
+    background-color: skyblue;
+ }
+ .dark-mode .tbclock {
+    border-top: 3px solid #195770;
+    border-bottom: 3px solid #195770;
+    background-color: skyblue;
+ }
+ .dark-mode .boing {
+    color: white !important;
+ }
+ .dark-mode .dticon:hover {
+    filter: drop-shadow(2px 2px 2px white);
+ }
 @keyframes scrollBackground {
     0% {
         background-position: 0 0;
@@ -71,11 +100,9 @@ position: relative;
 border-top: 3px solid skyblue;
 border-bottom: 3px solid skyblue;
 display: inline-block;
-transition: 0.1s;
 }
 .tbicon:hover {
     background-color: white;
-    transition: 0.1s;
 }
 .tbclock {
     background-color: #d4f1fc;
@@ -89,7 +116,6 @@ transition: 0.1s;
     right:18px;
     font-size: 16pt;
     align-content: center;
-    transition: 0.1s;
     padding-left: 3px;
 }
 .tbclock:hover {

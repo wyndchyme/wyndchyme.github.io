@@ -54,7 +54,7 @@ if (div.style.display === 'none') {
 <br>
 <a href="https://wyndchyme.github.io/other/" style="color: #252525; text-decoration: none;">
 <div class="dticon"><img src="/icons/news.png">
-    <div class="dtcontainer"></div>
+    <div class="dtcontainer" style="position: absolute; left: -12px;"></div>
     <div class="dtshortcut"><img src="/icons/other/linkicon.png"></div>
 <div class="dtlabel">News</div>
 </div>
@@ -100,7 +100,7 @@ if (div.style.display === 'none') {
         
         <div class="content">
             <p style="text-align: center;"><img src="/icons/faviconalt.png"></p>
-            <p style="text-align: center; font-size: 16pt; position: relative; bottom: 14px;" class="boing">wyndOS 0.1</p>
+            <p style="text-align: center; font-size: 16pt; position: relative; bottom: 14px; color: #252525 !important;" class="boing">wyndOS 0.1</p>
             <p style="text-align: center; position: relative; bottom: 18px;">© 2024-2025 wyndchyme. All Rights Reserved.</p>
             <p style="text-align: center; position: relative; bottom: 30px;">Powered by GitHub Pages.</p>
         </div>
@@ -165,9 +165,11 @@ const draggables = document.querySelectorAll('.draggable');
     <div class="dtlabel" style="position: relative; bottom: 8px;">Disk</div>
     </div>
     <br>
-    <div class="dticon"><img src="/icons/lightlamp.png">
-        <div class="dtcontainer" style="left: -18px; width: 75px;"></div>
+    <div class="dticon"><img src="/icons/lightlamp.png" style="position: relative; left: 1px;">
+        <div class="dtcontainer" style="left: -16px; width: 75px;"></div>
     <div class="dtlabel">lamp.wyn</div>
+    <button class="dtbutton" onclick="toggleLamp()"></button>
+    <audio id="lampSound" src="/audio/lamp.mp3"></audio>
     </div>
     <br>
     <div class="dticon"><img src="/wyndOS/icons/discalt.png">
@@ -175,11 +177,37 @@ const draggables = document.querySelectorAll('.draggable');
     <div class="dtlabel">wyndQST</div>
     </div>
 </div>
+<script>
+    // Load the saved theme from localStorage
+    document.addEventListener("DOMContentLoaded", () => {
+        const savedTheme = localStorage.getItem('theme');
+        if (savedTheme) {
+            document.body.classList.add(savedTheme);
+        }
+    });
 
+    // Function to toggle theme and play sound
+    function toggleLamp() {
+        const element = document.body;
+        const lampSound = document.getElementById("lampSound");
+
+        // Play the sound
+        lampSound.play();
+
+        // Toggle the theme
+        if (element.classList.contains("dark-mode")) {
+            element.classList.remove("dark-mode");
+            localStorage.setItem("theme", ""); // Save empty to reset
+        } else {
+            element.classList.add("dark-mode");
+            localStorage.setItem("theme", "dark-mode");
+        }
+    }
+</script>
 <div style="position: absolute; right: 30; bottom: 75; font-size: 18pt; color: black;" class="boing">Activate wyndOS</div>
-    <div class="toolbar">
+    <div class="toolbar" style="position: absolute; left: 3px;">
         <a href="https://wyndchyme.github.io/other/">
-        <div class="tbicon" style="border-left: 3px solid skyblue;"><img src="/icons/news.png" style="position: relative; top: 2px; left: 1px;"></div>
+        <div class="tbicon"><img src="/icons/news.png" style="position: relative; top: 2px; left: 1px;"></div>
         </a>
         <a href="https://wyndchyme.github.io/docs/all-pages/">
         <div class="tbicon" id="tbNews"><img src="/icons/other/crateicon.png" style="position: relative; top: 1px;"></div>
