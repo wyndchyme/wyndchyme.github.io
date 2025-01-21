@@ -54,23 +54,13 @@ if (div.style.display === 'none') {
 
 </script>
 <br>
-<div class="dticon" id="newsButton"><img src="/icons/news.png">
+<a href="https://wyndchyme.github.io/other/" style="color: #252525; text-decoration: none;">
+<div class="dticon"><img src="/icons/news.png">
     <div class="dtcontainer"></div>
     <div class="dtshortcut"><img src="/icons/other/linkicon.png"></div>
-<div class="dtlabel">Web</div>
-<button id="newsButton" class="dtbutton"></button>
+<div class="dtlabel">News</div>
 </div>
-<script>
-    document.getElementById('newsButton').addEventListener('click', function() {
-var div = document.getElementById('newsDiv');
-if (div.style.display === 'none') {
-    div.style.display = 'block';
-} else {
-    div.style.display = 'none';
-}
-});
-
-</script>
+</a>
 <br>
 <div class="dticon"><img src="/icons/aboutme/favoritecolor.png">
     <div class="dtcontainer"></div>
@@ -111,27 +101,7 @@ if (div.style.display === 'none') {
             <p style="text-align: center; position: relative; bottom: 30px;">Powered by GitHub Pages.</p>
         </div>
     </div>
-    <div class="draggable" id="newsDiv" style="display: none; resize: both; overflow: hidden; min-width: 320px; max-width: 1000px;">
-        <div class="header">wyndNet 3.11 <button class="close-btn">X</button></div>
-        <div class="content">
-<iframe src="https://wyndchyme.github.io" style="border: none; width: 100%; height: 100%;" id="iframeNews"></iframe>
-        </div>
     </div>
-    </div>
-    <script>
-        const iframe = document.querySelector('iframe');
-
-iframe.onload = () => {
-  const iframeDoc = iframe.contentDocument || iframe.contentWindow.document;
-  const links = iframeDoc.querySelectorAll('a');
-  
-  links.forEach(link => {
-    link.addEventListener('click', (e) => {
-      e.preventDefault(); // Prevents clicking the links
-    });
-  });
-};
-    </script>
     <script>
         // Select the draggable element and its header
         const draggable = document.querySelector('.draggable');
