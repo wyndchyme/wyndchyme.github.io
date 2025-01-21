@@ -95,7 +95,7 @@ if (div.style.display === 'none') {
 </div>
     </div>
     </div>
-    <div class="draggable" id="aboutDiv" style="display: none;">
+    <div class="draggable" id="aboutDiv" style="display: none; z-index: 1;">
         <div class="header">About wyndOS <button class="close-btn">X</button></div>
         
         <div class="content">
@@ -160,9 +160,9 @@ const draggables = document.querySelectorAll('.draggable');
 </script>
 
 <div class="dtcolumn" style="position: absolute; right: 35px;">
-    <div class="dticon"><img src="/wyndOS/icons/doohickey.png" style="width: 44px; position: relative; right: 5px;">
-        <div class="dtcontainer" style="left: -12px; height: 65px; top: 0px;"></div>
-    <div class="dtlabel">Disk</div>
+    <div class="dticon"><img src="/wyndOS/icons/doohickey.png" style="width: 44px; position: relative; right: 5px; top: -4px;">
+        <div class="dtcontainer" style="left: -12px; height: 65px; top: -4px"></div>
+    <div class="dtlabel" style="position: relative; bottom: 8px;">Disk</div>
     </div>
     <br>
     <div class="dticon"><img src="/icons/lightlamp.png">
