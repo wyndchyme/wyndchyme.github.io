@@ -57,7 +57,7 @@ if (div.style.display === 'none') {
 <div class="dticon" id="newsButton"><img src="/icons/news.png">
     <div class="dtcontainer"></div>
     <div class="dtshortcut"><img src="/icons/other/linkicon.png"></div>
-<div class="dtlabel">News</div>
+<div class="dtlabel">Web</div>
 <button id="newsButton" class="dtbutton"></button>
 </div>
 <script>
@@ -112,12 +112,26 @@ if (div.style.display === 'none') {
         </div>
     </div>
     <div class="draggable" id="newsDiv" style="display: none; resize: both; overflow: hidden; min-width: 320px; max-width: 1000px;">
-        <div class="header">News <button class="close-btn">X</button></div>
+        <div class="header">wyndNet 3.11 <button class="close-btn">X</button></div>
         <div class="content">
-<iframe src="https://wyndchyme.github.io/other/" style="border: none; width: 100%; height: 160%; position: relative; clip-path: inset(150px 0px 0px); bottom: 160px;" id="iframeNews"></iframe>
+<iframe src="https://wyndchyme.github.io" style="border: none; width: 100%; height: 100%;" id="iframeNews"></iframe>
         </div>
     </div>
     </div>
+    <script>
+        const iframe = document.querySelector('iframe');
+
+iframe.onload = () => {
+  const iframeDoc = iframe.contentDocument || iframe.contentWindow.document;
+  const links = iframeDoc.querySelectorAll('a');
+  
+  links.forEach(link => {
+    link.addEventListener('click', (e) => {
+      e.preventDefault(); // Prevents clicking the links
+    });
+  });
+};
+    </script>
     <script>
         // Select the draggable element and its header
         const draggable = document.querySelector('.draggable');
