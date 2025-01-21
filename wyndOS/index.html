@@ -58,7 +58,19 @@ if (div.style.display === 'none') {
     <div class="dtcontainer"></div>
     <div class="dtshortcut"><img src="/icons/other/linkicon.png"></div>
 <div class="dtlabel">News</div>
+<button id="newsButton" class="dtbutton"></button>
 </div>
+<script>
+    document.getElementById('newsButton').addEventListener('click', function() {
+var div = document.getElementById('newsDiv');
+if (div.style.display === 'none') {
+    div.style.display = 'block';
+} else {
+    div.style.display = 'none';
+}
+});
+
+</script>
 <br>
 <div class="dticon"><img src="/icons/aboutme/favoritecolor.png">
     <div class="dtcontainer"></div>
@@ -99,7 +111,15 @@ if (div.style.display === 'none') {
             <p style="text-align: center; position: relative; bottom: 30px;">Powered by GitHub Pages.</p>
         </div>
     </div>
-    
+    <div class="draggable" id="newsDiv" style="display: none; width: 600px; height: 400px; border: 1px solid skyblue; position: absolute; background-color: white; resize: both; overflow: auto; min-width: 320px; min-height: 200px; max-width: 1000px; overflow: hidden;">
+        <div class="header" style="background-color: skyblue; padding: 5px; cursor: move;">
+            News <button class="close-btn">X</button>
+        </div>
+        <div class="content" style="height: calc(100% - 75px);">
+            <iframe src="https://wyndchyme.github.io/other/" style="width: calc(100% + 18px); height: 130%; border: none; max-width: 100%;"></iframe>
+        </div>
+    </div>
+    </div>
     <script>
         // Select the draggable element and its header
         const draggable = document.querySelector('.draggable');
@@ -110,57 +130,52 @@ if (div.style.display === 'none') {
         let offsetX = 0;
         let offsetY = 0;
 
-        closeButton.addEventListener('click', () => {
-            var div = document.getElementById('aboutDiv');
-if (div.style.display === 'none') {
-    div.style.display = 'block';
-} else {
-    div.style.display = 'none';
-}
+        const closeButtons = document.querySelectorAll('.draggable .close-btn');
+
+closeButtons.forEach(closeButton => {
+    closeButton.addEventListener('click', () => {
+        // Find the closest .draggable div to the close button
+        const div = closeButton.closest('.draggable');
+        
+        // Toggle the visibility of the div
+        if (div.style.display === 'none') {
+            div.style.display = 'block';
+        } else {
+            div.style.display = 'none';
+        }
     });
+});
+   
+const draggables = document.querySelectorAll('.draggable');
     
+    draggables.forEach(draggable => {
+        const header = draggable.querySelector('.header');
+        let isDragging = false;
+        let offsetX = 0;
+        let offsetY = 0;
+
         header.addEventListener('mousedown', (e) => {
             isDragging = true;
-            offsetX = e.clientX - draggable.offsetLeft;
-            offsetY = e.clientY - draggable.offsetTop;
-    
-            // Add mousemove and mouseup listeners
-            document.addEventListener('mousemove', onMouseMove);
-            document.addEventListener('mouseup', onMouseUp);
+            offsetX = e.clientX - draggable.getBoundingClientRect().left;
+            offsetY = e.clientY - draggable.getBoundingClientRect().top;
         });
-    
-        function onMouseMove(e) {
-        if (isDragging) {
-            let x = e.clientX - offsetX;
-            let y = e.clientY - offsetY;
 
-            // Define boundaries using the dimensions of the div borders
-            const leftBoundary = 15; // Width of #left
-            const rightBoundary = window.innerWidth - 15; // Width of #right
-            const topBoundary = 15; // Height of #top
-            const bottomBoundary = window.innerHeight - 15; // Height of #bottom
+        document.addEventListener('mousemove', (e) => {
+            if (isDragging) {
+                draggable.style.left = `${e.clientX - offsetX}px`;
+                draggable.style.top = `${e.clientY - offsetY}px`;
+            }
+        });
 
-            // Restrict the draggable window within these boundaries
-            x = Math.max(leftBoundary, Math.min(x, rightBoundary - draggable.offsetWidth));
-            y = Math.max(topBoundary, Math.min(y, bottomBoundary - draggable.offsetHeight));
-
-            draggable.style.left = `${x}px`;
-            draggable.style.top = `${y}px`;
-        }
-    }
-    
-        function onMouseUp() {
+        document.addEventListener('mouseup', () => {
             isDragging = false;
-    
-            // Remove mousemove and mouseup listeners
-            document.removeEventListener('mousemove', onMouseMove);
-            document.removeEventListener('mouseup', onMouseUp);
-        }
-    </script>
+        });
+    });
+</script>
 
     <div class="toolbar">
         <div class="tbicon" style="border-left: 3px solid skyblue;"><img src="/icons/faviconalt.png" style="position: relative; top: 3px;"></div>
-        <div class="tbicon"><img src="/icons/news.png" style="position: relative; top: 2px; left: 1px;"></div>
+        <div class="tbicon" id="tbNews"><img src="/icons/news.png" style="position: relative; top: 2px; left: 1px;"></div>
         <div class="tbicon"><img src="/icons/aboutme/favoritecolor.png" style="position: relative; top: 2px"></div>
         <div class="tbicon"><img src="/icons/contactme/email.png" style="position: relative; top: 2px"></div>
         <div class="tbicon"><img src="/icons/contactme/git.png" style="position: relative; top: 3px"></div>
