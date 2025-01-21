@@ -33,8 +33,6 @@
     <div id="top"></div>
     <div id="bottom"></div>
 
-<div class="version"><p class="boing">wyndOS 0.1</p></div>
-
 <div class="dtcolumn">
 <div class="dticon"><img src="/icons/faviconalt.png">
     <div class="dtcontainer"></div>
@@ -62,31 +60,37 @@ if (div.style.display === 'none') {
 </div>
 </a>
 <br>
-<div class="dticon"><img src="/icons/aboutme/favoritecolor.png">
+<a href="https://wyndchyme.github.io/docs/all-pages/">
+<div class="dticon"><img src="/icons/other/crateicon.png">
     <div class="dtcontainer"></div>
     <div class="dtshortcut"><img src="/icons/other/linkicon.png"></div>
-<div class="dtlabel">Paint</div>
+<div class="dtlabel">Index</div>
 </div>
 </div>
+</a>
 
 <div class="dtcolumn">
-    <div class="dticon"><img src="/icons/contactme/email.png" style="position: relative; bottom: 2px;">
+    <a href="https://wyndchyme.github.io/consoles/wii/">
+    <div class="dticon"><img src="/icons/consoles/iconwii.png" style="position: relative; bottom: 2px;">
         <div class="dtcontainer" style="left: -13px;"></div>
         <div class="dtshortcut"><img src="/icons/other/linkicon.png"></div>
-    <div class="dtlabel">Mail</div>
+    <div class="dtlabel">Wii</div>
     </div>
+    </a>
     <br>
-    <div class="dticon"><img src="/icons/contactme/git.png">
+    <a href="https://wyndchyme.github.io/consoles/3ds/">
+    <div class="dticon"><img src="/icons/consoles/icon3ds.png">
         <div class="dtcontainer" style="left: -13px;"></div>
         <div class="dtshortcut"><img src="/icons/other/linkicon.png"></div>
-    <div class="dtlabel">Editor</div>
+    <div class="dtlabel">3DS</div>
     </div>
+    </a>
     <br>
     <a href="https://wyndchyme.github.io/" style="color: #252525; text-decoration: none;">
-<div class="dticon"><img src="/icons/aboutme/aboutme.webp">
+<div class="dticon"><img src="/icons/aboutme/whatcaniexpect.png" style="position: relative; top: 3px;">
     <div class="dtcontainer" style="left: -13px;"></div>
     <div class="dtshortcut"><img src="/icons/other/linkicon.png"></div>
-<div class="dtlabel">Back</div>
+<div class="dtlabel">Home</div>
 </a>
 </div>
     </div>
@@ -155,13 +159,41 @@ const draggables = document.querySelectorAll('.draggable');
     });
 </script>
 
+<div class="dtcolumn" style="position: absolute; right: 35px;">
+    <div class="dticon"><img src="/wyndOS/icons/doohickey.png" style="width: 44px; position: relative; right: 5px;">
+        <div class="dtcontainer" style="left: -12px; height: 65px; top: 0px;"></div>
+    <div class="dtlabel">Disk</div>
+    </div>
+    <br>
+    <div class="dticon"><img src="/icons/lightlamp.png">
+        <div class="dtcontainer" style="left: -18px; width: 75px;"></div>
+    <div class="dtlabel">lamp.wyn</div>
+    </div>
+    <br>
+    <div class="dticon"><img src="/wyndOS/icons/discalt.png">
+        <div class="dtcontainer" style="left: -15px; width: 70px;"></div>
+    <div class="dtlabel">wyndQST</div>
+    </div>
+</div>
+
+<div style="position: absolute; right: 30; bottom: 75; font-size: 18pt; color: black;" class="boing">Activate wyndOS</div>
     <div class="toolbar">
-        <div class="tbicon" style="border-left: 3px solid skyblue;"><img src="/icons/faviconalt.png" style="position: relative; top: 3px;"></div>
-        <div class="tbicon" id="tbNews"><img src="/icons/news.png" style="position: relative; top: 2px; left: 1px;"></div>
-        <div class="tbicon"><img src="/icons/aboutme/favoritecolor.png" style="position: relative; top: 2px"></div>
-        <div class="tbicon"><img src="/icons/contactme/email.png" style="position: relative; top: 2px"></div>
-        <div class="tbicon"><img src="/icons/contactme/git.png" style="position: relative; top: 3px"></div>
-        <div class="tbclock">put the time here</div>
+        <a href="https://wyndchyme.github.io/other/">
+        <div class="tbicon" style="border-left: 3px solid skyblue;"><img src="/icons/news.png" style="position: relative; top: 2px; left: 1px;"></div>
+        </a>
+        <a href="https://wyndchyme.github.io/docs/all-pages/">
+        <div class="tbicon" id="tbNews"><img src="/icons/other/crateicon.png" style="position: relative; top: 1px;"></div>
+        </a>
+        <a href="https://wyndchyme.github.io/consoles/wii/">
+        <div class="tbicon" style="position: relative; bottom: 4px;"><iconwii><img src="/icons/consoles/iconwii.png" style="position: relative; top: 5px; width: 28px;"></iconwii></div>
+        </a>
+        <a href="https://wyndchyme.github.io/consoles/3ds/">
+        <div class="tbicon" style="position: relative; bottom: 2px;"><img src="/icons/consoles/icon3ds.png" style="position: relative; top: 2px; width: 30px;"></div>
+        </a>
+        <a href="https://wyndchyme.github.io/">
+        <div class="tbicon"><img src="/icons/aboutme/whatcaniexpect.png" style="position: relative; top: 3px; right: 2px"></div>
+        </a>
+        <div class="tbclock"></div>
     </div>
 
     <script>

@@ -135,19 +135,12 @@ transition: 0.1s;
     color: white;
     font-size: 20pt;
 }
-@media screen and (max-width: 350px) {
+@media screen and (max-width: 336px) {
     .tbicon {
-        width: 28px;
-        height: 28px;
-    }
-    .tbicon img {
-        width: 23px;
-        height: 23px;
+        display: inline-flexbox;
     }
     .tbclock {
-        font-size: 16px;
-        width: 60px;
-        height: 28px
+        display: none;
     }
     .draggable {
         width: 200px;
@@ -227,4 +220,8 @@ button {
     left: -11px;
     border: none;
     background-color: transparent;
+}
+a {
+    color: #252525;
+    text-decoration: none;
 }
