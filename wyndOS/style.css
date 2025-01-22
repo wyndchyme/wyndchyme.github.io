@@ -33,6 +33,7 @@ html {
  }
  .dark-mode .dticon:hover {
     filter: drop-shadow(2px 2px 2px white);
+    transition: 0.1s;
  }
 @keyframes scrollBackground {
     0% {
@@ -121,6 +122,18 @@ display: inline-block;
 .tbclock:hover {
     background-color: white;
     transition: 0.1s;
+}
+#diskDiv {
+    display: block;
+    z-index: 1;
+    resize: both; 
+    overflow: auto; 
+    min-width: 190px; 
+    min-height: 150px; 
+    width: 300px; 
+    height: 200px; 
+    max-width: 75%;
+    max-height: 75%;
 }
 .draggable {
     width: 300px;
@@ -260,3 +273,49 @@ a {
     color: #252525;
     text-decoration: none;
 }
+.content-box {
+    padding: 10px;
+    overflow-y: auto;
+    height: calc(100% - 40px);
+    box-sizing: border-box;
+}
+ul {
+    position: relative;
+    bottom: 15px;
+    margin-bottom: -10px;
+    list-style-type: none;
+}
+details > summary {
+    list-style: none;
+    background: url('/wyndOS/icons/folder.png') no-repeat left center;
+    padding-left: 20px;
+    background-size: 20px 20px;
+    cursor: pointer;
+}
+
+details[open] > summary {
+    list-style: none;
+    background: url('/wyndOS/icons/folderopen.png') no-repeat left center;
+    padding-left: 20px;
+    background-size: 20px 20px;
+}
+@media screen and (min-width: 1000px) {
+    html {
+        zoom: 115%;
+    }
+    .draggable {
+        zoom: 85%;
+        font-size: 105%;
+    }
+    .content-box {
+        font-size: 17pt;
+    }
+    #aboutdiv p {
+        font-size: 15pt;
+    }
+    ul {
+        margin-top: 15px;
+        margin-bottom: -10px;
+    }
+}
+

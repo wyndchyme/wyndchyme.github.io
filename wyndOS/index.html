@@ -36,7 +36,6 @@
 <div class="dtcolumn">
 <div class="dticon"><img src="/icons/faviconalt.png">
     <div class="dtcontainer"></div>
-    <div class="dtshortcut"><img src="/icons/other/linkicon.png"></div>
 <div class="dtlabel">About</div>
 <button id="aboutButton" class="dtbutton"></button>
 </div>
@@ -99,12 +98,87 @@ if (div.style.display === 'none') {
         <div class="header">About wyndOS <button class="close-btn">X</button></div>
         
         <div class="content">
-            <p style="text-align: center;"><img src="/icons/faviconalt.png"></p>
-            <p style="text-align: center; font-size: 16pt; position: relative; bottom: 14px; color: #252525 !important;" class="boing">wyndOS 0.1</p>
-            <p style="text-align: center; position: relative; bottom: 18px;">© 2024-2025 wyndchyme. All Rights Reserved.</p>
-            <p style="text-align: center; position: relative; bottom: 30px;">Powered by GitHub Pages.</p>
+            <p style="text-align: center;"><img src="/icons/faviconalt.png" style="position: relative; bottom: 10px;"></p>
+            <p style="text-align: center; font-size: 16pt; position: relative; bottom: 24px; color: #252525 !important;" class="boing">wyndOS 0.1</p>
+            <p style="text-align: center; position: relative; bottom: 38px;">© 2024-2025 wyndchyme. All Rights Reserved.</p>
+            <p style="text-align: center; position: relative; bottom: 50px;">Powered by GitHub Pages.</p>
         </div>
     </div>
+    <div class="draggable" id="diskDiv" style="display: none; z-index: 1;">
+        <div class="header">
+            File Explorer
+            <button class="close-btn">X</button>
+        </div>
+        <div class="content-box">
+            <details>
+                <summary>audio</summary>
+                <ul><li>
+                <a href="https://wyndchyme.github.io/audio/lamp.mp3" style="color: #252525;"><img src="/wyndOS/icons/record.png" style="width: 16px; position: relative; left: -3px; top: 3px;">lamp.mp3</a>
+                </li>
+                </details>
+                <details>
+                    <summary>consoles</summary>
+                    <details>
+                        <summary style="text-indent: 1rem; background-position: 16px 50%">3ds</summary>
+                            <ul style="padding-left: 56px;"><li>
+                                <a href="https://wyndchyme.github.io/consoles/3ds/" style="color: #252525;"><img src="/icons/news.png" style="width: 16px; position: relative; left: -3px; top: 3px;">index.html</a>
+                            </li></ul>
+                    </details>
+                    <details>
+                        <summary style="text-indent: 1rem; background-position: 16px 50%">wii</summary>
+                        <ul style="padding-left: 56px;"><li>
+                            <a href="https://wyndchyme.github.io/consoles/wii/" style="color: #252525;"><img src="/icons/news.png" style="width: 16px; position: relative; left: -3px; top: 3px;">index.html</a>
+                        </li></ul>
+                    </details>
+                </details>
+                <details>
+                    <summary>docs</summary>
+                    <details>
+                        <summary style="text-indent: 1rem; background-position: 16px 50%">3ds</summary>
+                        <details>
+                            <summary style="text-indent: 2rem; background-position: 32px 50%">mc3ds-modern</summary>
+                            <ul style="padding-left: 56px;"><li>
+                                <a href="https://wyndchyme.github.io/docs/3ds/mc3ds-modern/" style="color: #252525;"><img src="/icons/news.png" style="width: 16px; position: relative; left: -3px; top: 3px;">index.html</a>
+                            </li></ul>
+                        </details>
+                    </details>
+                    <details>
+                        <summary style="text-indent: 1rem; background-position: 16px 50%">all-pages</summary>
+                        <ul style="padding-left: 56px;"><li>
+                            <a href="https://wyndchyme.github.io/docs/all-pages/" style="color: #252525;"><img src="/icons/news.png" style="width: 16px; position: relative; left: -3px; top: 3px;">index.html</a>
+                        </li></ul>
+                    </details>
+                    <details>
+                        <summary style="text-indent: 1rem; background-position: 16px 50%">legal</summary>
+                        <ul style="padding-left: 56px;"><li>
+                            <a href="https://wyndchyme.github.io/docs/legal/" style="color: #252525;"><img src="/icons/news.png" style="width: 16px; position: relative; left: -3px; top: 3px;">index.html</a>
+                        </li></ul>
+                    </details>
+                </details>
+                <details>
+                    <summary>icons</summary>
+                    <details>
+                        <summary style="text-indent: 1rem; background-position: 16px 50%">aboutme</summary>
+                        <ul>
+                            <li><a href="https://wyndchyme.github.io/icons/aboutme/aboutme.webp" style="color: #252525;"><img src="/wyndOS/icons/photo.png" style="width: 16px; position: relative; left: -3px; top: 3px;">aboutme.webp</a></li>
+                            <li><a href="https://wyndchyme.github.io/icons/aboutme/anythingelse.png" style="color: #252525;"><img src="/wyndOS/icons/photo.png" style="width: 16px; position: relative; left: -3px; top: 3px;">anythingelse.png</a></li>
+                            <li><a href="https://wyndchyme.github.io/icons/aboutme/favoritecolor.png" style="color: #252525;"><img src="/wyndOS/icons/photo.png" style="width: 16px; position: relative; left: -3px; top: 3px;">favoritecolor.png</a></li>
+                            <li><a href="https://wyndchyme.github.io/icons/aboutme/whatcaniexpect.png" style="color: #252525;"><img src="/wyndOS/icons/photo.png" style="width: 16px; position: relative; left: -3px; top: 3px;">whatcaniexpect.png</a></li>
+                            <li><a href="https://wyndchyme.github.io/icons/aboutme/whatkindofthings.png" style="color: #252525;"><img src="/wyndOS/icons/photo.png" style="width: 16px; position: relative; left: -3px; top: 3px;">whatkindofthings.png</a></li>
+                            <li><a href="https://wyndchyme.github.io/icons/aboutme/whoami.png" style="color: #252525;"><img src="/wyndOS/icons/photo.png" style="width: 16px; position: relative; left: -3px; top: 3px;">whoami.png</a></li>
+                        </ul>
+                    </details>
+                    <details>
+                        <summary style="text-indent: 1rem; background-position: 16px 50%">consoles</summary>
+                    </details>
+                    <details>
+                        <summary style="text-indent: 1rem; background-position: 16px 50%">contactme</summary>
+                    </details>
+                    <details>
+                        <summary style="text-indent: 1rem; background-position: 16px 50%">other</summary>
+                    </details>
+                </details>
+        </div>
     </div>
     <script>
         // Select the draggable element and its header
@@ -163,6 +237,7 @@ const draggables = document.querySelectorAll('.draggable');
     <div class="dticon"><img src="/wyndOS/icons/doohickey.png" style="width: 44px; position: relative; right: 5px; top: -4px;">
         <div class="dtcontainer" style="left: -12px; height: 65px; top: -4px"></div>
     <div class="dtlabel" style="position: relative; bottom: 8px;">Disk</div>
+    <button id="diskButton" class="dtbutton"></button>
     </div>
     <br>
     <div class="dticon"><img src="/icons/lightlamp.png" style="position: relative; left: 1px;">
@@ -177,6 +252,16 @@ const draggables = document.querySelectorAll('.draggable');
     <div class="dtlabel">wyndQST</div>
     </div>
 </div>
+    <script>
+        document.getElementById('diskButton').addEventListener('click', function() {
+var div = document.getElementById('diskDiv');
+if (div.style.display === 'none') {
+    div.style.display = 'block';
+} else {
+    div.style.display = 'none';
+}
+});
+</script>
 <script>
     // Load the saved theme from localStorage
     document.addEventListener("DOMContentLoaded", () => {
