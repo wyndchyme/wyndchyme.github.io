@@ -292,7 +292,9 @@ details > summary {
     background-size: 20px 20px;
     cursor: pointer;
 }
-
+details > summary::-webkit-details-marker {
+    display: none;
+  }
 details[open] > summary {
     list-style: none;
     background: url('/wyndOS/icons/folderopen.png') no-repeat left center;
