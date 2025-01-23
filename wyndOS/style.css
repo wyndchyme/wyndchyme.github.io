@@ -3,7 +3,7 @@ html {
     background-repeat: repeat;
     background-attachment: fixed;
     -webkit-font-smoothing: antialiased;
-    animation: scrollBackground 15s linear infinite; 
+    animation: scrollBackground 150s linear infinite; 
     -webkit-touch-callout: none;
         -webkit-user-select: none;     
            -moz-user-select: none;
