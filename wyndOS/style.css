@@ -331,6 +331,25 @@ details[open] > summary {
         margin-top: 15px;
         margin-bottom: -10px;
     }
+    #fileExplorer {
+        details > summary {
+            background-size: 26px 26px;
+            text-indent: 5px;
+        }
+        details[open] > summary {
+            background-size: 26px 26px;
+            text-indent: 5px;
+        }
+       details > details > summary {
+        text-indent: 22px !important;
+       }
+       details > details > details > summary {
+        text-indent: 38px !important;
+       }
+       details > details > details > details > summary {
+        text-indent: 54px !important;
+       }
+    }
 }
 #Activate {
     cursor: not-allowed;
