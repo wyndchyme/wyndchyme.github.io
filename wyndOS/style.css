@@ -106,6 +106,7 @@ position: relative;
 border-top: 3px solid skyblue;
 border-bottom: 3px solid skyblue;
 display: inline-block;
+border-radius: 5px;
 }
 .tbicon:hover {
     background-color: white;
@@ -123,10 +124,12 @@ display: inline-block;
     font-size: 16pt;
     align-content: center;
     padding-left: 3px;
+    border-radius: 5px
 }
 .tbclock:hover {
     background-color: white;
     transition: 0.1s;
+    cursor: pointer;
 }
 #diskDiv {
     display: block;
@@ -149,6 +152,7 @@ display: inline-block;
     position: absolute;
     top: 50px;
     left: 50px;
+    border-radius: 5px
 }
 .header {
     height: 30px;
@@ -172,6 +176,7 @@ display: inline-block;
     right: 2px;
     padding-left: 7px;
     transition: 0.1s;
+    border-radius: 5px;
 }
 .close-btn:hover {
     color: teal;
@@ -217,6 +222,7 @@ display: inline-block;
         background-color: rgba(28, 28, 28, 0.15);
         transition: 0.1s;
     }
+    cursor: pointer;
 }
 .dtcontainer {
     position: absolute;
@@ -226,6 +232,7 @@ display: inline-block;
     top: -5px;
     z-index: -1;
     transition: 0.1s;
+    border-radius: 5px
 }
 .dtshortcut {
     position: absolute;
@@ -323,9 +330,22 @@ details[open] > summary {
         margin-bottom: -10px;
     }
 }
+#Activate {
+    cursor: not-allowed;
+}
 @media screen and (max-height: 400px) {
     #Activate {
         display: none;
     }
 }
-
+#lampLow {
+    display: none;
+}
+#lamp:hover {
+#lampHigh {
+    display: none;
+}
+#lampLow {
+    display: block;
+}
+}
