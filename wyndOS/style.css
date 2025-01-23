@@ -40,18 +40,6 @@ html {
     filter: drop-shadow(2px 2px 2px white);
     transition: 0.1s;
  }
- .dark-mode #top {
-    background-color: #252525;
- }
- .dark-mode #bottom {
-    background-color: #252525;
- }
- .dark-mode #left {
-    background-color: #252525;
- }
- .dark-mode #right {
-    background-color: #252525;
- }
 @keyframes scrollBackground {
     0% {
         background-position: 0 0;
