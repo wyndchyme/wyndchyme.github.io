@@ -12,7 +12,7 @@ html {
 }
 .dark-mode {
    background: url("/images/background/moroccan-flower-dark.png");
-   animation: scrollBackground 15s linear infinite;
+   animation: scrollBackground 150s linear infinite;
 }
 .dark-mode a {
     color: white;
@@ -45,7 +45,7 @@ html {
         background-position: 0 0;
     }
     100% {
-        background-position: 0 100%; /* Adjust this depending on the size of your image */
+        background-position: 0 1000%;
     }
 }
 html img {
