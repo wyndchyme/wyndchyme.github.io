@@ -285,6 +285,9 @@ ul {
     margin-bottom: -10px;
     list-style-type: none;
 }
+ul a:hover {
+    text-decoration: underline;
+}
 details > summary {
     background: url('/wyndOS/icons/folder.png') no-repeat left center;
     padding-left: 20px;
@@ -313,6 +316,11 @@ details[open] > summary {
     ul {
         margin-top: 15px;
         margin-bottom: -10px;
+    }
+}
+@media screen and (max-height: 400px) {
+    #Activate {
+        display: none;
     }
 }
 
