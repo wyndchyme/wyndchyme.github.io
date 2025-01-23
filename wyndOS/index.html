@@ -32,7 +32,17 @@
     <div id="right"></div>
     <div id="top"></div>
     <div id="bottom"></div>
-
+    <div class="loading">
+        <div style="width: 250px; position: relative; top: 25vh;">
+            <div class="header" style="border-radius: 5px 5px 0 0">Starting wyndOS</div>
+            <div class="content" style="background-color: white; height: 150px; border-radius: 0 0 5px 5px">
+                <span style="position: relative; top: 15; left: 20; font-size: 16pt;"><img src="/wyndOS/icons/doohickey.png" style="position: relative; top: 8px;"> Initializing disk</span>
+                <div class="progress-bar" style="position: relative; top: 50px; left: 5%;">
+                    <div class="progress"></div>
+                  </div>
+        </div>
+        </div>
+    </div>
 <div class="dtcolumn">
 <div class="dticon"><img src="/icons/faviconalt.png">
     <div class="dtcontainer"></div>
@@ -49,6 +59,13 @@ if (div.style.display === 'none') {
 }
 });
 
+</script>
+<script>
+    window.addEventListener("load", () => {
+    setTimeout(() => {
+        document.documentElement.classList.add("show");
+    }, 500); 
+});
 </script>
 <br>
 <a href="https://wyndchyme.github.io/other/" style="color: #252525; text-decoration: none;">
@@ -481,5 +498,6 @@ if (div.style.display === 'none') {
         updateClock();
         setInterval(updateClock, 1000);
     </script>
+    </div>
 </body>
 </html>

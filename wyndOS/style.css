@@ -8,8 +8,60 @@ html {
         -webkit-user-select: none;     
            -moz-user-select: none;
             -ms-user-select: none;
-                user-select: none; 
+                user-select: none;
+                position: relative;
+                bottom: 200vh;
 }
+.show {
+    bottom: 0;
+}
+.loading {
+    position: relative;
+    bottom: -200vh;
+    display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.show .loading {
+    display: none;
+}
+/* Container for the progress bar */
+.progress-bar {
+    width: 90%;
+    height: 20px;
+    background-color: #e0e0e0;
+    border-radius: 5px;
+    overflow: hidden;
+    position: relative;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  }
+  
+  /* The progress element */
+  .progress {
+    width: 0%;
+    height: 100%;
+    background-image: url("/images/background/moroccan-flower-dark.png");
+    animation: fakeProgress 0.5s infinite;
+  }
+  
+  /* Keyframes for fake progress animation */
+  @keyframes fakeProgress {
+    0% {
+      width: 0%;
+    }
+    25% {
+        width: 15%;
+    }
+    30 {
+        width: 18%;
+    }
+    50% {
+      width: 80%;
+    }
+    100% {
+      width: 100%;
+    }
+  }  
 .dark-mode {
    background: url("/images/background/moroccan-flower-dark.png");
    animation: scrollBackground 15s linear infinite;
@@ -26,7 +78,6 @@ html {
  .dark-mode .tbicon {
     border-top: 3px solid #195770;
     border-bottom: 3px solid #195770;
-    background-color: skyblue;
  }
  .dark-mode .tbclock {
     border-top: 3px solid #195770;
@@ -98,7 +149,7 @@ body {
     right:0;
 }
 .tbicon {
-background-color: #d4f1fc;
+background-image: linear-gradient(#d4f1fc, #b9ebff);
 width: 40px;
 height: 40px;
 text-align: center;
@@ -106,12 +157,14 @@ position: relative;
 border-top: 3px solid skyblue;
 border-bottom: 3px solid skyblue;
 display: inline-block;
+border-radius: 5px;
 }
 .tbicon:hover {
-    background-color: white;
+    background-image: linear-gradient(white, white);
 }
 .tbclock {
-    background-color: #d4f1fc;
+    background-image: linear-gradient(#d4f1fc, #b9ebff);
+    border-radius: 5px;
     width: 80px;
     height: 40px;
     text-align: center;
@@ -125,8 +178,8 @@ display: inline-block;
     padding-left: 3px;
 }
 .tbclock:hover {
-    background-color: white;
-    transition: 0.1s;
+    background-image: linear-gradient(white, white);
+    cursor: pointer;
 }
 #diskDiv {
     display: block;
@@ -149,6 +202,7 @@ display: inline-block;
     position: absolute;
     top: 50px;
     left: 50px;
+    border-radius: 5px;
 }
 .header {
     height: 30px;
@@ -217,6 +271,7 @@ display: inline-block;
         background-color: rgba(28, 28, 28, 0.15);
         transition: 0.1s;
     }
+    cursor: pointer;
 }
 .dtcontainer {
     position: absolute;
@@ -226,6 +281,7 @@ display: inline-block;
     top: -5px;
     z-index: -1;
     transition: 0.1s;
+    border-radius: 5px;
 }
 .dtshortcut {
     position: absolute;
@@ -327,5 +383,4 @@ details[open] > summary {
     #Activate {
         display: none;
     }
-}
-
+}    
