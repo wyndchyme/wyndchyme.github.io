@@ -8,7 +8,7 @@ html {
         -webkit-user-select: none;     
            -moz-user-select: none;
             -ms-user-select: none;
-                user-select: none;
+                user-select: none; 
 }
 .dark-mode {
    background: url("/images/background/moroccan-flower-dark.png");
@@ -26,6 +26,7 @@ html {
  .dark-mode .tbicon {
     border-top: 3px solid #195770;
     border-bottom: 3px solid #195770;
+    background-color: skyblue;
  }
  .dark-mode .tbclock {
     border-top: 3px solid #195770;
@@ -97,7 +98,7 @@ body {
     right:0;
 }
 .tbicon {
-background-image: linear-gradient(#d4f1fc, #b9ebff);
+background-color: #d4f1fc;
 width: 40px;
 height: 40px;
 text-align: center;
@@ -105,14 +106,12 @@ position: relative;
 border-top: 3px solid skyblue;
 border-bottom: 3px solid skyblue;
 display: inline-block;
-border-radius: 5px;
 }
 .tbicon:hover {
-    background-image: linear-gradient(white, white);
+    background-color: white;
 }
 .tbclock {
-    background-image: linear-gradient(#d4f1fc, #b9ebff);
-    border-radius: 5px;
+    background-color: #d4f1fc;
     width: 80px;
     height: 40px;
     text-align: center;
@@ -126,8 +125,8 @@ border-radius: 5px;
     padding-left: 3px;
 }
 .tbclock:hover {
-    background-image: linear-gradient(white, white);
-    cursor: pointer;
+    background-color: white;
+    transition: 0.1s;
 }
 #diskDiv {
     display: block;
@@ -150,7 +149,6 @@ border-radius: 5px;
     position: absolute;
     top: 50px;
     left: 50px;
-    border-radius: 5px;
 }
 .header {
     height: 30px;
@@ -219,7 +217,6 @@ border-radius: 5px;
         background-color: rgba(28, 28, 28, 0.15);
         transition: 0.1s;
     }
-    cursor: pointer;
 }
 .dtcontainer {
     position: absolute;
@@ -229,7 +226,6 @@ border-radius: 5px;
     top: -5px;
     z-index: -1;
     transition: 0.1s;
-    border-radius: 5px;
 }
 .dtshortcut {
     position: absolute;
@@ -331,4 +327,5 @@ details[open] > summary {
     #Activate {
         display: none;
     }
-}    
+}
+
