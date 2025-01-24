@@ -237,10 +237,10 @@ border-radius: 5px;
     cursor: pointer;
 }
 .dticon:hover img {
-    animation: sway 5s linear infinite;
+    animation: sway 3s linear infinite;
 }
 .tbicon:hover img {
-    animation: sway 5s linear infinite;
+    animation: sway 3s linear infinite;
 }
 @keyframes sway {
     0% {
