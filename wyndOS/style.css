@@ -370,14 +370,3 @@ details[open] > summary {
     display: block;
 }
 }
-#questIcon:hover img {
-    animation: discSpin 0.1s ease-in-out infinite;
-}
-@keyframes discSpin {
-    0% {
-        transform: rotate(0deg);
-    }
-    100% {
-        transform: rotate(180deg);
-    }
-}
