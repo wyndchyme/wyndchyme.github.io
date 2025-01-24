@@ -41,6 +41,17 @@ html {
     filter: drop-shadow(2px 2px 2px white);
     transition: 0.1s;
  }
+ .dark-mode .header {
+    background-color: #195770;
+    border-color: #195770;
+ }
+ .dark-mode .draggable {
+    border-color: #195770;
+ }
+ .dark-mode .close-btn {
+    background-color: #195770;
+    border-color: #195770;
+ }
 @keyframes scrollBackground {
     0% {
         background-position: 0 0;
@@ -178,13 +189,11 @@ border-radius: 5px;
     position: absolute;
     right: 2px;
     padding-left: 7px;
-    transition: 0.1s;
     border-radius: 5px;
 }
 .close-btn:hover {
     color: teal;
     background-color: #d4f1fc;
-    transition: 0.1s;
 }
 .content {
     padding: 10px;
