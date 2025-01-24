@@ -142,7 +142,7 @@ border-radius: 5px;
 .tbclock:hover {
     background-color: white;
     transition: 0.1s;
-    cursor: pointer;
+    cursor: help;
 }
 #diskDiv {
     display: block;
@@ -402,4 +402,7 @@ details[open] > summary {
 #lampLow {
     display: block;
 }
+}
+#questIcon {
+    cursor: not-allowed;
 }
