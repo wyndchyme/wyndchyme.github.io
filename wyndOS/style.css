@@ -238,13 +238,13 @@ border-radius: 5px;
         transform: translateY(0px);
     }
     25% {
-        transform: translateY(2px) rotate(1deg);
+        transform: translateY(2px) skew(1deg, 0deg);
     }
     50% {
         transform: translateY(0px);
     }
     75% {
-        transform: translateY(-2px) rotate(-1deg);
+        transform: translateY(-2px) skew(-1deg, 0deg);
     }
     100% {
         transform: translateY(0px);
