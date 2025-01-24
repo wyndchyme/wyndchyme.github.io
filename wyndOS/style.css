@@ -23,6 +23,7 @@ html {
  }
  .dark-mode .toolbar {
     background-color: #195770;
+    z-index: 3;
  }
  .dark-mode .tbicon {
     border-top: 3px solid #195770;
@@ -86,7 +87,7 @@ body {
 #top, #bottom, #left, #right {
 	background: white;
 	position: fixed;
-    z-index: 2;
+    z-index: 4;
     transition: 0.5s;
 	}
 	#left, #right {
@@ -104,11 +105,11 @@ body {
 		#bottom { bottom: 0; }
 .toolbar {
     position: absolute;
-    bottom: 15px;
-    padding-left: 15px;
+    bottom: 12px;
+    padding-left: 16px;
     background-color: skyblue;
     left:0;
-    right:0;
+    right:1;
 }
 .tbicon {
 background-color: #d4f1fc;
