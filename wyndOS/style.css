@@ -9,6 +9,7 @@ html {
            -moz-user-select: none;
             -ms-user-select: none;
                 user-select: none; 
+                touch-action: manipulation;
 }
 .dark-mode {
    background: url("/images/background/moroccan-flower-dark.png");
