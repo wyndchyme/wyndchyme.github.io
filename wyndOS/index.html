@@ -69,7 +69,6 @@ if (div.style.display === 'none') {
 </div>
 </div>
 </a>
-
 <div class="dtcolumn">
     <a href="https://wyndchyme.github.io/consoles/wii/">
     <div class="dticon"><img src="/icons/consoles/iconwii.png" style="position: relative; bottom: 2px;">
@@ -485,5 +484,44 @@ if (div.style.display === 'none') {
         updateClock();
         setInterval(updateClock, 1000);
     </script>
+      <script>
+    // Track the highest z-index
+    let currentZIndex = 1;
+
+    // Select all draggable elements
+    const draggableElements = document.querySelectorAll('.draggable');
+
+    draggableElements.forEach(el => {
+      // Increment z-index on click
+      el.addEventListener('click', () => {
+        el.style.zIndex = ++currentZIndex;
+      });
+
+      // Make elements draggable
+      el.addEventListener('mousedown', (event) => {
+        el.style.zIndex = ++currentZIndex;
+        
+        let shiftX = event.clientX - el.getBoundingClientRect().left;
+        let shiftY = event.clientY - el.getBoundingClientRect().top;
+
+        function moveAt(pageX, pageY) {
+          el.style.left = pageX - shiftX + 'px';
+          el.style.top = pageY - shiftY + 'px';
+        }
+
+        function onMouseMove(event) {
+          moveAt(event.pageX, event.pageY);
+        }
+
+        document.addEventListener('mousemove', onMouseMove);
+
+        document.addEventListener('mouseup', () => {
+          document.removeEventListener('mousemove', onMouseMove);
+        }, { once: true });
+      });
+
+      el.ondragstart = () => false; // Disable default drag behavior
+    });
+  </script>
 </body>
 </html>

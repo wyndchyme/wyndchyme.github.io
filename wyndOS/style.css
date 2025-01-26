@@ -87,7 +87,7 @@ body {
 #top, #bottom, #left, #right {
 	background: white;
 	position: fixed;
-    z-index: 4;
+    z-index: 99999;
     transition: 0.5s;
 	}
 	#left, #right {
@@ -407,3 +407,7 @@ details[open] > summary {
 #questIcon {
     cursor: not-allowed;
 }
+.draggable.active {
+    background-color: lightblue;
+    border: 2px solid blue;
+  }
