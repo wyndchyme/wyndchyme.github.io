@@ -388,7 +388,7 @@ details[open] > summary {
        }
     }
 }
-@media screen and (max-height: 400px) {
+@media screen and (max-height: 550px) {
     #Activate {
         display: none;
     }
