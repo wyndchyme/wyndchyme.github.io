@@ -407,7 +407,3 @@ details[open] > summary {
 #questIcon {
     cursor: not-allowed;
 }
-.draggable.active {
-    background-color: lightblue;
-    border: 2px solid blue;
-  }

@@ -484,7 +484,7 @@ if (div.style.display === 'none') {
         updateClock();
         setInterval(updateClock, 1000);
     </script>
-      <script>
+   <script>
     // Track the highest z-index
     let currentZIndex = 1;
 
@@ -492,15 +492,17 @@ if (div.style.display === 'none') {
     const draggableElements = document.querySelectorAll('.draggable');
 
     draggableElements.forEach(el => {
+      const header = el.querySelector('.header');
+
       // Increment z-index on click
       el.addEventListener('click', () => {
         el.style.zIndex = ++currentZIndex;
       });
 
-      // Make elements draggable
-      el.addEventListener('mousedown', (event) => {
+      // Make elements draggable via the header
+      header.addEventListener('mousedown', (event) => {
         el.style.zIndex = ++currentZIndex;
-        
+
         let shiftX = event.clientX - el.getBoundingClientRect().left;
         let shiftY = event.clientY - el.getBoundingClientRect().top;
 
@@ -521,6 +523,20 @@ if (div.style.display === 'none') {
       });
 
       el.ondragstart = () => false; // Disable default drag behavior
+    });
+
+    // Bring specific divs to front when buttons are clicked
+    const aboutButton = document.getElementById('aboutButton');
+    const diskButton = document.getElementById('diskButton');
+    const aboutDiv = document.getElementById('aboutDiv');
+    const diskDiv = document.getElementById('diskDiv');
+
+    aboutButton.addEventListener('click', () => {
+      aboutDiv.style.zIndex = ++currentZIndex;
+    });
+
+    diskButton.addEventListener('click', () => {
+      diskDiv.style.zIndex = ++currentZIndex;
     });
   </script>
 </body>
