@@ -441,3 +441,14 @@ display: none;
         display: block;
     }
 }
+@media screen and (min-width: 1200px) {
+    .dtcolumn {
+        zoom: 110%;
+    }
+    .toolbar {
+        zoom: 110%;
+    }
+    #top, #bottom, #left, #right {
+        zoom: 110%;
+    }
+}
