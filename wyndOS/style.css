@@ -388,9 +388,6 @@ details[open] > summary {
        }
     }
 }
-#Activate {
-    cursor: not-allowed;
-}
 @media screen and (max-height: 400px) {
     #Activate {
         display: none;
@@ -406,9 +403,6 @@ details[open] > summary {
 #lampLow {
     display: block;
 }
-}
-#questIcon {
-    cursor: not-allowed;
 }
 #aboutLinks a {
     color: #252525 !important;
