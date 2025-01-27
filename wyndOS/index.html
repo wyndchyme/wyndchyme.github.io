@@ -314,6 +314,9 @@ if (div.style.display === 'none') {
                         <details style="margin-top: 2px;">
                             <summary style="text-indent: 1rem; background-position: 16px 50%">icons</summary>
                             <ul>
+                                <li><a href="https://wyndchyme.github.io/wyndOS/audio.png" style="color: #252525;"><img src="/wyndOS/icons/photo.png" style="width: 16px; position: relative; left: -3px; top: 3px;">audio.png</a></li>
+                                <li><a href="https://wyndchyme.github.io/wyndOS/audioalt.png" style="color: #252525;"><img src="/wyndOS/icons/photo.png" style="width: 16px; position: relative; left: -3px; top: 3px;">audioalt.png</a></li>
+                                <li><a href="https://wyndchyme.github.io/wyndOS/audiooff.png" style="color: #252525;"><img src="/wyndOS/icons/photo.png" style="width: 16px; position: relative; left: -3px; top: 3px;">audiooff.png</a></li>
                                 <li><a href="https://wyndchyme.github.io/wyndOS/discalt.png" style="color: #252525;"><img src="/wyndOS/icons/photo.png" style="width: 16px; position: relative; left: -3px; top: 3px;">discalt.png</a></li>
                                 <li><a href="https://wyndchyme.github.io/wyndOS/doohickey.png" style="color: #252525;"><img src="/wyndOS/icons/photo.png" style="width: 16px; position: relative; left: -3px; top: 3px;">doohickey.png</a></li>
                                 <li><a href="https://wyndchyme.github.io/wyndOS/folder.png" style="color: #252525;"><img src="/wyndOS/icons/photo.png" style="width: 16px; position: relative; left: -3px; top: 3px;">folder.png</a></li>
@@ -382,10 +385,19 @@ closeButtons.forEach(closeButton => {
     <audio id="lampSound" src="/audio/lamp.mp3"></audio>
     </div>
     <br>
+    <div class="dticon" id="audio">
+        <div id="audioHigh"><img src="/wyndOS/icons/audioalt.png" id="audioIcon" style="position: relative; left: 2px;"></div>
+        <div id="audioLow"><img src="/wyndOS/icons/audio.png" id="audioIcon" style="position: relative; left: 2px;"></div>
+        <div class="dtcontainer" style="left: -20px; width: 80px;"></div>
+    <div class="dtlabel" style="position: relative; left: -15px;">audio.wyn</div>
+    <button id="audioToggleBtn" class="dtbutton"><img src="/wyndOS/icons/audiooff.png" style="position: relative; left: 7px; bottom: 8px;" id="audioMute"></button>
+    </div>
+    <br>
     <div class="dticon" id="questIcon"><img src="/wyndOS/icons/discalt.png">
         <div class="dtcontainer" style="left: -15px; width: 70px;"></div>
     <div class="dtlabel">wyndQST</div>
     </div>
+    <br>
 </div>
     <script>
         document.getElementById('diskButton').addEventListener('click', function() {
@@ -397,6 +409,51 @@ if (div.style.display === 'none') {
 }
 });
 </script>
+<script>
+    // Check localStorage for saved audio state
+    let isMuted = localStorage.getItem('audioMuted') === 'true';
+    
+    // Select the button and body element
+    const audioToggleBtn = document.getElementById('audioToggleBtn');
+    const body = document.body;
+    
+    // Function to toggle audio
+    function toggleAudio() {
+        // Get all audio elements on the page
+        const audioElements = document.querySelectorAll('audio, video');
+        
+        // Toggle mute state for all audio elements
+        audioElements.forEach(audio => {
+            audio.muted = !audio.muted;
+        });
+        
+        // Update the localStorage and body class based on new state
+        isMuted = !isMuted;
+        localStorage.setItem('audioMuted', isMuted);
+        
+        // Add/remove the 'muted' class on the body element
+        if (isMuted) {
+            body.classList.add('muted');
+        } else {
+            body.classList.remove('muted');
+        }
+    }
+    
+    // Initialize the audio state based on localStorage
+    if (isMuted) {
+        // Mute all audio elements on page load
+        document.querySelectorAll('audio, video').forEach(audio => {
+            audio.muted = true;
+        });
+        body.classList.add('muted');
+    } else {
+        body.classList.remove('muted');
+    }
+    
+    // Add event listener to toggle button
+    audioToggleBtn.addEventListener('click', toggleAudio);
+    
+    </script>
 <script>
     // Load the saved theme from localStorage
     document.addEventListener("DOMContentLoaded", () => {

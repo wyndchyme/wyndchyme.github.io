@@ -416,3 +416,23 @@ details[open] > summary {
 #aboutLinks img {
     animation: sway 3s linear infinite;
 }
+#audioToggleBtn img {
+display: none;
+}
+.muted #audioIcon {
+    visibility: hidden;
+}
+.muted #audioToggleBtn img {
+    display: block;
+}
+#audioLow {
+    display: none;
+}
+#audio:hover {
+#audioHigh {
+    display: none;
+}
+#audioLow {
+    display: block;
+}
+}
