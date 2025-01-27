@@ -112,6 +112,7 @@ body {
     background-color: skyblue;
     left:0;
     right:1;
+    z-index: 9999;
 }
 .tbicon {
 background-color: #d4f1fc;
