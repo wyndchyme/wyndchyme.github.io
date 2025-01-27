@@ -50,6 +50,9 @@ html {
  }
  .dark-mode .draggable {
     border-color: #195770;
+    background-image: 
+    linear-gradient(#f0f0f0, #f0f0f0),
+    linear-gradient(#195770, #195770);
  }
  .dark-mode .close-btn {
     background-color: #195770;
@@ -161,15 +164,19 @@ border-radius: 5px;
     max-height: 75%;
 }
 .draggable {
+    background-repeat:no-repeat; 
     width: 300px;
     height: 200px;
     background: #f0f0f0;
+    background-image: 
+    linear-gradient(skyblue, skyblue),
+    linear-gradient(#f0f0f0, #f0f0f0)
     border: 1px solid skyblue;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
     position: absolute;
     top: 50px;
     left: 50px;
-    border-radius: 5px
+    border-radius: 5px;
 }
 .header {
     height: 30px;
