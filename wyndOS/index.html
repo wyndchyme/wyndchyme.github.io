@@ -364,32 +364,6 @@ closeButtons.forEach(closeButton => {
         }
     });
 });
-   
-const draggables = document.querySelectorAll('.draggable');
-    
-    draggables.forEach(draggable => {
-        const header = draggable.querySelector('.header');
-        let isDragging = false;
-        let offsetX = 0;
-        let offsetY = 0;
-
-        header.addEventListener('mousedown', (e) => {
-            isDragging = true;
-            offsetX = e.clientX - draggable.getBoundingClientRect().left;
-            offsetY = e.clientY - draggable.getBoundingClientRect().top;
-        });
-
-        document.addEventListener('mousemove', (e) => {
-            if (isDragging) {
-                draggable.style.left = `${e.clientX - offsetX}px`;
-                draggable.style.top = `${e.clientY - offsetY}px`;
-            }
-        });
-
-        document.addEventListener('mouseup', () => {
-            isDragging = false;
-        });
-    });
 </script>
 
 <div class="dtcolumn" style="position: absolute; right: 40px;">
