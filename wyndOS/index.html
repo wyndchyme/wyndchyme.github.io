@@ -466,38 +466,62 @@ if (div.style.display === 'none') {
     const draggableElements = document.querySelectorAll('.draggable');
 
     draggableElements.forEach(el => {
-      const header = el.querySelector('.header');
+  const header = el.querySelector('.header');
 
-      // Increment z-index on click
-      el.addEventListener('click', () => {
-        el.style.zIndex = ++currentZIndex;
-      });
+  // Increment z-index on click
+  el.addEventListener('click', () => {
+    el.style.zIndex = ++currentZIndex;
+  });
 
-      // Make elements draggable via the header
-      header.addEventListener('mousedown', (event) => {
-        el.style.zIndex = ++currentZIndex;
+  function startDrag(event) {
+    el.style.zIndex = ++currentZIndex;
 
-        let shiftX = event.clientX - el.getBoundingClientRect().left;
-        let shiftY = event.clientY - el.getBoundingClientRect().top;
+    let shiftX, shiftY;
 
-        function moveAt(pageX, pageY) {
-          el.style.left = pageX - shiftX + 'px';
-          el.style.top = pageY - shiftY + 'px';
-        }
+    // Handle mouse or touch events
+    if (event.type === 'mousedown') {
+      shiftX = event.clientX - el.getBoundingClientRect().left;
+      shiftY = event.clientY - el.getBoundingClientRect().top;
+    } else if (event.type === 'touchstart') {
+      const touch = event.touches[0];
+      shiftX = touch.clientX - el.getBoundingClientRect().left;
+      shiftY = touch.clientY - el.getBoundingClientRect().top;
+    }
 
-        function onMouseMove(event) {
-          moveAt(event.pageX, event.pageY);
-        }
+    function moveAt(pageX, pageY) {
+      el.style.left = pageX - shiftX + 'px';
+      el.style.top = pageY - shiftY + 'px';
+    }
 
-        document.addEventListener('mousemove', onMouseMove);
+    function onMove(event) {
+      if (event.type === 'mousemove') {
+        moveAt(event.pageX, event.pageY);
+      } else if (event.type === 'touchmove') {
+        const touch = event.touches[0];
+        moveAt(touch.clientX, touch.clientY);
+      }
+    }
 
-        document.addEventListener('mouseup', () => {
-          document.removeEventListener('mousemove', onMouseMove);
-        }, { once: true });
-      });
+    function endDrag() {
+      document.removeEventListener('mousemove', onMove);
+      document.removeEventListener('touchmove', onMove);
+      document.removeEventListener('mouseup', endDrag);
+      document.removeEventListener('touchend', endDrag);
+    }
 
-      el.ondragstart = () => false; // Disable default drag behavior
-    });
+    // Attach move and end handlers
+    document.addEventListener('mousemove', onMove);
+    document.addEventListener('touchmove', onMove);
+    document.addEventListener('mouseup', endDrag);
+    document.addEventListener('touchend', endDrag);
+  }
+
+  // Attach start handlers for mouse and touch
+  header.addEventListener('mousedown', startDrag);
+  header.addEventListener('touchstart', startDrag);
+
+  el.ondragstart = () => false; // Disable default drag behavior
+});
 
     // Bring specific divs to front when buttons are clicked
     const aboutButton = document.getElementById('aboutButton');
