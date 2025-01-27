@@ -419,8 +419,8 @@ details[open] > summary {
 #audioToggleBtn img {
 display: none;
 }
-.muted #audioIcon {
-    visibility: hidden;
+#audioOff {
+    display: none;
 }
 .muted #audioToggleBtn img {
     display: block;
@@ -435,4 +435,15 @@ display: none;
 #audioLow {
     display: block;
 }
+}
+.muted {
+    #audioHigh {
+        display: none !important;
+    }
+    #audioLow {
+        display: none !important;
+    }
+    #audioOff {
+        display: block;
+    }
 }
