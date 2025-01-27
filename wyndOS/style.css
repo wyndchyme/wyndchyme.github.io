@@ -410,6 +410,9 @@ details[open] > summary {
 #questIcon {
     cursor: not-allowed;
 }
-#aboutLinks a:hover {
-    text-decoration: underline;
+#aboutLinks a {
+    color: #252525 !important;
+}
+#aboutLinks img {
+    animation: sway 3s linear infinite;
 }
