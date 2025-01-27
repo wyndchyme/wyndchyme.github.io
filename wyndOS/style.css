@@ -446,4 +446,7 @@ display: none;
     #audioOff {
         display: block;
     }
+    #audioOff:hover {
+        animation: sway 3s linear infinite;
+    }
 }
