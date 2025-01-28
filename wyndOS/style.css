@@ -497,6 +497,7 @@ display: none;
     border: transparent;
     border-radius: 2px 2px 0 0;
     display: inline-block;
+    text-indent: 0;
 }
 .tabbed:hover {
     background-color: #c9c9c9;
