@@ -373,6 +373,10 @@ details[open] > summary {
     #aboutdiv p {
         font-size: 15pt;
     }
+    #aboutdiv {
+        height: 225px !important;
+        width: 350px !important;
+    }
     ul {
         margin-top: 15px;
         margin-bottom: -10px;
@@ -426,6 +430,10 @@ details[open] > summary {
     }
     #tab4 {
         width: 58px !important;
+    }
+    #diskDiv {
+        width: 500px !important;
+        height: 350px !important;
     }
 }
 @media screen and (max-height: 550px) {
@@ -530,4 +538,24 @@ display: none;
 }
 #questContent {
     height: calc(100% + 20px) !important;
+}
+@media screen and (max-width: 400px) {
+    #qstDiv {
+        width: 275px !important;
+    }
+    .tabbed {
+        font-size: 11pt !important;
+    }
+#tab1 {
+    width: 64px !important;
+}
+#tab2 {
+    width: 53px !important;
+}
+#tab3 {
+    width: 50px !important;
+}
+#tab4 {
+    width: 40px !important;
+}
 }
