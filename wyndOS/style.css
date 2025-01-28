@@ -394,6 +394,22 @@ details[open] > summary {
         text-indent: 54px !important;
        }
     }
+    .tabbed {
+        font-size: 15pt !important;
+    }
+    .tab {
+        font-size: 16pt !important;
+    }
+    .questBody {
+        position: relative;
+        bottom: 6px;
+    }
+    .questLauncherButton {
+        font-size: 15pt !important;
+    }
+    #questContent {
+        height:calc(100% + 35px) !important;
+    }
 }
 @media screen and (max-height: 550px) {
     #Activate {
@@ -458,4 +474,36 @@ display: none;
     #top, #bottom, #left, #right {
         zoom: 110%;
     }
+}
+.tabbed {
+    color: #252525;
+    font-family: 'Jersey 10';
+    font-size: 16;
+    border: transparent;
+    border-radius: 2px 2px 0 0;
+}
+.tabbed:hover {
+    background-color: #c9c9c9;
+}
+.tabbed.active {
+    background-color: #696969;
+    color: white;
+}
+.tab.active {
+    display: block;
+}
+.questLauncherButton {
+    color: #252525;
+    font-family: 'Jersey 10';
+    font-size: 17;
+    border: none;
+    border-radius: 2px;
+}
+#questLaunch {
+    background-color: grey;
+    color: rgb(203, 203, 203);
+    cursor: not-allowed;
+}
+#qstDiv {
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }

@@ -268,6 +268,7 @@ if (div.style.display === 'none') {
                         <ul style="position: relative; left: -16px;">
                         <li><a href="https://wyndchyme.github.io/images/mc3ds-modern.png" style="color: #252525;"><img src="/wyndOS/icons/photo.png" style="width: 16px; position: relative; left: -3px; top: 3px;">mc3ds-modern.png</a></li>
                         <li><a href="https://wyndchyme.github.io/images/minecraft-3ds-unistore.png" style="color: #252525;"><img src="/wyndOS/icons/photo.png" style="width: 16px; position: relative; left: -3px; top: 3px;">minecraft-3ds-unistore.png</a></li>
+                        <li><a href="https://wyndchyme.github.io/images/questbanner.png" style="color: #252525;"><img src="/wyndOS/icons/photo.png" style="width: 16px; position: relative; left: -3px; top: 3px;">questbanner.png</a></li>
                         </ul>
                     </details>
                     <details>
@@ -397,9 +398,75 @@ closeButtons.forEach(closeButton => {
     <div class="dticon" id="questIcon"><img src="/wyndOS/icons/discalt.png">
         <div class="dtcontainer" style="left: -15px; width: 70px;"></div>
     <div class="dtlabel">wyndQST</div>
+    <button id="qstButton" class="dtbutton"></button>
     </div>
     <br>
 </div>
+<div class="draggable" id="qstDiv" style="display: none; z-index: 1; width: 350px;">
+    <div class="header">wyndQuest Launcher <button class="close-btn">X</button></div>
+    <div class="content" style="background-color: gainsboro; border-radius: 0 0 5px 5px; height: calc(100%);" id="questContent">
+        <div class="tabbar">
+            <button class="tabbed active" onclick="openTab('London', this)">wyndQuest</button>
+            <button class="tabbed" onclick="openTab('Paris', this)">Graphics</button>
+            <button class="tabbed" onclick="openTab('Tokyo', this)">Settings</button>
+            <button class="tabbed" onclick="openTab('Munich', this)">About</button>
+        </div>
+        <div class="questBody">
+        <div style="background-color: #f0f0f0; block; width: 100%; height: 90%; position: relative; bottom: 21px; text-indent: 10px; border-radius: 0 5px 5px 5px;">
+            <div id="London" class="tab">
+                <h2 style="padding-top: 4px;"><img src="/images/questbanner.png" style="width: 100%; height: 30px; position: relative; left: -10px; filter: none; bottom: 4px; border-radius: 0 5px 0 0;"></h2>
+                <div style="text-indent: 0; position: relative; left: 10px; bottom: 15px; width: calc(100% - 30px)">wyndQuest is not yet avaliable – please stay tuned for updates.</div>
+                <div style="position: absolute; right: 15px; bottom: 15px;"><button class="questLauncherButton" id="questLaunch">Launch</button></div>
+            </div>
+            <div id="Paris" class="tab" style="display:none">
+                <h2 style="padding-top: 4px;"><img src="/images/questbanner.png" style="width: 100%; height: 30px; position: relative; left: -10px; filter: none; bottom: 4px;"></h2>
+                <div style="text-indent: 0; position: relative; left: 10px; bottom: 15px; width: calc(100% - 30px)">wyndQuest is not yet avaliable – please stay tuned for updates.</div>
+            </div>
+            <div id="Tokyo" class="tab" style="display:none">
+                <h2 style="padding-top: 4px;"><img src="/images/questbanner.png" style="width: 100%; height: 30px; position: relative; left: -10px; filter: none; bottom: 4px;"></h2>
+                <div style="text-indent: 0; position: relative; left: 10px; bottom: 15px; width: calc(100% - 30px)">wyndQuest is not yet avaliable – please stay tuned for updates.</div>
+            </div>
+            <div id="Munich" class="tab" style="display:none">
+                <h2 style="padding-top: 4px;"><img src="/images/questbanner.png" style="width: 100%; height: 30px; position: relative; left: -10px; filter: none; bottom: 4px;"></h2>
+                <div style="text-indent: 0; position: relative; left: 10px; bottom: 15px; width: calc(100% - 30px)">wyndQuest is not yet avaliable – please stay tuned for updates.</div>
+            </div>
+        </div>
+        </div>
+    </div>
+</div>
+<script>
+    function openTab(tabName, button) {
+        // Hide all tabs
+        const tabs = document.querySelectorAll('.tab');
+        tabs.forEach(tab => tab.style.display = 'none');
+
+        // Show the selected tab
+        document.getElementById(tabName).style.display = 'block';
+
+        // Remove active class from all buttons
+        const buttons = document.querySelectorAll('.tabbed');
+        buttons.forEach(btn => btn.classList.remove('active'));
+
+        // Add active class to the clicked button
+        button.classList.add('active');
+    }
+
+    // Make the "London" tab active by default
+    window.onload = function() {
+        openTab('London', document.querySelector('.tabbed'));
+    };
+</script>
+
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+    const qstDiv = document.getElementById('qstDiv');
+    const closeButton = qstDiv.querySelector('.close-btn');
+    
+    closeButton.addEventListener('click', () => {
+        qstDiv.style.display = 'none';
+    });
+});
+</script>
     <script>
         document.getElementById('diskButton').addEventListener('click', function() {
 var div = document.getElementById('diskDiv');
@@ -407,6 +474,16 @@ if (div.style.display === 'none') {
     div.style.display = 'block';
 } else {
     div.style.display = 'none';
+}
+});
+</script>
+<script>
+    document.getElementById('qstButton').addEventListener('click', function() {
+var div = document.getElementById('qstDiv');
+if (div.style.display === 'none') {
+div.style.display = 'block';
+} else {
+div.style.display = 'none';
 }
 });
 </script>
@@ -595,8 +672,10 @@ if (div.style.display === 'none') {
     // Bring specific divs to front when buttons are clicked
     const aboutButton = document.getElementById('aboutButton');
     const diskButton = document.getElementById('diskButton');
+    const qstButton = document.getElementById('qstButton');
     const aboutDiv = document.getElementById('aboutDiv');
     const diskDiv = document.getElementById('diskDiv');
+    const qstDiv = document.getElementById('qstDiv');
   
     aboutButton.addEventListener('click', () => {
       aboutDiv.style.zIndex = ++currentZIndex;
@@ -604,6 +683,10 @@ if (div.style.display === 'none') {
   
     diskButton.addEventListener('click', () => {
       diskDiv.style.zIndex = ++currentZIndex;
+    });
+
+    qstButton.addEventListener('click', () => {
+      qstDiv.style.zIndex = ++currentZIndex;
     });
   </script>  
 </body>
