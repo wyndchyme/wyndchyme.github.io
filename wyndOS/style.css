@@ -201,6 +201,8 @@ border-radius: 5px;
     right: 2px;
     padding-left: 7px;
     border-radius: 5px;
+    margin: 0;
+    text-align: center;
 }
 .close-btn:hover {
     color: teal;
