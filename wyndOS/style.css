@@ -559,3 +559,6 @@ display: none;
     width: 40px !important;
 }
 }
+.wait-cursor * {
+    cursor: wait !important;
+}
