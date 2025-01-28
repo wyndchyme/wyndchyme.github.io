@@ -405,14 +405,14 @@ closeButtons.forEach(closeButton => {
 <div class="draggable" id="qstDiv" style="display: none; z-index: 1; width: 300px;">
     <div class="header">wyndQuest Launcher <button class="close-btn">X</button></div>
     <div class="content" style="background-color: gainsboro; border-radius: 0 0 5px 5px; height: calc(100%)" id="questContent">
-        <div class="tabbar">
+        <div class="tabbar" style="position: relative; bottom: 3px;">
             <button class="tabbed active" onclick="openTab('London', this)" style="width: 72px;" id="tab1">wyndQuest</button>
             <button class="tabbed" onclick="openTab('Paris', this)" style="width: 61px;" id="tab2">Graphics</button>
             <button class="tabbed" onclick="openTab('Tokyo', this)" style="width: 62px;" id="tab3">Settings</button>
             <button class="tabbed" onclick="openTab('Munich', this)" style="width: 48px;" id="tab4">About</button>
         </div>
         <div class="questBody">
-        <div style="background-color: #f0f0f0; block; width: 100%; height: 90%; position: relative; bottom: 21px; text-indent: 10px; border-radius: 0 5px 5px 5px;">
+        <div style="background-color: #f0f0f0; block; width: 100%; height: 90%; position: relative; bottom: 24px; text-indent: 10px; border-radius: 0 5px 5px 5px;">
             <div id="London" class="tab">
                 <h2 style="padding-top: 4px;"><img src="/images/questbanner.png" style="width: 100%; height: 30px; position: relative; left: -10px; filter: none; bottom: 4px; border-radius: 0 5px 0 0;"></h2>
                 <div style="text-indent: 0; position: relative; left: 10px; bottom: 15px; width: calc(100% - 30px)">wyndQuest is not yet avaliable – please stay tuned for updates.</div>

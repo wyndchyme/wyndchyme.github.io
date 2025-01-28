@@ -410,7 +410,7 @@ details[open] > summary {
         font-size: 15pt !important;
     }
     #questContent {
-        height:calc(100% + 50px) !important;
+        height:calc(100% + 100px) !important;
     }
     #qstDiv {
         width: 350px !important;
