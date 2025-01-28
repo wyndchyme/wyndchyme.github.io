@@ -479,13 +479,14 @@ if (div.style.display === 'none') {
 </script>
 <script>
     document.getElementById('qstButton').addEventListener('click', function() {
-var div = document.getElementById('qstDiv');
-if (div.style.display === 'none') {
-div.style.display = 'block';
-} else {
-div.style.display = 'none';
-}
-});
+        var div = document.getElementById('qstDiv');
+        if (div.style.display === 'none') {
+            div.style.display = 'block';
+            div.style.left = '20px';
+        } else {
+            div.style.display = 'none';
+        }
+    });
 </script>
 <script>
     // Check localStorage for saved audio state
