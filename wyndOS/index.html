@@ -114,12 +114,14 @@
             <p style="text-align: center; position: relative; bottom: 50px;"><a href="https://github.com/wyndchyme/wyndchyme.github.io">Powered by GitHub Pages.</a></p>
         </div>
     </div>
-    <div class="draggable" id="diskDiv" style="display: none; z-index: 1;">
+    <div class="draggable" id="diskDiv" style="display: none; z-index: 1; padding-bottom: 15px; overflow: hidden;">
         <div class="header">
             File Explorer
             <button class="close-btn">X</button>
         </div>
+        <div style="background-color: rgb(112, 146, 178);" id="locationDiv"><span style="position: relative; left: 5px; color: white;" id="diskLocation">Location: <img src="/wyndOS/icons/doohickey.png" style="width: 13px; position: relative; top: 1px;"> wyndOS HDD</span></div>
         <div class="content-box" id="fileExplorer">
+            <div style="position: relative; bottom: 5px;">
             <details>
                 <summary>audio</summary>
                 <ul style="position: relative; left: -16px;"><li>
@@ -352,6 +354,7 @@
                     </ul>
         </div>
     </div>
+    </div>
     <script>
         // Select the draggable element and its header
         const draggable = document.querySelector('.draggable');
@@ -411,7 +414,7 @@ closeButtons.forEach(closeButton => {
     </div>
     <br>
 </div>
-<div class="draggable" id="qstDiv" style="display: none; z-index: 1; width: 300px;">
+<div class="draggable" id="qstDiv" style="display: none; z-index: 1; width: 300px; ;">
     <div class="header" style="width: calc(100% - 20px)">wyndQuest Launcher <button class="close-btn">X</button></div>
     <div class="content" style="background-color: gainsboro; border-radius: 0 0 5px 5px; height: calc(100%)" id="questContent">
         <div class="tabbar" style="position: relative; bottom: 3px;">

@@ -435,6 +435,12 @@ details[open] > summary {
         width: 500px;
         height: 350px;
     }
+    #diskLocation {
+        font-size: 15pt !important;
+    }
+    #diskLocation img {
+        width: 15px !important;
+    }
 }
 @media screen and (max-height: 550px) {
     #Activate {
