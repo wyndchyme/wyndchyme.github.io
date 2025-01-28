@@ -400,9 +400,6 @@ details[open] > summary {
     .tab {
         font-size: 16pt !important;
     }
-    #qstDiv {
-        width: 350px !important;
-    }
     .questBody {
         position: relative;
         bottom: 6px;
