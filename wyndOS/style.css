@@ -432,8 +432,8 @@ details[open] > summary {
         width: 58px !important;
     }
     #diskDiv {
-        width: 500px !important;
-        height: 350px !important;
+        width: 500px;
+        height: 350px;
     }
 }
 @media screen and (max-height: 550px) {
