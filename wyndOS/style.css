@@ -394,11 +394,11 @@ details[open] > summary {
         text-indent: 54px !important;
        }
     }
-    .tabbed {
-        font-size: 15pt !important;
-    }
     .tab {
         font-size: 16pt !important;
+    }
+    .tabbed {
+        font-size: 14pt !important;
     }
     .questBody {
         position: relative;
@@ -412,6 +412,18 @@ details[open] > summary {
     }
     #qstDiv {
         width: 350px !important;
+    }
+    #tab1 {
+        width: 85px !important;
+    }
+    #tab2 {
+        width: 70px !important;
+    }
+    #tab3 {
+        width: 68px !important;
+    }
+    #tab4 {
+        width: 58px !important;
     }
 }
 @media screen and (max-height: 550px) {
