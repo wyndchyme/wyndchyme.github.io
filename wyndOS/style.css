@@ -410,6 +410,9 @@ details[open] > summary {
     #questContent {
         height:calc(100% + 35px) !important;
     }
+    #qstDiv {
+        width: 350px !important;
+    }
 }
 @media screen and (max-height: 550px) {
     #Activate {
@@ -478,9 +481,10 @@ display: none;
 .tabbed {
     color: #252525;
     font-family: 'Jersey 10';
-    font-size: 16;
+    font-size: 12pt;
     border: transparent;
     border-radius: 2px 2px 0 0;
+    display: inline-block;
 }
 .tabbed:hover {
     background-color: #c9c9c9;
@@ -495,7 +499,7 @@ display: none;
 .questLauncherButton {
     color: #252525;
     font-family: 'Jersey 10';
-    font-size: 17;
+    font-size: 13pt;
     border: none;
     border-radius: 2px;
 }
