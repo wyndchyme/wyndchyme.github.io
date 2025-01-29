@@ -516,6 +516,10 @@ display: none;
     #Activate {
         zoom: 115%;
     }
+    #qstDiv {
+        width: 530px !important;
+        height: 250px !important;
+    }
 }
 .tabbed {
     color: #252525;
