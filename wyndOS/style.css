@@ -648,4 +648,7 @@ color: white;
     #diskDiv {
         padding-bottom: 28px !important;
     }
+    .toolbar {
+        margin-bottom: 1px;
+    }
   }
