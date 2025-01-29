@@ -129,9 +129,14 @@ code {
     background-image: url(/icons/lightlamp2.png);
 }
 a:link {
-    color: skyblue;
+    color: rgb(83, 163, 195);
     background-color: transparent;
     text-decoration: none;
+    transition: 0.5s;
+}
+.dark-mode a:link {
+  color: skyblue;
+  transition: 0.5s;
 }
 a:visited {
     color: skyblue;
