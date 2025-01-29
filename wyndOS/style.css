@@ -513,6 +513,8 @@ display: none;
     }
     .toolbar {
         zoom: 115%;
+        position: relative;
+        bottom: 13px;
     }
     #top, #bottom, #left, #right {
         zoom: 127%;
