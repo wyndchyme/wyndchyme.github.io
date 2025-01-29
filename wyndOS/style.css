@@ -367,7 +367,7 @@ details[open] > summary {
         zoom: 115%;
     }
     .toolbar {
-        zoom: 115%;
+        zoom: 105%;
     }
     #top, #bottom, #left, #right {
         zoom: 115%;
@@ -512,7 +512,7 @@ display: none;
         zoom: 127%;
     }
     .toolbar {
-        zoom: 127%;
+        zoom: 115%;
     }
     #top, #bottom, #left, #right {
         zoom: 127%;
