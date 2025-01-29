@@ -568,3 +568,9 @@ display: none;
 .wait-cursor * {
     cursor: wait !important;
 }
+#locationDiv a {
+color: white;
+}
+#locationDiv a:hover {
+    color: rgb(214, 222, 226);
+}
