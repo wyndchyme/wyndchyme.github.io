@@ -364,24 +364,31 @@
         let isDragging = false;
         let offsetX = 0;
         let offsetY = 0;
-
+    
         const closeButtons = document.querySelectorAll('.draggable .close-btn');
-
-closeButtons.forEach(closeButton => {
-    closeButton.addEventListener('click', () => {
-        // Find the closest .draggable div to the close button
-        const div = closeButton.closest('.draggable');
-        
-        // Toggle the visibility of the div
-        if (div.style.display === 'none') {
-            div.style.display = 'block';
-        } else {
-            div.style.display = 'none';
-        }
-    });
-});
-</script>
-
+    
+        closeButtons.forEach(closeButton => {
+            closeButton.addEventListener('click', () => {
+                // Find the closest .draggable div to the close button
+                const div = closeButton.closest('.draggable');
+                
+                // Add the "wait-cursor" class to indicate the action
+                document.body.classList.add('wait-cursor');
+    
+                // Add a 0.1s delay before toggling the visibility
+                setTimeout(() => {
+                    if (div.style.display === 'none') {
+                        div.style.display = 'block';
+                    } else {
+                        div.style.display = 'none';
+                    }
+    
+                    // Remove the "wait-cursor" class after the action
+                    document.body.classList.remove('wait-cursor');
+                }, 75); 
+            });
+        });
+    </script>    
 <div class="dtcolumn" style="position: absolute; right: 40px;">
     <div class="dticon"><img src="/wyndOS/icons/doohickey.png" style="width: 44px; position: relative; right: 5px; top: -4px;">
         <div class="dtcontainer" style="left: -12px; height: 65px; top: -4px"></div>
@@ -476,14 +483,24 @@ closeButtons.forEach(closeButton => {
 
 <script>
     document.addEventListener('DOMContentLoaded', () => {
-    const qstDiv = document.getElementById('qstDiv');
-    const closeButton = qstDiv.querySelector('.close-btn');
-    
-    closeButton.addEventListener('click', () => {
-        qstDiv.style.display = 'none';
+        const qstDiv = document.getElementById('qstDiv');
+        const closeButton = qstDiv.querySelector('.close-btn');
+
+        closeButton.addEventListener('click', () => {
+            // Add the "wait-cursor" class to indicate the action
+            document.body.classList.add('wait-cursor');
+
+            // Add a 0.1s delay before hiding the qstDiv
+            setTimeout(() => {
+                qstDiv.style.display = 'none';
+
+                // Remove the "wait-cursor" class after the action
+                document.body.classList.remove('wait-cursor');
+            }, 100);  // 100ms delay
+        });
     });
-});
 </script>
+
 <script>
     document.getElementById('diskButton').addEventListener('click', function () {
         var div = document.getElementById('diskDiv');
