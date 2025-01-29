@@ -611,3 +611,36 @@ color: white;
 .draggable[style*="display: block"] {
     animation: fadeIn 0.3s ease forwards;
 }
+@supports (-moz-appearance: none) {
+    #wiiIcon {
+      margin-top: 4px; 
+    }
+    #wiiContainer {
+        margin-top: 4px;
+    }
+    #wiiShortcut {
+        position: relative;
+        top: 3px !important;
+    }
+    #dsIcon {
+        margin-top: 4px;
+    }
+    #dsContainer {
+        margin-top: 4px;
+    }
+    #dsShortcut {
+        position: relative;
+        top: 3px !important;
+    }
+    #homeIcon {
+        position: relative;
+        top: 5px !important;
+    }
+    #homeShortcut {
+        position: relative;
+        top: 4px !important;
+    }
+    #homeContainer {
+        margin-top: 4px;
+    }
+  }
