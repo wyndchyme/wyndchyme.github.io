@@ -540,7 +540,8 @@ display: none;
     cursor: not-allowed;
 }
 #qstDiv {
-    box-shadow: 0px 73px 8px rgba(0, 0, 0, 0.2);
+    box-shadow: none !important;
+    filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.2))
 }
 #questContent {
     height: calc(100% + 20px) !important;
