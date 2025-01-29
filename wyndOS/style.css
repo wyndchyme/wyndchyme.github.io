@@ -360,12 +360,20 @@ details[open] > summary {
     background-size: 20px 20px;
 }
 @media screen and (min-width: 1000px) {
-    html {
+    .dtcolumn {
+        zoom: 115%;
+    }
+    .toolbar {
+        zoom: 115%;
+    }
+    #top, #bottom, #left, #right {
         zoom: 115%;
     }
     .draggable {
-        zoom: 85%;
         font-size: 105%;
+    }
+    #Activate {
+        zoom: 115%;
     }
     .content-box {
         font-size: 17pt;
@@ -497,13 +505,16 @@ display: none;
 }
 @media screen and (min-width: 1200px) {
     .dtcolumn {
-        zoom: 110%;
+        zoom: 127%;
     }
     .toolbar {
-        zoom: 110%;
+        zoom: 127%;
     }
     #top, #bottom, #left, #right {
-        zoom: 110%;
+        zoom: 127%;
+    }
+    #Activate {
+        zoom: 115%;
     }
 }
 .tabbed {
