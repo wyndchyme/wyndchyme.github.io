@@ -643,4 +643,7 @@ color: white;
     #homeContainer {
         margin-top: 4px;
     }
+    #diskDiv {
+        padding-bottom: 28px !important;
+    }
   }
