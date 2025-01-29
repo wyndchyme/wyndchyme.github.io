@@ -445,6 +445,7 @@ details[open] > summary {
     #diskDiv {
         width: 500px;
         height: 350px;
+        padding-bottom: 20px !important;
     }
     #diskLocation {
         font-size: 15pt !important;

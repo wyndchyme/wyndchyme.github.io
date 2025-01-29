@@ -686,14 +686,14 @@ draggableElements.forEach(el => {
       let newTop = (pageY / zoomFactor) - shiftY;
 
       // Prevent going over top and bottom edges with the new 15px and 65px or 128px constraints
-      const minTop = 20; // 15px from the top edge
+      const minTop = 20;
       let maxTop;
 
       // Special offset for #qstDiv
       if (el.id === 'qstDiv') {
-        maxTop = (window.innerHeight - el.offsetHeight) / zoomFactor - 135; // 128px from the bottom edge for this div
+        maxTop = (window.innerHeight - el.offsetHeight) / zoomFactor - 140;
       } else {
-        maxTop = (window.innerHeight - el.offsetHeight) / zoomFactor - 65; // Default 65px from the bottom edge for others
+        maxTop = (window.innerHeight - el.offsetHeight) / zoomFactor - 70;
       }
 
       // Apply constraints
