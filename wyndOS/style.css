@@ -25,6 +25,8 @@ html {
  }
  .dark-mode .toolbar {
     background-color: #195770;
+    background-image: linear-gradient(#195770, #044058);
+    left:0;
     z-index: 3;
  }
  .dark-mode .tbicon {
@@ -112,7 +114,7 @@ body {
     position: absolute;
     bottom: 12px;
     padding-left: 16px;
-    background-color: skyblue;
+    background-image: linear-gradient(skyblue, rgb(110, 182, 211));
     left:0;
     right:1;
     z-index: 9999;
