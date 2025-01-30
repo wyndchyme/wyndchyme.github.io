@@ -341,6 +341,7 @@ a {
     overflow-y: auto;
     height: calc(100% - 40px);
     box-sizing: border-box;
+    white-space: nowrap;
 }
 ul {
     position: relative;
