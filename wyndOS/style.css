@@ -651,3 +651,6 @@ color: white;
         margin-bottom: 1px;
     }
   }
+  #aboutDiv img {
+    image-rendering: auto;
+  }
