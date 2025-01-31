@@ -41,26 +41,6 @@
 <div class="dtlabel">About</div>
 <button id="aboutButton" class="dtbutton"></button>
 </div>
-<script>
-    document.getElementById('aboutButton').addEventListener('click', function () {
-        var div = document.getElementById('aboutDiv');
-        if (div.style.display === 'none') {
-            // Add the wait cursor class to the body
-            document.body.classList.add('wait-cursor');
-            
-            setTimeout(function () {
-                div.style.display = 'block';
-                div.style.left = `calc(50vw - 150px)`;
-                div.style.top = `calc(25vh)`;
-    
-                // Remove the wait cursor class
-                document.body.classList.remove('wait-cursor');
-            }, 100); // Delay in milliseconds (0.1s)
-        } else {
-            div.style.display = 'block';
-        }
-    });
-    </script>
 <br>
 <a href="https://wyndchyme.github.io/other/" style="color: #252525; text-decoration: none;">
 <div class="dticon"><img src="/icons/news.png">
@@ -355,41 +335,7 @@
                     </ul>
         </div>
     </div>
-    </div>
-    <script>
-        // Select the draggable element and its header
-        const draggable = document.querySelector('.draggable');
-        const header = draggable.querySelector('.header');
-        const closeButton = draggable.querySelector('.close-btn');
-    
-        let isDragging = false;
-        let offsetX = 0;
-        let offsetY = 0;
-    
-        const closeButtons = document.querySelectorAll('.draggable .close-btn');
-    
-        closeButtons.forEach(closeButton => {
-            closeButton.addEventListener('click', () => {
-                // Find the closest .draggable div to the close button
-                const div = closeButton.closest('.draggable');
-                
-                // Add the "wait-cursor" class to indicate the action
-                document.body.classList.add('wait-cursor');
-    
-                // Add a 0.1s delay before toggling the visibility
-                setTimeout(() => {
-                    if (div.style.display === 'none') {
-                        div.style.display = 'block';
-                    } else {
-                        div.style.display = 'none';
-                    }
-    
-                    // Remove the "wait-cursor" class after the action
-                    document.body.classList.remove('wait-cursor');
-                }, 75); 
-            });
-        });
-    </script>    
+    </div> 
 <div class="dtcolumn" style="position: absolute; right: 40px;">
     <div class="dticon"><img src="/wyndOS/icons/doohickey.png" style="width: 44px; position: relative; right: 5px; top: -4px;">
         <div class="dtcontainer" style="left: -12px; height: 65px; top: -4px"></div>
@@ -454,57 +400,133 @@
         </div>
     </div>
 </div>
+<div style="position: absolute; right: 30; bottom: 75; font-size: 18pt; color: #252525;" class="boing" id="Activate">Activate wyndOS</div>
+    <div class="toolbar" style="position: absolute; left: 3px; bottom: 15px;">
+        <button id="startButton" style="border: none; background-color: transparent; width: 40px; z-index: 5;"><div class="tbicon" style="width: 40px; text-align: left; position: relative; left: -6px; height: 40px;"><img src="/icons/faviconalt.png" style="position: relative; top: 5px; left: 5px; width: 28px;"></div></button>
+        <div class="tbclock"></div></div>
+        
+    <div id="startMenu" class="hidden" style="position: absolute; left: 21px; bottom: 70px; filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.2)); height: 275px;">
+        <div style="position: relative; bottom: 3px; left: -5px;">
+        <img src="/icons/aboutme/aboutme.webp" style="background-color: #d4f1fc; border: 2px solid white; filter: none; border-radius: 3px;"><span style="font-size: 18pt; position: relative; bottom: 12px; left:9px; color: white;">wyndchyme</span>
+    </div>
+    <div style="position: relative; left: 2px;">
+        <div class="content-box" style="background: linear-gradient(rgba(255,255,255,0.5), rgba(255,255,255,0.5)), url(/images/background/macesque.png); background-size: 15% 15%; background-repeat: repeat; image-rendering: pixelated; width: 110px; height: 210px; position: relative; right: 10px; overflow: scroll;" id="startContent">
+            <div style="position: relative; right: 3px; color: #252525; image-rendering: auto !important;">
+                <img src="/icons/faviconalt.png"><span class="startLabels">About</span>
+                <hr>
+            <img src="/icons/lightlamp.png"><span class="startLabels">lamp.wyn</span>
+            <br>
+            <img src="/wyndOS/icons/audio.png"><span class="startLabels">audio.wyn</span>
+            <br>
+            <img src="/wyndOS/icons/discalt.png"><span class="startLabels">wyndQST</span>
+            </div>
+        </div>
+        <div class="content-box" style="background-color: #c3edfd; width: 110px; height: 210px; position: relative; right: -100px; bottom: 210px;" id="startContentRight">
+            <div style="position: relative; right: 3px; color: #252525;"></div>
+            <img src="/wyndOS/icons/doohickey.png"><span class="startLabels">Disk</span>
+            </div>
+        </div>
+        <span style="position: absolute; bottom: 5px; right: 27px; font-size: 15pt; color: white;" id="restartLabel">Restart</span>
+        <button style="position: absolute; right: 5px; bottom: 5px; height: 20px; width: 20px; background: none; border: none; margin: 0; text-align: center; display: block;" onclick="refreshPage()">
+            <img src="/wyndOS/icons/refresh.png" style="position: relative; bottom: 7px; right: 12px; width: 32px;" id="powerOffButton">
+        </button>
+    </div>
+    </div>
+    </div>
+    <script>
+        function refreshPage() {
+            document.body.classList.add("wait-cursor"); // Add the 'wait-cursor' class
+            setTimeout(function () {
+                window.location.reload(); // Refresh the page after 0.1s
+            }, 100); // Wait for 100ms before refreshing
+        }
+    </script>
 <script>
-    function openTab(tabName, button) {
-        document.body.classList.add('wait-cursor');
-        setTimeout(function () {
-        // Hide all tabs
-        const tabs = document.querySelectorAll('.tab');
-        tabs.forEach(tab => tab.style.display = 'none');
+  const startButton = document.getElementById("startButton");
+const startMenu = document.getElementById("startMenu");
+const draggableWindows = document.querySelectorAll(".draggable");
+const toolbar = document.querySelectorAll(".toolbar"); // Select all toolbar elements
 
-        // Show the selected tab
-        document.getElementById(tabName).style.display = 'block';
+// Set toolbar z-index high to always stay in front of the Start menu
+toolbar.forEach(item => {
+    item.style.zIndex = "999"; // Ensures toolbar is always on top
+});
 
-        // Remove active class from all buttons
-        const buttons = document.querySelectorAll('.tabbed');
-        buttons.forEach(btn => btn.classList.remove('active'));
-
-        // Add active class to the clicked button
-        button.classList.add('active');
-        // Remove the wait cursor class
-        document.body.classList.remove('wait-cursor');
-            }, 50); // Delay in milliseconds (0.1s)
+startButton.addEventListener("click", function (event) {
+    event.stopPropagation(); // Prevents immediate closing when clicking the button
+    if (startMenu.style.display === "block") {
+        startMenu.style.display = "none"; // Hide if already open
+    } else {
+        startMenu.style.display = "block"; // Show when clicking Start
+        startMenu.style.zIndex = "100"; // Bring it to the front (but behind toolbar)
     }
+});
 
-    // Make the "London" tab active by default
-    window.onload = function() {
-        openTab('London', document.querySelector('.tabbed'));
-    };
+// Hide the Start menu when clicking anywhere else
+document.addEventListener("click", function () {
+    startMenu.style.display = "none";
+});
+
+// Prevent the menu from closing when clicking inside it
+startMenu.addEventListener("click", function (event) {
+    event.stopPropagation();
+});
+
+// Ensure draggable windows always appear **above** the Start menu
+draggableWindows.forEach(window => {
+    window.addEventListener("mousedown", function () {
+        this.style.zIndex = "200"; // Move the window to the front
+        startMenu.style.zIndex = "50"; // Push Start menu behind
+    });
+
+    // Hide Start menu when dragging a window
+    window.addEventListener("dragstart", function () {
+        startMenu.style.display = "none";
+    });
+
+    window.addEventListener("mousedown", function () {
+        startMenu.style.display = "none"; // Hide Start menu when clicking a window
+    });
+});
+
 </script>
-
 <script>
-    document.addEventListener('DOMContentLoaded', () => {
-        const qstDiv = document.getElementById('qstDiv');
-        const closeButton = qstDiv.querySelector('.close-btn');
+    // Select the draggable element and its header
+    const draggable = document.querySelector('.draggable');
+    const header = draggable.querySelector('.header');
+    const closeButton = draggable.querySelector('.close-btn');
 
+    let isDragging = false;
+    let offsetX = 0;
+    let offsetY = 0;
+
+    const closeButtons = document.querySelectorAll('.draggable .close-btn');
+
+    closeButtons.forEach(closeButton => {
         closeButton.addEventListener('click', () => {
+            // Find the closest .draggable div to the close button
+            const div = closeButton.closest('.draggable');
+            
             // Add the "wait-cursor" class to indicate the action
             document.body.classList.add('wait-cursor');
 
-            // Add a 0.1s delay before hiding the qstDiv
+            // Add a 0.1s delay before toggling the visibility
             setTimeout(() => {
-                qstDiv.style.display = 'none';
+                if (div.style.display === 'none') {
+                    div.style.display = 'block';
+                } else {
+                    div.style.display = 'none';
+                }
 
                 // Remove the "wait-cursor" class after the action
                 document.body.classList.remove('wait-cursor');
-            }, 100);  // 100ms delay
+            }, 75); 
         });
     });
-</script>
-
+</script>   
 <script>
-    document.getElementById('diskButton').addEventListener('click', function () {
-        var div = document.getElementById('diskDiv');
+    document.getElementById('aboutButton').addEventListener('click', function () {
+        var div = document.getElementById('aboutDiv');
         if (div.style.display === 'none') {
             // Add the wait cursor class to the body
             document.body.classList.add('wait-cursor');
@@ -516,76 +538,11 @@
     
                 // Remove the wait cursor class
                 document.body.classList.remove('wait-cursor');
-            }, 200); // Delay in milliseconds (0.1s)
+            }, 100); // Delay in milliseconds (0.1s)
         } else {
             div.style.display = 'block';
         }
     });
-    </script>
-<script>
-    document.getElementById('qstButton').addEventListener('click', function () {
-        var div = document.getElementById('qstDiv');
-        if (div.style.display === 'none') {
-            // Add the wait cursor class to the body
-            document.body.classList.add('wait-cursor');
-            
-            setTimeout(function () {
-                div.style.display = 'block';
-                div.style.left = `calc(50vw - 150px)`;
-                div.style.top = `calc(25vh)`;
-    
-                // Remove the wait cursor class
-                document.body.classList.remove('wait-cursor');
-            }, 250); // Delay in milliseconds (0.1s)
-        } else {
-            div.style.display = 'block';
-        }
-    });
-    </script>
-<script>
-    // Check localStorage for saved audio state
-    let isMuted = localStorage.getItem('audioMuted') === 'true';
-    
-    // Select the button and body element
-    const audioToggleBtn = document.getElementById('audioToggleBtn');
-    const body = document.body;
-    
-    // Function to toggle audio
-    function toggleAudio() {
-        // Get all audio elements on the page
-        const audioElements = document.querySelectorAll('audio, video');
-        
-        // Toggle mute state for all audio elements
-        audioElements.forEach(audio => {
-            audio.muted = !audio.muted;
-        });
-        
-        // Update the localStorage and body class based on new state
-        isMuted = !isMuted;
-        localStorage.setItem('audioMuted', isMuted);
-        
-        // Add/remove the 'muted' class on the body element
-        if (isMuted) {
-            body.classList.add('muted');
-        } else {
-            body.classList.remove('muted');
-        }
-    }
-    
-    // Initialize the audio state based on localStorage
-    if (isMuted) {
-        // Mute all audio elements on page load
-        document.querySelectorAll('audio, video').forEach(audio => {
-            audio.muted = true;
-        });
-        body.classList.add('muted');
-    } else {
-        body.classList.remove('muted');
-    }
-    
-    // Add event listener to toggle button
-    audioToggleBtn.addEventListener('click', toggleAudio);
-    
     </script>
 <script>
     // Load the saved theme from localStorage
@@ -614,26 +571,6 @@
         }
     }
 </script>
-<div style="position: absolute; right: 30; bottom: 75; font-size: 18pt; color: black;" class="boing" id="Activate">Activate wyndOS</div>
-    <div class="toolbar" style="position: absolute; left: 3px;">
-        <a href="https://wyndchyme.github.io/other/">
-        <div class="tbicon"><img src="/icons/news.png" style="position: relative; top: 2px; left: 1px;"></div>
-        </a>
-        <a href="https://wyndchyme.github.io/docs/all-pages/">
-        <div class="tbicon" id="tbNews"><img src="/icons/other/crateicon.png" style="position: relative; top: 1px;"></div>
-        </a>
-        <a href="https://wyndchyme.github.io/consoles/wii/">
-        <div class="tbicon" style="position: relative; bottom: 4px;"><iconwii><img src="/icons/consoles/iconwii.png" style="position: relative; top: 5px; width: 28px;"></iconwii></div>
-        </a>
-        <a href="https://wyndchyme.github.io/consoles/3ds/">
-        <div class="tbicon" style="position: relative; bottom: 2px;"><img src="/icons/consoles/icon3ds.png" style="position: relative; top: 2px; width: 30px;"></div>
-        </a>
-        <a href="https://wyndchyme.github.io/">
-        <div class="tbicon"><img src="/icons/aboutme/whatcaniexpect.png" style="position: relative; top: 3px; right: 2px"></div>
-        </a>
-        <div class="tbclock"></div>
-    </div>
-
     <script>
         function updateClock() {
             const clockElement = document.querySelector('.tbclock');
@@ -775,5 +712,138 @@ window.addEventListener("resize", () => {
     lastWidth = currentWidth;
 });
   </script> 
+  <script>
+    function openTab(tabName, button) {
+        document.body.classList.add('wait-cursor');
+        setTimeout(function () {
+        // Hide all tabs
+        const tabs = document.querySelectorAll('.tab');
+        tabs.forEach(tab => tab.style.display = 'none');
+
+        // Show the selected tab
+        document.getElementById(tabName).style.display = 'block';
+
+        // Remove active class from all buttons
+        const buttons = document.querySelectorAll('.tabbed');
+        buttons.forEach(btn => btn.classList.remove('active'));
+
+        // Add active class to the clicked button
+        button.classList.add('active');
+        // Remove the wait cursor class
+        document.body.classList.remove('wait-cursor');
+            }, 50); // Delay in milliseconds (0.1s)
+    }
+
+    // Make the "London" tab active by default
+    window.onload = function() {
+        openTab('London', document.querySelector('.tabbed'));
+    };
+</script>
+
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const qstDiv = document.getElementById('qstDiv');
+        const closeButton = qstDiv.querySelector('.close-btn');
+
+        closeButton.addEventListener('click', () => {
+            // Add the "wait-cursor" class to indicate the action
+            document.body.classList.add('wait-cursor');
+
+            // Add a 0.1s delay before hiding the qstDiv
+            setTimeout(() => {
+                qstDiv.style.display = 'none';
+
+                // Remove the "wait-cursor" class after the action
+                document.body.classList.remove('wait-cursor');
+            }, 100);  // 100ms delay
+        });
+    });
+</script>
+
+<script>
+    document.getElementById('diskButton').addEventListener('click', function () {
+        var div = document.getElementById('diskDiv');
+        if (div.style.display === 'none') {
+            // Add the wait cursor class to the body
+            document.body.classList.add('wait-cursor');
+            
+            setTimeout(function () {
+                div.style.display = 'block';
+                div.style.left = `calc(50vw - 150px)`;
+                div.style.top = `calc(25vh)`;
+    
+                // Remove the wait cursor class
+                document.body.classList.remove('wait-cursor');
+            }, 200); // Delay in milliseconds (0.1s)
+        } else {
+            div.style.display = 'block';
+        }
+    });
+    </script>
+<script>
+    document.getElementById('qstButton').addEventListener('click', function () {
+        var div = document.getElementById('qstDiv');
+        if (div.style.display === 'none') {
+            // Add the wait cursor class to the body
+            document.body.classList.add('wait-cursor');
+            
+            setTimeout(function () {
+                div.style.display = 'block';
+                div.style.left = `calc(50vw - 150px)`;
+                div.style.top = `calc(25vh)`;
+    
+                // Remove the wait cursor class
+                document.body.classList.remove('wait-cursor');
+            }, 250); // Delay in milliseconds (0.1s)
+        } else {
+            div.style.display = 'block';
+        }
+    });
+    </script>
+<script>
+    // Check localStorage for saved audio state
+    let isMuted = localStorage.getItem('audioMuted') === 'true';
+    
+    // Select the button and body element
+    const audioToggleBtn = document.getElementById('audioToggleBtn');
+    const body = document.body;
+    
+    // Function to toggle audio
+    function toggleAudio() {
+        // Get all audio elements on the page
+        const audioElements = document.querySelectorAll('audio, video');
+        
+        // Toggle mute state for all audio elements
+        audioElements.forEach(audio => {
+            audio.muted = !audio.muted;
+        });
+        
+        // Update the localStorage and body class based on new state
+        isMuted = !isMuted;
+        localStorage.setItem('audioMuted', isMuted);
+        
+        // Add/remove the 'muted' class on the body element
+        if (isMuted) {
+            body.classList.add('muted');
+        } else {
+            body.classList.remove('muted');
+        }
+    }
+    
+    // Initialize the audio state based on localStorage
+    if (isMuted) {
+        // Mute all audio elements on page load
+        document.querySelectorAll('audio, video').forEach(audio => {
+            audio.muted = true;
+        });
+        body.classList.add('muted');
+    } else {
+        body.classList.remove('muted');
+    }
+    
+    // Add event listener to toggle button
+    audioToggleBtn.addEventListener('click', toggleAudio);
+    
+    </script>
 </body>
 </html>

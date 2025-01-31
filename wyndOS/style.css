@@ -28,6 +28,7 @@ html {
     background-image: linear-gradient(#195770, #044058);
     left:0;
     z-index: 3;
+    border-top: 2px solid #044058 !important;
  }
  .dark-mode .tbicon {
     border-top: 3px solid #195770;
@@ -118,6 +119,7 @@ body {
     left:0;
     right:1;
     z-index: 9999;
+    border-top: 2px solid rgb(110, 182, 211);
 }
 .tbicon {
 background-color: #d4f1fc;
@@ -258,7 +260,7 @@ border-radius: 5px;
     animation: sway 3s linear infinite;
 }
 .tbicon:hover img {
-    animation: sway 3s linear infinite;
+    animation: subtlesway 4s linear infinite;
 }
 @keyframes sway {
     0% {
@@ -272,6 +274,23 @@ border-radius: 5px;
     }
     75% {
         transform: translateY(-2px) skew(-1deg, 0deg);
+    }
+    100% {
+        transform: translateY(0px);
+    }
+}
+@keyframes subtlesway {
+    0% {
+        transform: translateY(0px);
+    }
+    25% {
+        transform: translateY(1px);
+    }
+    50% {
+        transform: translateY(0px);
+    }
+    75% {
+        transform: translateY(-1px);
     }
     100% {
         transform: translateY(0px);
@@ -375,6 +394,21 @@ details[open] > summary {
     #top, #bottom, #left, #right {
         zoom: 115%;
     }
+    #startMenu {
+        zoom: 115%;
+        margin-bottom: 1px;
+        height: 285px !important;
+    }
+    #startContent {
+        height: 225px !important;
+    }
+    #startContentRight {
+        height: 225px !important;
+        bottom: 225px !important;
+    }
+    #powerOffButton img {
+        top: -5px !important;
+    }
     .draggable {
         font-size: 105%;
     }
@@ -456,6 +490,12 @@ details[open] > summary {
     #diskLocation img {
         width: 15px !important;
     }
+    #powerOffButton {
+        margin-top: 1px;
+    }
+    #restartLabel {
+        bottom: 4px !important;
+    }
 }
 @media screen and (max-height: 550px) {
     #Activate {
@@ -526,6 +566,22 @@ display: none;
     #qstDiv {
         width: 500px !important;
         height: 250px !important;
+    }
+    #startMenu {
+        zoom: 125%;
+        margin-bottom: 3px;
+        margin-left: 2px;
+        height: 310px !important;
+    }
+    #startContent {
+        height: 250px !important;
+    }
+    #startContentRight {
+        height: 250px !important;
+        bottom: 250px !important;
+    }
+    #powerOffButton {
+        margin-top: 1px;
     }
 }
 .tabbed {
@@ -652,7 +708,64 @@ color: white;
     .toolbar {
         margin-bottom: 1px;
     }
+    #startButton {
+        margin-left: 2px;
+    }
+    #powerOffButton {
+        margin-left: 2px;
+    }
   }
   #aboutDiv img {
     image-rendering: auto;
   }
+  .hidden {
+    display: none;
+}
+#startMenu {
+    position: absolute;
+    bottom: 40px;
+    left: 0;
+    width: 200px;
+    background-image: linear-gradient(skyblue, rgb(110, 182, 211));
+    border: 2px solid rgb(110, 182, 211);
+    padding: 2px;
+    border-radius: 5px;
+    padding: 10px;
+    z-index: 1;
+}
+.dark-mode #startMenu {
+    background-image: linear-gradient(#195770, #044058) !important;
+    border: 2px solid #044058 !important;
+}
+#startMenu[style*="display: block"] {
+    animation: fadeIn 0.3s ease forwards;
+}
+.dark-mode #startMenu {
+    background: skyblue;
+    border: 2px solid skyblue;
+}
+#startContent {
+    font-size: 13pt;
+    margin-left: -2px;
+}
+#startContent img {
+    width: 20px;
+}
+#startContentRight {
+    font-size: 13pt;
+    margin-left: -2px;
+}
+#startContentRight img {
+    width: 20px;
+}
+.dark-mode #startContentRight {
+background: #6ca1b3 !important;
+}
+.startLabels {
+position: relative;
+bottom: 5px;
+left: 5px;
+}
+#powerOffButton:hover {
+    transform: scale(1.05);
+}
