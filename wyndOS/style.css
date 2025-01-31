@@ -763,9 +763,26 @@ background: #6ca1b3 !important;
 }
 .startLabels {
 position: relative;
-bottom: 5px;
+bottom: 3px;
 left: 5px;
 }
 #powerOffButton:hover {
     transform: scale(1.05);
+}
+.startMenuButton {
+    position: absolute;
+    left: -2px;
+    margin-bottom: 1px;
+    height: 24px;
+    background: none;
+    width: 91px;
+    border-radius: 5px;
+    border: none;
+}
+.startImage {
+    transition: 0.1s;
+}
+.startImage:hover {
+    background-color: rgba(0, 0, 0, 0.2);
+    border-radius: 5px;
 }

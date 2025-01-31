@@ -412,18 +412,20 @@
     <div style="position: relative; left: 2px;">
         <div class="content-box" style="background: linear-gradient(rgba(255,255,255,0.5), rgba(255,255,255,0.5)), url(/images/background/macesque.png); background-size: 15% 15%; background-repeat: repeat; image-rendering: pixelated; width: 110px; height: 210px; position: relative; right: 10px; overflow: scroll;" id="startContent">
             <div style="position: relative; right: 3px; color: #252525; image-rendering: auto !important;">
-                <img src="/icons/faviconalt.png"><span class="startLabels">About</span>
+                <div class="startImage"><img src="/icons/faviconalt.png" style="position: relative; top: 1px;"><span class="startLabels">About</span>
+                <button id="aboutButton2" class="startMenuButton"></button></div>
                 <hr>
-            <img src="/icons/lightlamp.png"><span class="startLabels">lamp.wyn</span>
+                <div class="startImage"><img src="/icons/lightlamp.png" style="position: relative; top: 1px;"><span class="startLabels">lamp.wyn</span>
+            <button onclick="toggleLamp()" class="startMenuButton"></button></div>
             <br>
-            <img src="/wyndOS/icons/audio.png"><span class="startLabels">audio.wyn</span>
-            <br>
-            <img src="/wyndOS/icons/discalt.png"><span class="startLabels">wyndQST</span>
+            <div class="startImage" style="position: relative; bottom: 15px;"><img src="/wyndOS/icons/discalt.png" style="position: relative; top: 1px;"><span class="startLabels">wyndQST</span>
+            <button id="qstButton2" class="startMenuButton"></button></div>
             </div>
         </div>
         <div class="content-box" style="background-color: #c3edfd; width: 110px; height: 210px; position: relative; right: -100px; bottom: 210px;" id="startContentRight">
             <div style="position: relative; right: 3px; color: #252525;"></div>
-            <img src="/wyndOS/icons/doohickey.png"><span class="startLabels">Disk</span>
+            <div class="startImage"><img src="/wyndOS/icons/doohickey.png" style="position: relative; top: 1px;"><span class="startLabels">Disk</span>
+                <button id="diskButton2" class="startMenuButton" style="left: 10px;"></button></div>
             </div>
         </div>
         <span style="position: absolute; bottom: 5px; right: 27px; font-size: 15pt; color: white;" id="restartLabel">Restart</span>
@@ -474,19 +476,23 @@ startMenu.addEventListener("click", function (event) {
 
 // Ensure draggable windows always appear **above** the Start menu
 draggableWindows.forEach(window => {
-    window.addEventListener("mousedown", function () {
+    function bringToFront() {
         this.style.zIndex = "200"; // Move the window to the front
         startMenu.style.zIndex = "50"; // Push Start menu behind
-    });
+        startMenu.style.display = "none"; // Hide Start menu when interacting with a window
+    }
 
-    // Hide Start menu when dragging a window
-    window.addEventListener("dragstart", function () {
+    function hideStartMenu() {
         startMenu.style.display = "none";
-    });
+    }
 
-    window.addEventListener("mousedown", function () {
-        startMenu.style.display = "none"; // Hide Start menu when clicking a window
-    });
+    // Events for mouse interaction
+    window.addEventListener("mousedown", bringToFront);
+    window.addEventListener("dragstart", hideStartMenu);
+
+    // Events for touch interaction (mobile)
+    window.addEventListener("touchstart", bringToFront, { passive: true });
+    window.addEventListener("touchmove", hideStartMenu, { passive: true });
 });
 
 </script>
@@ -544,6 +550,26 @@ draggableWindows.forEach(window => {
         }
     });
     </script>
+    <script>
+        document.getElementById('aboutButton2').addEventListener('click', function () {
+            var div = document.getElementById('aboutDiv');
+            if (div.style.display === 'none') {
+                // Add the wait cursor class to the body
+                document.body.classList.add('wait-cursor');
+                
+                setTimeout(function () {
+                    div.style.display = 'block';
+                    div.style.left = `calc(50vw - 150px)`;
+                    div.style.top = `calc(25vh)`;
+        
+                    // Remove the wait cursor class
+                    document.body.classList.remove('wait-cursor');
+                }, 100); // Delay in milliseconds (0.1s)
+            } else {
+                div.style.display = 'block';
+            }
+        });
+        </script>
 <script>
     // Load the saved theme from localStorage
     document.addEventListener("DOMContentLoaded", () => {
@@ -675,21 +701,41 @@ draggableElements.forEach(el => {
 const aboutButton = document.getElementById('aboutButton');
 const diskButton = document.getElementById('diskButton');
 const qstButton = document.getElementById('qstButton');
+const aboutButton2 = document.getElementById('aboutButton2'); // From Start menu
+const diskButton2 = document.getElementById('diskButton2'); // From Start menu
+const qstButton2 = document.getElementById('qstButton2'); // From Start menu
 const aboutDiv = document.getElementById('aboutDiv');
 const diskDiv = document.getElementById('diskDiv');
 const qstDiv = document.getElementById('qstDiv');
 
-aboutButton.addEventListener('click', () => {
-  aboutDiv.style.zIndex = ++currentZIndex;
+// Function to bring a div to the front
+function bringToFront(div) {
+  div.style.zIndex = ++currentZIndex;
+}
+
+// Attach event listeners to all buttons
+[aboutButton, aboutButton2].forEach(btn => btn?.addEventListener('click', () => bringToFront(aboutDiv)));
+[diskButton, diskButton2].forEach(btn => btn?.addEventListener('click', () => bringToFront(diskDiv)));
+[qstButton, qstButton2].forEach(btn => btn?.addEventListener('click', () => bringToFront(qstDiv)));
+
+// Resize fix script
+let lastWidth = window.innerWidth;
+window.addEventListener("resize", () => {
+    let currentWidth = window.innerWidth;
+    if (
+        (lastWidth < 1000 && currentWidth >= 1000) || 
+        (lastWidth >= 1000 && currentWidth < 1000) || 
+        (lastWidth < 1200 && currentWidth >= 1200) || 
+        (lastWidth >= 1200 && currentWidth < 1200)
+    ) {
+        document.body.style.display = "none";
+        setTimeout(() => {
+            document.body.style.display = "block";
+        }, 0);
+    }
+    lastWidth = currentWidth;
 });
 
-diskButton.addEventListener('click', () => {
-  diskDiv.style.zIndex = ++currentZIndex;
-});
-
-qstButton.addEventListener('click', () => {
-  qstDiv.style.zIndex = ++currentZIndex;
-});
   </script>
   <script>
     let lastWidth = window.innerWidth;
@@ -780,6 +826,26 @@ window.addEventListener("resize", () => {
         }
     });
     </script>
+    <script>
+        document.getElementById('diskButton2').addEventListener('click', function () {
+            var div = document.getElementById('diskDiv');
+            if (div.style.display === 'none') {
+                // Add the wait cursor class to the body
+                document.body.classList.add('wait-cursor');
+                
+                setTimeout(function () {
+                    div.style.display = 'block';
+                    div.style.left = `calc(50vw - 150px)`;
+                    div.style.top = `calc(25vh)`;
+        
+                    // Remove the wait cursor class
+                    document.body.classList.remove('wait-cursor');
+                }, 200); // Delay in milliseconds (0.1s)
+            } else {
+                div.style.display = 'block';
+            }
+        });
+        </script>
 <script>
     document.getElementById('qstButton').addEventListener('click', function () {
         var div = document.getElementById('qstDiv');
@@ -800,6 +866,26 @@ window.addEventListener("resize", () => {
         }
     });
     </script>
+    <script>
+        document.getElementById('qstButton2').addEventListener('click', function () {
+            var div = document.getElementById('qstDiv');
+            if (div.style.display === 'none') {
+                // Add the wait cursor class to the body
+                document.body.classList.add('wait-cursor');
+                
+                setTimeout(function () {
+                    div.style.display = 'block';
+                    div.style.left = `calc(50vw - 150px)`;
+                    div.style.top = `calc(25vh)`;
+        
+                    // Remove the wait cursor class
+                    document.body.classList.remove('wait-cursor');
+                }, 250); // Delay in milliseconds (0.1s)
+            } else {
+                div.style.display = 'block';
+            }
+        });
+        </script>
 <script>
     // Check localStorage for saved audio state
     let isMuted = localStorage.getItem('audioMuted') === 'true';
