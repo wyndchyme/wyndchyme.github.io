@@ -798,6 +798,8 @@ left: 5px;
         top: 1px;
         margin-left: 5px;
         cursor: pointer;
+        margin-bottom: 2px;
+        left: 2px;
 }
 .dark-mode .toolbar-icon {
     border-top: 3px solid #195770;
@@ -815,7 +817,7 @@ left: 5px;
 }
 .desktop-safari {
     .toolbar-icon {
-        margin-top: 1px;
+        margin-top: -1px;
     }
 }
 .safari-mobile {

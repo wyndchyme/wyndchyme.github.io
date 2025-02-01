@@ -402,22 +402,27 @@
     </div>
 </div>
 <div style="position: absolute; right: 30; bottom: 75; font-size: 18pt; color: #252525;" class="boing" id="Activate">Activate wyndOS</div>
-    <div class="toolbar" style="position: absolute; left: 3px; bottom: 15px; display: flex;">
-        <button id="startButton" style="border: none; background-color: transparent; width: 40px; z-index: 5;"><div class="tbicon" style="width: 40px; text-align: left; position: relative; left: -6px; height: 40px;"><img src="/icons/faviconalt.png" style="position: relative; top: 5px; left: 5px; width: 28px;"></div></button>
-        <div class="tbclock"></div>
-        <div id="aboutToolbarIcon" class="toolbar-icon">
-            <img src="/icons/faviconalt.png">
-            
-        </div>
-        <div id="diskToolbarIcon" class="toolbar-icon">
-            <img src="/wyndOS/icons/doohickey.png" style="right: 2px;">
-            
-        </div>
-        <div id="qstToolbarIcon" class="toolbar-icon">
-            <img src="/wyndOS/icons/discalt.png">
-            
-        </div>
+<div class="toolbar" style="position: absolute; left: 3px; bottom: 15px; display: flex; align-items: center;">
+    <button id="startButton" style="border: none; background-color: transparent; width: 40px; z-index: 5;">
+      <div class="tbicon" style="width: 40px; text-align: left; position: relative; left: -6px; height: 40px;">
+        <img src="/icons/faviconalt.png" style="position: relative; top: 5px; left: 5px; width: 28px;">
+      </div>
+    </button>
+    <div class="tbclock"></div>
+    <div id="toolbarIconsContainer" style="display: flex; gap: 2px;">
+      <div id="aboutToolbarIcon" class="toolbar-icon" style="display: none;">
+        <img src="/icons/faviconalt.png">
+      </div>
+      <div id="diskToolbarIcon" class="toolbar-icon" style="display: none;">
+        <img src="/wyndOS/icons/doohickey.png" style="right: 2px;">
+      </div>
+      <div id="qstToolbarIcon" class="toolbar-icon" style="display: none;">
+        <img src="/wyndOS/icons/discalt.png">
+      </div>
     </div>
+  </div>
+  
+
     </div>
         
     <div id="startMenu" class="hidden" style="position: absolute; left: 21px; bottom: 70px; filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.2)); height: 275px;">
@@ -455,6 +460,55 @@
     document.body.classList.add('safari-mobile');
 }
     </script>
+    <script>
+        const windows = [
+            { id: "aboutDiv", toolbarId: "aboutToolbarIcon" },
+            { id: "diskDiv", toolbarId: "diskToolbarIcon" },
+            { id: "qstDiv", toolbarId: "qstToolbarIcon" }
+        ];
+    
+        const toolbarIconsContainer = document.getElementById("toolbarIconsContainer");
+        let openOrder = [];
+    
+        function updateToolbarOrder() {
+            openOrder.sort((a, b) => a.timestamp - b.timestamp);
+            openOrder.forEach(icon => toolbarIconsContainer.appendChild(icon.element));
+        }
+    
+        function handleWindowChange(id) {
+            const win = windows.find(w => w.id === id);
+            const windowEl = document.getElementById(win.id);
+            const toolbarEl = document.getElementById(win.toolbarId);
+    
+            if (!windowEl || !toolbarEl) return;
+    
+            if (windowEl.style.display === "block") {
+                let existing = openOrder.find(item => item.element === toolbarEl);
+                if (existing) {
+                    existing.timestamp = Date.now();
+                } else {
+                    openOrder.push({ element: toolbarEl, timestamp: Date.now() });
+                }
+                toolbarEl.style.display = "block";
+            } else {
+                openOrder = openOrder.filter(item => item.element !== toolbarEl);
+                toolbarEl.style.display = "none";
+            }
+    
+            updateToolbarOrder();
+        }
+    
+        windows.forEach(win => {
+            const windowEl = document.getElementById(win.id);
+            if (windowEl) {
+                const observer = new MutationObserver(() => handleWindowChange(win.id));
+                observer.observe(windowEl, { attributes: true, attributeFilter: ['style'] });
+            }
+        });
+    
+    </script>
+    
+    
     <script>
         if (
   /Macintosh/.test(navigator.userAgent) && // Check if it's a Mac (Safari is mostly used here)
