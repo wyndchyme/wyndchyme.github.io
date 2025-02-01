@@ -411,13 +411,19 @@
     <div class="tbclock"></div>
     <div id="toolbarIconsContainer" style="display: flex; gap: 2px;">
       <div id="aboutToolbarIcon" class="toolbar-icon" style="display: none;">
-        <img src="/icons/faviconalt.png">
+        <button id="aboutToolbarButton">
+        <img src="/icons/aboutme/anythingelse.png" style="position: relative; bottom: 3px;">
+    </button>
       </div>
       <div id="diskToolbarIcon" class="toolbar-icon" style="display: none;">
+        <button id="diskToolbarButton">
         <img src="/wyndOS/icons/doohickey.png" style="right: 2px;">
+    </button>
       </div>
       <div id="qstToolbarIcon" class="toolbar-icon" style="display: none;">
+        <button id="qstToolbarButton">
         <img src="/wyndOS/icons/discalt.png">
+    </button>
       </div>
     </div>
   </div>
@@ -850,6 +856,9 @@ document.addEventListener("gestureend", function(event) {
     const aboutButton2 = document.getElementById('aboutButton2');
     const diskButton2 = document.getElementById('diskButton2');
     const qstButton2 = document.getElementById('qstButton2');
+    const aboutToolbarButton = document.getElementById('aboutToolbarButton');
+    const diskToolbarButton = document.getElementById('diskToolbarButton');
+    const qstToolbarButton = document.getElementById('qstToolbarButton');
     const aboutDiv = document.getElementById('aboutDiv');
     const diskDiv = document.getElementById('diskDiv');
     const qstDiv = document.getElementById('qstDiv');
@@ -858,9 +867,9 @@ document.addEventListener("gestureend", function(event) {
       div.style.zIndex = ++currentZIndex;
     }
     
-    [aboutButton, aboutButton2].forEach(btn => btn?.addEventListener('click', () => bringToFront(aboutDiv)));
-    [diskButton, diskButton2].forEach(btn => btn?.addEventListener('click', () => bringToFront(diskDiv)));
-    [qstButton, qstButton2].forEach(btn => btn?.addEventListener('click', () => bringToFront(qstDiv)));
+    [aboutButton, aboutButton2, aboutToolbarButton].forEach(btn => btn?.addEventListener('click', () => bringToFront(aboutDiv)));
+    [diskButton, diskButton2, diskToolbarButton].forEach(btn => btn?.addEventListener('click', () => bringToFront(diskDiv)));
+    [qstButton, qstButton2, qstToolbarButton].forEach(btn => btn?.addEventListener('click', () => bringToFront(qstDiv)));
     
     let lastWidth = window.innerWidth;
     window.addEventListener("resize", () => {
