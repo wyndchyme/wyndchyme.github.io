@@ -810,6 +810,7 @@ left: 5px;
     width: 28px;
     position: relative;
     margin-top: 13%;
+    right: 1px;
 }
 .toolbar-icon:hover {
     background-image: linear-gradient(white, rgb(211, 242, 255));
