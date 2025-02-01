@@ -33,7 +33,7 @@ html {
  }
  .dark-mode .tbicon {
     border-top: 3px solid #195770;
-    border-bottom: 3px solid #195770;
+    border-bottom: 3px solid #267da0;
     background-color: skyblue;
  }
  .dark-mode .tbclock {
@@ -786,4 +786,31 @@ left: 5px;
 .startImage:hover {
     background-color: rgba(0, 0, 0, 0.2);
     border-radius: 5px;
+}
+.toolbar-icon {
+    background-image: linear-gradient(rgb(206, 238, 249), rgb(136, 182, 201));
+        width: 40px;
+        height: 40px;
+        text-align: center;
+        position: relative;
+        border-top: 3px solid skyblue;
+        border-bottom: 3px solid rgb(93, 149, 173);
+        display: none;
+        border-radius: 5px;
+        top: 1px;
+        margin-left: 5px;
+        cursor: pointer;
+}
+.dark-mode .toolbar-icon {
+    border-top: 3px solid #195770;
+    border-bottom: 3px solid #267da0;
+    background-image: linear-gradient(rgb(206, 238, 249), rgb(136, 182, 201));
+ }
+.toolbar-icon img {
+    width: 28px;
+    position: relative;
+    margin-top: 13%;
+}
+.toolbar-icon:hover {
+    background-image: linear-gradient(white, rgb(211, 242, 255));
 }

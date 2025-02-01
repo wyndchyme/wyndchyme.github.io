@@ -402,9 +402,23 @@
     </div>
 </div>
 <div style="position: absolute; right: 30; bottom: 75; font-size: 18pt; color: #252525;" class="boing" id="Activate">Activate wyndOS</div>
-    <div class="toolbar" style="position: absolute; left: 3px; bottom: 15px;">
+    <div class="toolbar" style="position: absolute; left: 3px; bottom: 15px; display: flex;">
         <button id="startButton" style="border: none; background-color: transparent; width: 40px; z-index: 5;"><div class="tbicon" style="width: 40px; text-align: left; position: relative; left: -6px; height: 40px;"><img src="/icons/faviconalt.png" style="position: relative; top: 5px; left: 5px; width: 28px;"></div></button>
-        <div class="tbclock"></div></div>
+        <div class="tbclock"></div>
+        <div id="aboutToolbarIcon" class="toolbar-icon">
+            <img src="/icons/faviconalt.png">
+            
+        </div>
+        <div id="diskToolbarIcon" class="toolbar-icon">
+            <img src="/wyndOS/icons/doohickey.png" style="right: 2px;">
+            
+        </div>
+        <div id="qstToolbarIcon" class="toolbar-icon">
+            <img src="/wyndOS/icons/discalt.png">
+            
+        </div>
+    </div>
+    </div>
         
     <div id="startMenu" class="hidden" style="position: absolute; left: 21px; bottom: 70px; filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.2)); height: 275px;">
         <div style="position: relative; bottom: 3px; left: -5px;">
@@ -436,6 +450,31 @@
     </div>
     </div>
     </div>
+    <script>
+        const windows = [
+    { id: "aboutDiv", toolbarId: "aboutToolbarIcon" },
+    { id: "diskDiv", toolbarId: "diskToolbarIcon" },
+    { id: "qstDiv", toolbarId: "qstToolbarIcon" }
+];
+
+function updateToolbarVisibility() {
+        windows.forEach(win => {
+            const windowEl = document.getElementById(win.id);
+            const toolbarEl = document.getElementById(win.toolbarId);
+
+            if (windowEl.style.display === "block") {
+                toolbarEl.style.display = "block";  // Show toolbar icon
+            } else {
+                toolbarEl.style.display = "none";   // Hide toolbar icon
+            }
+        });
+    }
+
+
+// Run initially and whenever a window’s display changes
+setInterval(updateToolbarVisibility, 500);
+
+    </script>
     <script>
         function refreshPage() {
             document.body.classList.add("wait-cursor"); // Add the 'wait-cursor' class
