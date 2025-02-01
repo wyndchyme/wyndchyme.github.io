@@ -762,131 +762,124 @@ document.addEventListener("gestureend", function(event) {
         setInterval(updateClock, 1000);
     </script>
   <script>
-// Track the highest z-index
-let currentZIndex = 1;
-
-// Select all draggable elements
-const draggableElements = document.querySelectorAll('.draggable');
-
-// Get the zoom factor (adjust this to match your CSS value)
-const zoomFactor = parseFloat(getComputedStyle(document.body).zoom) || 115;
-
-draggableElements.forEach(el => {
-  const header = el.querySelector('.header');
-
-  // Increment z-index on click
-  el.addEventListener('click', () => {
-    el.style.zIndex = ++currentZIndex;
-  });
-
-  function startDrag(event) {
-    el.style.zIndex = ++currentZIndex;
-
-    let shiftX, shiftY;
-
-    // Handle mouse or touch events
-    if (event.type === 'mousedown') {
-      shiftX = (event.clientX - el.getBoundingClientRect().left) / zoomFactor;
-      shiftY = (event.clientY - el.getBoundingClientRect().top) / zoomFactor;
-    } else if (event.type === 'touchstart') {
-      const touch = event.touches[0];
-      shiftX = (touch.clientX - el.getBoundingClientRect().left) / zoomFactor;
-      shiftY = (touch.clientY - el.getBoundingClientRect().top) / zoomFactor;
-    }
-
-    function moveAt(pageX, pageY) {
-      // Adjust for zoom when calculating new position
-      let newLeft = (pageX / zoomFactor) - shiftX;
-      let newTop = (pageY / zoomFactor) - shiftY;
-
-      // Prevent going over top and bottom edges with the new 15px and 65px or 128px constraints
-      const minTop = 20;
-      let maxTop;
-
-      // Special offset for #qstDiv
-      if (el.id === 'qstDiv') {
-        maxTop = (window.innerHeight - el.offsetHeight) / zoomFactor - 150;
-      } else {
-        maxTop = (window.innerHeight - el.offsetHeight) / zoomFactor - 80;
+    // Track the highest z-index
+    let currentZIndex = 1;
+    
+    // Select all draggable elements
+    const draggableElements = document.querySelectorAll('.draggable');
+    
+    // Get the zoom factor (adjust this to match your CSS value)
+    const zoomFactor = parseFloat(getComputedStyle(document.body).zoom) || 115;
+    
+    draggableElements.forEach(el => {
+      const header = el.querySelector('.header');
+    
+      // Increment z-index on click or touch
+      function bringToFront() {
+        el.style.zIndex = ++currentZIndex;
       }
-
-      // Apply constraints
-      newTop = Math.max(minTop, Math.min(maxTop, newTop));
-
-      el.style.left = newLeft + 'px';
-      el.style.top = newTop + 'px';
-    }
-
-    function onMove(event) {
-      if (event.type === 'mousemove') {
-        moveAt(event.pageX, event.pageY);
-      } else if (event.type === 'touchmove') {
-        const touch = event.touches[0];
-        moveAt(touch.clientX, touch.clientY);
+    
+      el.addEventListener('click', bringToFront);
+      el.addEventListener('touchstart', bringToFront, { passive: true });
+    
+      function startDrag(event) {
+        el.style.zIndex = ++currentZIndex;
+    
+        let shiftX, shiftY;
+    
+        // Handle mouse or touch events
+        if (event.type === 'mousedown') {
+          shiftX = (event.clientX - el.getBoundingClientRect().left) / zoomFactor;
+          shiftY = (event.clientY - el.getBoundingClientRect().top) / zoomFactor;
+        } else if (event.type === 'touchstart') {
+          const touch = event.touches[0];
+          shiftX = (touch.clientX - el.getBoundingClientRect().left) / zoomFactor;
+          shiftY = (touch.clientY - el.getBoundingClientRect().top) / zoomFactor;
+        }
+    
+        function moveAt(pageX, pageY) {
+          let newLeft = (pageX / zoomFactor) - shiftX;
+          let newTop = (pageY / zoomFactor) - shiftY;
+    
+          const minTop = 20;
+          let maxTop;
+    
+          if (el.id === 'qstDiv') {
+            maxTop = (window.innerHeight - el.offsetHeight) / zoomFactor - 150;
+          } else {
+            maxTop = (window.innerHeight - el.offsetHeight) / zoomFactor - 80;
+          }
+    
+          newTop = Math.max(minTop, Math.min(maxTop, newTop));
+    
+          el.style.left = newLeft + 'px';
+          el.style.top = newTop + 'px';
+        }
+    
+        function onMove(event) {
+          if (event.type === 'mousemove') {
+            moveAt(event.pageX, event.pageY);
+          } else if (event.type === 'touchmove') {
+            const touch = event.touches[0];
+            moveAt(touch.clientX, touch.clientY);
+          }
+        }
+    
+        function endDrag() {
+          document.removeEventListener('mousemove', onMove);
+          document.removeEventListener('touchmove', onMove);
+          document.removeEventListener('mouseup', endDrag);
+          document.removeEventListener('touchend', endDrag);
+        }
+    
+        document.addEventListener('mousemove', onMove);
+        document.addEventListener('touchmove', onMove);
+        document.addEventListener('mouseup', endDrag);
+        document.addEventListener('touchend', endDrag);
       }
+    
+      header.addEventListener('mousedown', startDrag);
+      header.addEventListener('touchstart', startDrag, { passive: false });
+    
+      el.ondragstart = () => false;
+    });
+    
+    const aboutButton = document.getElementById('aboutButton');
+    const diskButton = document.getElementById('diskButton');
+    const qstButton = document.getElementById('qstButton');
+    const aboutButton2 = document.getElementById('aboutButton2');
+    const diskButton2 = document.getElementById('diskButton2');
+    const qstButton2 = document.getElementById('qstButton2');
+    const aboutDiv = document.getElementById('aboutDiv');
+    const diskDiv = document.getElementById('diskDiv');
+    const qstDiv = document.getElementById('qstDiv');
+    
+    function bringToFront(div) {
+      div.style.zIndex = ++currentZIndex;
     }
-
-    function endDrag() {
-      document.removeEventListener('mousemove', onMove);
-      document.removeEventListener('touchmove', onMove);
-      document.removeEventListener('mouseup', endDrag);
-      document.removeEventListener('touchend', endDrag);
-    }
-
-    // Attach move and end handlers
-    document.addEventListener('mousemove', onMove);
-    document.addEventListener('touchmove', onMove);
-    document.addEventListener('mouseup', endDrag);
-    document.addEventListener('touchend', endDrag);
-  }
-
-  // Attach start handlers for mouse and touch
-  header.addEventListener('mousedown', startDrag);
-  header.addEventListener('touchstart', startDrag);
-
-  el.ondragstart = () => false; // Disable default drag behavior
-});
-
-// Bring specific divs to front when buttons are clicked
-const aboutButton = document.getElementById('aboutButton');
-const diskButton = document.getElementById('diskButton');
-const qstButton = document.getElementById('qstButton');
-const aboutButton2 = document.getElementById('aboutButton2'); // From Start menu
-const diskButton2 = document.getElementById('diskButton2'); // From Start menu
-const qstButton2 = document.getElementById('qstButton2'); // From Start menu
-const aboutDiv = document.getElementById('aboutDiv');
-const diskDiv = document.getElementById('diskDiv');
-const qstDiv = document.getElementById('qstDiv');
-
-// Function to bring a div to the front
-function bringToFront(div) {
-  div.style.zIndex = ++currentZIndex;
-}
-
-// Attach event listeners to all buttons
-[aboutButton, aboutButton2].forEach(btn => btn?.addEventListener('click', () => bringToFront(aboutDiv)));
-[diskButton, diskButton2].forEach(btn => btn?.addEventListener('click', () => bringToFront(diskDiv)));
-[qstButton, qstButton2].forEach(btn => btn?.addEventListener('click', () => bringToFront(qstDiv)));
-
-// Resize fix script
-let lastWidth = window.innerWidth;
-window.addEventListener("resize", () => {
-    let currentWidth = window.innerWidth;
-    if (
-        (lastWidth < 1000 && currentWidth >= 1000) || 
-        (lastWidth >= 1000 && currentWidth < 1000) || 
-        (lastWidth < 1200 && currentWidth >= 1200) || 
-        (lastWidth >= 1200 && currentWidth < 1200)
-    ) {
-        document.body.style.display = "none";
-        setTimeout(() => {
-            document.body.style.display = "block";
-        }, 0);
-    }
-    lastWidth = currentWidth;
-});
-
-  </script>
+    
+    [aboutButton, aboutButton2].forEach(btn => btn?.addEventListener('click', () => bringToFront(aboutDiv)));
+    [diskButton, diskButton2].forEach(btn => btn?.addEventListener('click', () => bringToFront(diskDiv)));
+    [qstButton, qstButton2].forEach(btn => btn?.addEventListener('click', () => bringToFront(qstDiv)));
+    
+    let lastWidth = window.innerWidth;
+    window.addEventListener("resize", () => {
+        let currentWidth = window.innerWidth;
+        if (
+            (lastWidth < 1000 && currentWidth >= 1000) || 
+            (lastWidth >= 1000 && currentWidth < 1000) || 
+            (lastWidth < 1200 && currentWidth >= 1200) || 
+            (lastWidth >= 1200 && currentWidth < 1200)
+        ) {
+            document.body.style.display = "none";
+            setTimeout(() => {
+                document.body.style.display = "block";
+            }, 0);
+        }
+        lastWidth = currentWidth;
+    });
+    </script>
+    
   <script>
     let lastWidth = window.innerWidth;
 
