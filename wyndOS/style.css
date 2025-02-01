@@ -830,7 +830,8 @@ left: 5px;
         left: 7px;
     }
     .toolbar-icon button img {
-        margin-right: 5px;
+        position: relative;
+        right: 6px !important;
     }
 }
 .toolbar-icon button {
