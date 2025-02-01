@@ -132,6 +132,7 @@ border-top: 3px solid skyblue;
 border-bottom: 3px solid rgb(95, 140, 162);
 display: inline-block;
 border-radius: 5px 5px 0 0;
+margin-right: 5px;
 }
 .tbicon:hover {
     background-color: white;
@@ -826,5 +827,7 @@ left: 5px;
     }
     .toolbar-icon {
         margin-bottom: 1px;
+        position: relative;
+        left: 5px;
     }
 }
