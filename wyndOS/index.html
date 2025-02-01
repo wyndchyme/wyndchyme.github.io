@@ -451,6 +451,20 @@
     </div>
     </div>
     <script>
+        if (/iPhone|iPad|iPod/.test(navigator.userAgent) && /AppleWebKit/.test(navigator.userAgent) && !/Chrome/.test(navigator.userAgent)) {
+    document.body.classList.add('safari-mobile');
+}
+    </script>
+    <script>
+        if (
+  /Macintosh/.test(navigator.userAgent) && // Check if it's a Mac (Safari is mostly used here)
+  /Safari/.test(navigator.userAgent) && // Check if it's Safari
+  !/Chrome/.test(navigator.userAgent) // Exclude Chrome (which also uses WebKit)
+) {
+    document.body.classList.add('desktop-safari');
+}
+    </script>
+    <script>
         const windows = [
     { id: "aboutDiv", toolbarId: "aboutToolbarIcon" },
     { id: "diskDiv", toolbarId: "diskToolbarIcon" },

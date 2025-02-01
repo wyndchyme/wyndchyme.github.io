@@ -131,7 +131,7 @@ position: relative;
 border-top: 3px solid skyblue;
 border-bottom: 3px solid rgb(95, 140, 162);
 display: inline-block;
-border-radius: 5px;
+border-radius: 5px 5px 0 0;
 }
 .tbicon:hover {
     background-color: white;
@@ -796,7 +796,7 @@ left: 5px;
         border-top: 3px solid skyblue;
         border-bottom: 3px solid rgb(93, 149, 173);
         display: none;
-        border-radius: 5px;
+        border-radius: 5px 5px 0 0;
         top: 1px;
         margin-left: 5px;
         cursor: pointer;
@@ -814,4 +814,17 @@ left: 5px;
 }
 .toolbar-icon:hover {
     background-image: linear-gradient(white, rgb(211, 242, 255));
+}
+.desktop-safari {
+    .toolbar-icon {
+        margin-top: 1px;
+    }
+}
+.safari-mobile {
+    .tbicon {
+        margin-right: 5px;
+    }
+    .toolbar-icon {
+        margin-bottom: 1px;
+    }
 }
