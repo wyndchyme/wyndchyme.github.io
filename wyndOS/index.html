@@ -445,58 +445,74 @@
         }
     </script>
 <script>
-  const startButton = document.getElementById("startButton");
-const startMenu = document.getElementById("startMenu");
-const draggableWindows = document.querySelectorAll(".draggable");
-const toolbar = document.querySelectorAll(".toolbar"); // Select all toolbar elements
-
-// Set toolbar z-index high to always stay in front of the Start menu
-toolbar.forEach(item => {
-    item.style.zIndex = "999"; // Ensures toolbar is always on top
-});
-
-startButton.addEventListener("click", function (event) {
-    event.stopPropagation(); // Prevents immediate closing when clicking the button
-    if (startMenu.style.display === "block") {
-        startMenu.style.display = "none"; // Hide if already open
-    } else {
-        startMenu.style.display = "block"; // Show when clicking Start
-        startMenu.style.zIndex = "100"; // Bring it to the front (but behind toolbar)
+    const startButton = document.getElementById("startButton");
+    const startMenu = document.getElementById("startMenu");
+    const draggableWindows = document.querySelectorAll(".draggable");
+    const toolbar = document.querySelectorAll(".toolbar");
+    
+    // Set toolbar z-index high to always stay in front of the Start menu
+    toolbar.forEach(item => {
+        item.style.zIndex = "999";
+    });
+    
+    // Function to repaint background
+    function repaintBackground() {
+        const bgPosition = getComputedStyle(document.body).backgroundPosition;
+        document.body.style.backgroundPosition = bgPosition; // Force repaint
     }
-});
-
-// Hide the Start menu when clicking anywhere else
-document.addEventListener("click", function () {
-    startMenu.style.display = "none";
-});
-
-// Prevent the menu from closing when clicking inside it
-startMenu.addEventListener("click", function (event) {
-    event.stopPropagation();
-});
-
-// Ensure draggable windows always appear **above** the Start menu
-draggableWindows.forEach(window => {
-    function bringToFront() {
-        this.style.zIndex = "200"; // Move the window to the front
-        startMenu.style.zIndex = "50"; // Push Start menu behind
-        startMenu.style.display = "none"; // Hide Start menu when interacting with a window
-    }
-
-    function hideStartMenu() {
+    
+    startButton.addEventListener("click", function (event) {
+        event.stopPropagation(); // Prevents immediate closing when clicking the button
+    
+        // Capture background position before toggling
+        const bgBefore = getComputedStyle(document.body).backgroundPosition;
+    
+        if (startMenu.style.display === "block") {
+            startMenu.style.display = "none";
+        } else {
+            startMenu.style.display = "block";
+            startMenu.style.zIndex = "100";
+        }
+    
+        // Force repaint to prevent unintended shifts
+        setTimeout(() => {
+            document.body.style.backgroundPosition = bgBefore;
+        }, 0);
+    });
+    
+    // Hide the Start menu when clicking anywhere else
+    document.addEventListener("click", function () {
         startMenu.style.display = "none";
-    }
-
-    // Events for mouse interaction
-    window.addEventListener("mousedown", bringToFront);
-    window.addEventListener("dragstart", hideStartMenu);
-
-    // Events for touch interaction (mobile)
-    window.addEventListener("touchstart", bringToFront, { passive: true });
-    window.addEventListener("touchmove", hideStartMenu, { passive: true });
-});
-
-</script>
+    });
+    
+    // Prevent the menu from closing when clicking inside it
+    startMenu.addEventListener("click", function (event) {
+        event.stopPropagation();
+    });
+    
+    // Ensure draggable windows always appear **above** the Start menu
+    draggableWindows.forEach(window => {
+        function bringToFront() {
+            this.style.zIndex = "200";
+            startMenu.style.zIndex = "50";
+            startMenu.style.display = "none";
+            repaintBackground(); // Fix background shift
+        }
+    
+        function hideStartMenu() {
+            startMenu.style.display = "none";
+            repaintBackground(); // Fix background shift
+        }
+    
+        // Events for mouse interaction
+        window.addEventListener("mousedown", bringToFront);
+        window.addEventListener("dragstart", hideStartMenu);
+    
+        // Events for touch interaction (mobile)
+        window.addEventListener("touchstart", bringToFront, { passive: true });
+        window.addEventListener("touchmove", hideStartMenu, { passive: true });
+    });
+    </script>    
 <script>
     // Select the draggable element and its header
     const draggable = document.querySelector('.draggable');
