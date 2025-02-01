@@ -829,6 +829,9 @@ left: 5px;
         position: relative;
         left: 7px;
     }
+    .toolbar-icon button img {
+        margin-right: 5px;
+    }
 }
 .toolbar-icon button {
     background: none;
