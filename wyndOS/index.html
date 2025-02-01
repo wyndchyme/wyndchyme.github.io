@@ -11,6 +11,7 @@
         <meta property="twitter:title" content="wyndchyme &#8226 wyndOS" />
         <meta property="twitter:description" content="the world's least useful operating system" />
         <meta property="twitter:image" content="/images/meta/preview.png" />
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
         <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?">
         <link rel="preload" as="image" href="/icons/lightlamp2.png">
         <link rel="preload" as="image" href="/wyndOS/icons/folderopen.png">
@@ -529,7 +530,33 @@ draggableWindows.forEach(window => {
             }, 75); 
         });
     });
-</script>   
+</script>  
+<script>
+    // Prevent pinch-to-zoom
+document.addEventListener("wheel", function(event) {
+    if (event.ctrlKey) {
+        event.preventDefault();
+    }
+}, { passive: false });
+
+// Prevent keyboard zoom (Ctrl + +/-)
+document.addEventListener("keydown", function(event) {
+    if (event.ctrlKey && (event.key === "=" || event.key === "-" || event.key === "0")) {
+        event.preventDefault();
+    }
+});
+
+// Prevent touch pinch-to-zoom
+document.addEventListener("gesturestart", function(event) {
+    event.preventDefault();
+});
+document.addEventListener("gesturechange", function(event) {
+    event.preventDefault();
+});
+document.addEventListener("gestureend", function(event) {
+    event.preventDefault();
+});
+</script> 
 <script>
     document.getElementById('aboutButton').addEventListener('click', function () {
         var div = document.getElementById('aboutDiv');
