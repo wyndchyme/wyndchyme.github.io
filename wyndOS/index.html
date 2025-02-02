@@ -412,17 +412,28 @@
     <div id="toolbarIconsContainer" style="display: flex; gap: 2px;">
       <div id="aboutToolbarIcon" class="toolbar-icon" style="display: none;">
         <button id="aboutToolbarButton">
+            <div class="aboutException">
         <img src="/icons/aboutme/anythingelse.png" style="position: relative; bottom: 3px;">
+    </div>
+    <div class="aboutException2">
+        <img src="/icons/faviconalt.png" style="position: relative; bottom: 3px;">
+    </div>
+        <span class="toolbarLabel">About</span>
+        <button class="close-btn" id="aboutToolbarClose" style="top: 8px;">X</button>
     </button>
       </div>
       <div id="diskToolbarIcon" class="toolbar-icon" style="display: none;">
         <button id="diskToolbarButton">
-        <img src="/wyndOS/icons/doohickey.png" style="right: 2px;">
+        <div class="diskException"><img src="/wyndOS/icons/doohickey.png" style="right: 2px;"></div>
+        <span class="toolbarLabel">Disk</span>
+        <button class="close-btn" id="diskToolbarClose" style="top: 8px;">X</button>
     </button>
       </div>
       <div id="qstToolbarIcon" class="toolbar-icon" style="display: none;">
         <button id="qstToolbarButton">
         <img src="/wyndOS/icons/discalt.png">
+        <span class="toolbarLabel">wyndQST</span>
+        <button class="close-btn" id="qstToolbarClose" style="top: 8px;">X</button>
     </button>
       </div>
     </div>
@@ -957,7 +968,63 @@ window.addEventListener("resize", () => {
         });
     });
 </script>
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const qstDiv = document.getElementById('qstDiv');
+        const closeButton = document.getElementById('qstToolbarClose');
 
+        closeButton.addEventListener('click', () => {
+            // Add the "wait-cursor" class to indicate the action
+            document.body.classList.add('wait-cursor');
+
+            // Add a 0.1s delay before hiding the qstDiv
+            setTimeout(() => {
+                qstDiv.style.display = 'none';
+
+                // Remove the "wait-cursor" class after the action
+                document.body.classList.remove('wait-cursor');
+            }, 100);  // 100ms delay
+        });
+    });
+</script>
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const diskDiv = document.getElementById('diskDiv');
+        const closeButton = document.getElementById('diskToolbarClose');
+
+        closeButton.addEventListener('click', () => {
+            // Add the "wait-cursor" class to indicate the action
+            document.body.classList.add('wait-cursor');
+
+            // Add a 0.1s delay before hiding the qstDiv
+            setTimeout(() => {
+                diskDiv.style.display = 'none';
+
+                // Remove the "wait-cursor" class after the action
+                document.body.classList.remove('wait-cursor');
+            }, 100);  // 100ms delay
+        });
+    });
+</script>
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const aboutDiv = document.getElementById('aboutDiv');
+        const closeButton = document.getElementById('aboutToolbarClose');
+
+        closeButton.addEventListener('click', () => {
+            // Add the "wait-cursor" class to indicate the action
+            document.body.classList.add('wait-cursor');
+
+            // Add a 0.1s delay before hiding the qstDiv
+            setTimeout(() => {
+                aboutDiv.style.display = 'none';
+
+                // Remove the "wait-cursor" class after the action
+                document.body.classList.remove('wait-cursor');
+            }, 100);  // 100ms delay
+        });
+    });
+</script>
 <script>
     document.getElementById('diskButton').addEventListener('click', function () {
         var div = document.getElementById('diskDiv');

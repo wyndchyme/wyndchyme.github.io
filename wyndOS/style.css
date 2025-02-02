@@ -845,3 +845,87 @@ left: 5px;
 .toolbar-icon button img {
     margin-bottom: 5px;
 }
+.toolbarLabel {
+    display: none;
+    font-family: 'Jersey 10';
+    font-size: 13pt;
+}
+.aboutException2 img {
+    display: none;
+}
+#aboutToolbarClose {
+    width: 22px !important;
+    height: 22px !important;
+    display: none;
+    color: #252525;
+    background-color: transparent;
+}
+#aboutToolbarClose:hover {
+    background-color: skyblue;
+    color: white;
+}
+#qstToolbarClose {
+    width: 22px !important;
+    height: 22px !important;
+    display: none;
+    color: #252525;
+    background-color: transparent;
+}
+#qstToolbarClose:hover {
+    background-color: skyblue;
+    color: white;
+}
+#diskToolbarClose {
+    width: 22px !important;
+    height: 22px !important;
+    display: none;
+    color: #252525;
+    background-color: transparent;
+}
+#diskToolbarClose:hover {
+    background-color: skyblue;
+    color: white;
+}
+.toolbar-icon:hover {
+    img {
+        animation: subtlesway 4s linear infinite;
+    }
+}
+@media screen and (min-width: 600px) {
+    .toolbar-icon {
+        width: 120px;
+    }
+    .toolbar-icon button img {
+        position: absolute !important;
+        left: 4px !important;
+        top: -9px !important;
+    }
+    .toolbarLabel {
+        display: block;
+        text-indent: 30px;
+        text-align: left !important;
+    }
+    .aboutException img {
+        display: none;
+    }
+    .aboutException2 img {
+        display: block;
+        width: 23px;
+    margin-left: 2px;
+    margin-top: 17px;
+    }
+    .diskException img {
+        margin-top: 15px;
+    }
+    .toolbar-icon:hover {
+        #aboutToolbarClose {
+            display: block;
+        }
+        #qstToolbarClose {
+            display: block;
+        }
+        #diskToolbarClose {
+            display: block;
+        }
+    }
+}
