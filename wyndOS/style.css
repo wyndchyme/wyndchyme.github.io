@@ -716,6 +716,10 @@ color: white;
     #powerOffButton {
         margin-left: 2px;
     }
+    .toolbarlabel {
+        position: relative;
+        left: 2px !important;
+    }
   }
   #aboutDiv img {
     image-rendering: auto;
