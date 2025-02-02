@@ -740,7 +740,16 @@ color: white;
     border: 2px solid #044058 !important;
 }
 #startMenu[style*="display: block"] {
-    animation: fadeIn 0.3s ease forwards;
+    animation: fadeUp 0.3s ease forwards;
+}
+@keyframes fadeUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+    }
 }
 .dark-mode #startMenu {
     background: skyblue;
