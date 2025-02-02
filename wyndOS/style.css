@@ -761,6 +761,8 @@ color: white;
 }
 #startContent img {
     width: 20px;
+    position: relative;
+    left: 2px;
 }
 #startContentRight {
     font-size: 13pt;
@@ -775,7 +777,7 @@ background: #6ca1b3 !important;
 .startLabels {
 position: relative;
 bottom: 3px;
-left: 5px;
+left: 7px;
 }
 #powerOffButton:hover {
     transform: scale(1.05);
@@ -793,6 +795,7 @@ left: 5px;
 .startImage:hover {
     background-color: rgba(0, 0, 0, 0.2);
     border-radius: 5px;
+
 }
 .toolbar-icon {
     background-image: linear-gradient(rgb(191, 239, 255), rgb(138, 199, 225));
