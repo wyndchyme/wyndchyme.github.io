@@ -798,9 +798,7 @@ left: 7px;
     border: none;
 }
 .startImage:hover {
-    background-color: rgba(0, 0, 0, 0.2);
-    border-radius: 5px;
-
+    text-decoration: underline;
 }
 .toolbar-icon {
     background-image: linear-gradient(rgb(191, 239, 255), rgb(138, 199, 225));
