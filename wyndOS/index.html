@@ -455,15 +455,20 @@
                 <div class="startImage" id="startLampButton"><img src="/icons/lightlamp.png" style="position: relative; top: 1px;" id="startLampI"><img src="/icons/lightlamp2.png" style="position: relative; top: 1px;" id="startLampII"><span class="startLabels">lamp.wyn</span>
             <button onclick="toggleLamp()" class="startMenuButton"></button></div>
             <br>
-            <div class="startImage" style="position: relative; bottom: 15px;"><img src="/wyndOS/icons/discalt.png" style="position: relative; top: 1px;"><span class="startLabels">wyndQST</span>
-            <button id="qstButton2" class="startMenuButton"></button></div>
+            <div class="startImage" style="position: relative; bottom: 15px;" id="startAudioButton"><img src="/wyndOS/icons/audioalt.png" id="startAudioI"><img src="/wyndOS/icons/audio.png" id="startAudioII"><img src="/wyndOS/icons/audiooff.png" id="startAudioIII"><span class="startLabels">audio.wyn</span>
+                <button id="audioToggleBtnStart" class="startMenuButton"></button></div>
+                <br>
             </div>
         </div>
         <div class="content-box" style="background-color: #c3edfd; width: 110px; height: 210px; position: relative; right: -100px; bottom: 210px;" id="startContentRight">
             <div style="position: relative; right: 3px; color: #252525;"></div>
-            <div class="startImage"><img src="/wyndOS/icons/doohickey.png" style="position: relative; top: 1px; left: 2px;"><span class="startLabels">Disk</span>
-                <button id="diskButton2" class="startMenuButton" style="left: 10px;"></button></div>
-            </div>
+            <div class="startImage"><img src="/wyndOS/icons/doohickey.png" style="position: relative; top: 1px; left: 2px;"><span class="startLabels">HDD</span>
+                <button id="diskButton2" class="startMenuButton" style="left: 8px;"></button></div>
+                <br>
+                <div class="startImage" style="position: relative; bottom: 15px; left: 4px;"><img src="/wyndOS/icons/discalt.png" style="position: relative; top: 1px;"><span class="startLabels" style="position: relative; left: 4px;">wyndQST</span>
+                    <button id="qstButton2" class="startMenuButton"></button></div>
+                    <hr style="position: relative; bottom: 15px;">
+                </div>
         </div>
         <span style="position: absolute; bottom: 5px; right: 27px; font-size: 15pt; color: white;" id="restartLabel">Restart</span>
         <button style="position: absolute; right: 5px; bottom: 5px; height: 20px; width: 20px; background: none; border: none; margin: 0; text-align: center; display: block;" onclick="refreshPage()">
@@ -1106,49 +1111,36 @@ window.addEventListener("resize", () => {
         });
         </script>
 <script>
-    // Check localStorage for saved audio state
-    let isMuted = localStorage.getItem('audioMuted') === 'true';
-    
-    // Select the button and body element
-    const audioToggleBtn = document.getElementById('audioToggleBtn');
-    const body = document.body;
-    
-    // Function to toggle audio
-    function toggleAudio() {
-        // Get all audio elements on the page
-        const audioElements = document.querySelectorAll('audio, video');
-        
-        // Toggle mute state for all audio elements
-        audioElements.forEach(audio => {
-            audio.muted = !audio.muted;
-        });
-        
-        // Update the localStorage and body class based on new state
-        isMuted = !isMuted;
-        localStorage.setItem('audioMuted', isMuted);
-        
-        // Add/remove the 'muted' class on the body element
-        if (isMuted) {
-            body.classList.add('muted');
-        } else {
-            body.classList.remove('muted');
+    document.addEventListener('DOMContentLoaded', function () {
+        // Select the buttons and body element
+        const audioToggleBtn = document.getElementById('audioToggleBtn');
+        const audioToggleBtnStart = document.getElementById('audioToggleBtnStart');
+        const body = document.body;
+
+        // Check localStorage for saved audio state
+        let isMuted = localStorage.getItem('audioMuted') === 'true';
+
+        function updateAudioState(muted) {
+            document.querySelectorAll('audio, video').forEach(audio => {
+                audio.muted = muted;
+            });
+            body.classList.toggle('muted', muted);
         }
-    }
-    
-    // Initialize the audio state based on localStorage
-    if (isMuted) {
-        // Mute all audio elements on page load
-        document.querySelectorAll('audio, video').forEach(audio => {
-            audio.muted = true;
-        });
-        body.classList.add('muted');
-    } else {
-        body.classList.remove('muted');
-    }
-    
-    // Add event listener to toggle button
-    audioToggleBtn.addEventListener('click', toggleAudio);
-    
-    </script>
+
+        function toggleAudio() {
+            isMuted = !isMuted;
+            localStorage.setItem('audioMuted', isMuted);
+            updateAudioState(isMuted);
+        }
+
+        // Initialize the audio state on page load
+        updateAudioState(isMuted);
+
+        // Attach event listeners to both buttons
+        if (audioToggleBtn) audioToggleBtn.addEventListener('click', toggleAudio);
+        if (audioToggleBtnStart) audioToggleBtnStart.addEventListener('click', toggleAudio);
+    });
+</script>
+
 </body>
 </html>

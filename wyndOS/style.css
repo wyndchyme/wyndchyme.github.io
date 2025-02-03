@@ -551,6 +551,15 @@ display: none;
     #audioOff {
         display: block;
     }
+    #startAudioI {
+        display: none !important;
+    }
+    #startAudioII {
+        display: none !important;
+    }
+    #startAudioIII {
+        display: inline-block;
+    }
 }
 @media screen and (min-width: 1200px) {
     .dtcolumn {
@@ -956,6 +965,20 @@ left: 7px;
         display: none;
     }
     #startLampII {
+        display: inline-block;
+    }
+}
+#startAudioII {
+    display: none;
+}
+#startAudioIII {
+    display: none;
+}
+#startAudioButton:hover {
+    #startAudioI {
+        display: none;
+    }
+    #startAudioII {
         display: inline-block;
     }
 }
