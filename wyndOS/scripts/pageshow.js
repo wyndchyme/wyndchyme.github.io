@@ -1,7 +1,6 @@
 window.addEventListener('pageshow', () => {
-    document.documentElement.style.display = 'none';
+    document.documentElement.style.height = 'auto';
     requestAnimationFrame(() => {
-      document.documentElement.style.display = '';
+      document.documentElement.style.height = '';
     });
-  });
-  
+  });  
