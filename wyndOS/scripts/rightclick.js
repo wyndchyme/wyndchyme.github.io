@@ -13,18 +13,32 @@ function rightClick(e) {
     e.preventDefault();
 
     let menu = document.getElementById("contextMenu");
+    let viewportMidpoint = window.innerHeight / 2; 
 
     if (menu.style.display === "block") {
         hideMenu();
     } else {
         menu.style.display = "block";
-        menu.style.left = e.pageX + "px";
-        menu.style.top = e.pageY + "px";
+
+        let menuX = e.pageX;
+        let menuY = e.pageY;
+
+        
+        if (e.pageY < viewportMidpoint) {
+            menu.style.top = `${menuY}px`;
+        } else {
+            let menuHeight = menu.offsetHeight || 100; 
+            menu.style.top = `${menuY - menuHeight}px`;
+        }
+
+  
+        menu.style.left = `${menuX}px`;
     }
 }
 
+
 document.addEventListener("touchstart", function (e) {
-    if (e.touches.length === 1) { // Only register single-finger touches
+    if (e.touches.length === 1) { 
         let touch = e.touches[0];
         touchStartX = touch.pageX;
         touchStartY = touch.pageY;
@@ -39,8 +53,8 @@ document.addEventListener("touchstart", function (e) {
                 pageX: touchStartX,
                 pageY: touchStartY
             });
-            document.dispatchEvent(simulatedEvent); // Trigger rightClick event
-        }, 500); // 1-second hold to trigger
+            document.dispatchEvent(simulatedEvent); 
+        }, 500); 
     }
 });
 
@@ -50,7 +64,7 @@ document.addEventListener("touchmove", function (e) {
         let moveX = Math.abs(touch.pageX - touchStartX);
         let moveY = Math.abs(touch.pageY - touchStartY);
 
-        if (moveX > 5 || moveY > 5) { // Cancel if movement exceeds 5px
+        if (moveX > 5 || moveY > 5) { 
             clearTimeout(touchTimer);
             touchTimer = null;
         }
