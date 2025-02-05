@@ -1,6 +1,7 @@
 document.addEventListener('DOMContentLoaded', function () {
     // Select the buttons and body element
     const audioToggleBtn = document.getElementById('audioToggleBtn');
+    const audioToggleBtn2 = document.getElementById('audioToggleBtn2');
     const audioToggleBtnStart = document.getElementById('audioToggleBtnStart');
     const body = document.body;
 
@@ -25,5 +26,6 @@ document.addEventListener('DOMContentLoaded', function () {
 
     // Attach event listeners to both buttons
     if (audioToggleBtn) audioToggleBtn.addEventListener('click', toggleAudio);
+    if (audioToggleBtn2) audioToggleBtn2.addEventListener('click', toggleAudio);
     if (audioToggleBtnStart) audioToggleBtnStart.addEventListener('click', toggleAudio);
 });

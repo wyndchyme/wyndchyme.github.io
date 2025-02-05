@@ -85,19 +85,20 @@ let currentZIndex = 1;
     const aboutButton2 = document.getElementById('aboutButton2');
     const diskButton2 = document.getElementById('diskButton2');
     const qstButton2 = document.getElementById('qstButton2');
+    const aboutButton3 = document.getElementById('aboutButton3');
+    const diskButton3 = document.getElementById('diskButton3');
     const aboutToolbarButton = document.getElementById('aboutToolbarButton');
     const diskToolbarButton = document.getElementById('diskToolbarButton');
     const qstToolbarButton = document.getElementById('qstToolbarButton');
     const aboutDiv = document.getElementById('aboutDiv');
     const diskDiv = document.getElementById('diskDiv');
     const qstDiv = document.getElementById('qstDiv');
-    
     function bringToFront(div) {
       div.style.zIndex = ++currentZIndex;
     }
     
-    [aboutButton, aboutButton2, aboutToolbarButton].forEach(btn => btn?.addEventListener('click', () => bringToFront(aboutDiv)));
-    [diskButton, diskButton2, diskToolbarButton].forEach(btn => btn?.addEventListener('click', () => bringToFront(diskDiv)));
+    [aboutButton, aboutButton2, aboutButton3, aboutToolbarButton].forEach(btn => btn?.addEventListener('click', () => bringToFront(aboutDiv)));
+    [diskButton, diskButton2, diskButton3, diskToolbarButton].forEach(btn => btn?.addEventListener('click', () => bringToFront(diskDiv)));
     [qstButton, qstButton2, qstToolbarButton].forEach(btn => btn?.addEventListener('click', () => bringToFront(qstDiv)));
     
     let lastWidth = window.innerWidth;

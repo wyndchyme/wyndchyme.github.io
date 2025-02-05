@@ -999,3 +999,46 @@ left: 7px;
         filter: drop-shadow(0 0 1px white);
     }
 }
+.context-menu {
+    position: absolute;
+    text-align: left;
+    background: linear-gradient(rgba(255,255,255,0.5), rgba(255,255,255,0.5)), url(/images/background/macesque.png);
+    filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.2));
+    border-radius: 5px;
+    z-index: 100000;
+}
+.context-menu ul {
+    padding: 0px;
+    margin: 0px;
+    min-width: 150px;
+    list-style: none;
+    position: relative;
+    top: 0px;
+}
+.context-menu ul li {
+    border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+}
+.context-menu ul li a {
+    text-decoration: none;
+    color: black;
+}
+.contextButton {
+    all: unset;
+    width: 100%;
+    padding-bottom: 7px;
+    padding-top: 7px;
+}
+.contextLabel {
+    position: relative;
+    left: 10px;
+}
+.context-menu ul li:hover {
+    background-color: rgba(0, 0, 0, 0.2);
+}
+#topitem {
+    border-radius: 5px 5px 0 0;
+}
+#bottomitem {
+    border-radius: 0 0 5px 5px;
+    border-bottom: none;
+}

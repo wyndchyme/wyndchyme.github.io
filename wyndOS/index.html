@@ -327,6 +327,7 @@
                                 <li><a href="https://wyndchyme.github.io/wyndOS/scripts/qstbtn.js" style="color: #252525;"><img src="/icons/contactme/git.png" style="width: 16px; position: relative; left: -3px; top: 3px;">qstbtn.js</a></li>
                                 <li><a href="https://wyndchyme.github.io/wyndOS/scripts/refresh.js" style="color: #252525;"><img src="/icons/contactme/git.png" style="width: 16px; position: relative; left: -3px; top: 3px;">refresh.js</a></li>
                                 <li><a href="https://wyndchyme.github.io/wyndOS/scripts/resize.js" style="color: #252525;"><img src="/icons/contactme/git.png" style="width: 16px; position: relative; left: -3px; top: 3px;">resize.js</a></li>
+                                <li><a href="https://wyndchyme.github.io/wyndOS/scripts/rightclick.js" style="color: #252525;"><img src="/icons/contactme/git.png" style="width: 16px; position: relative; left: -3px; top: 3px;">rightclick.js</a></li>
                                 <li><a href="https://wyndchyme.github.io/wyndOS/scripts/start.js" style="color: #252525;"><img src="/icons/contactme/git.png" style="width: 16px; position: relative; left: -3px; top: 3px;">start.js</a></li>
                                 <li><a href="https://wyndchyme.github.io/wyndOS/scripts/tabs.js" style="color: #252525;"><img src="/icons/contactme/git.png" style="width: 16px; position: relative; left: -3px; top: 3px;">tabs.js</a></li>
                                 <li><a href="https://wyndchyme.github.io/wyndOS/scripts/tbicons.js" style="color: #252525;"><img src="/icons/contactme/git.png" style="width: 16px; position: relative; left: -3px; top: 3px;">tbicons.js</a></li>
@@ -505,6 +506,31 @@
     </div>
     </div>
     
+    <div id="contextMenu" class="context-menu" style="display:none">
+        <ul>
+            <li id="topitem"><button id="aboutButton3" class="contextButton">
+                <span class="contextLabel">About...</span></button></li>
+
+                <li><button id="diskButton3" class="contextButton">
+                    <span class="contextLabel">File Explorer</span></button></li>
+
+                    <li><button onclick="toggleLamp()" class="contextButton">
+                        <span class="contextLabel">Change Theme</span></button></li>
+                        
+                        <li><button id="audioToggleBtn2" class="contextButton">
+                            <span class="contextLabel">Mute Audio</span></button></li>
+
+                            <li><button onclick="location.href='https://github.com/wyndchyme/wyndchyme.github.io/issues'" class="contextButton">
+                                <span class="contextLabel">Get Help</span></button></li>
+
+                                <li><button onclick="refreshPage()" class="contextButton">
+                                    <span class="contextLabel">Restart</span></button></li>
+            
+                                    <li id="bottomitem"><button onclick="location.href='https://wyndchyme.github.io/'" class="contextButton">
+                                        <span class="contextLabel">Return to Home</span></button></li>
+        </ul>
+    </div>
+
     <script src="/wyndOS/scripts/webkitmobile.js"></script>
     <script src="/wyndOS/scripts/tbicons.js"></script>
     <script src="/wyndOS/scripts/webkitdesktop.js"></script>
@@ -524,6 +550,7 @@
     <script src="/wyndOS/scripts/diskclose.js"></script>
     <script src="/wyndOS/scripts/btns.js"></script>
     <script src="/wyndOS/scripts/audio.js"></script>
+    <script src="/wyndOS/scripts/rightclick.js"></script>
 
 </body>
 </html>
