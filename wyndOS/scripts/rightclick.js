@@ -40,7 +40,7 @@ document.addEventListener("touchstart", function (e) {
                 pageY: touchStartY
             });
             document.dispatchEvent(simulatedEvent); // Trigger rightClick event
-        }, 1000); // 1-second hold to trigger
+        }, 500); // 1-second hold to trigger
     }
 });
 
