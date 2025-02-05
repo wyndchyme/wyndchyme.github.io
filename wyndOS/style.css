@@ -113,7 +113,7 @@ body {
 		#top { top: 0; }
 		#bottom { bottom: 0; }
 .toolbar {
-    position: absolute;
+    position: fixed !important;
     bottom: 12px;
     padding-left: 16px;
     background-image: linear-gradient(skyblue, rgb(110, 182, 211));
