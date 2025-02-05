@@ -1042,3 +1042,6 @@ left: 7px;
     border-radius: 0 0 5px 5px;
     border-bottom: none;
 }
+.context-menu[style*="display: block"] {
+    animation: fadeIn 0.3s ease forwards;
+}
