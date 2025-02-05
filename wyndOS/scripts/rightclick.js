@@ -30,7 +30,16 @@ document.addEventListener("touchstart", function (e) {
         touchStartY = touch.pageY;
 
         touchTimer = setTimeout(() => {
-            rightClick(touch); // Trigger context menu
+            let simulatedEvent = new MouseEvent("contextmenu", {
+                bubbles: true,
+                cancelable: true,
+                view: window,
+                clientX: touchStartX,
+                clientY: touchStartY,
+                pageX: touchStartX,
+                pageY: touchStartY
+            });
+            document.dispatchEvent(simulatedEvent); // Trigger rightClick event
         }, 1000); // 1-second hold to trigger
     }
 });
