@@ -1044,3 +1044,14 @@ left: 7px;
 .context-menu[style*="display: block"] {
     animation: fadeIn 0.3s ease forwards;
 }
+.qstImageAlt {
+    display: none;
+}
+.dark-mode {
+    .qstImage {
+        display: none;
+    }
+    .qstImageAlt {
+        display: block;
+    }
+}
