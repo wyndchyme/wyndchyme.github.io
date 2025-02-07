@@ -1,7 +1,8 @@
 const windows = [
     { id: "aboutDiv", toolbarId: "aboutToolbarIcon" },
     { id: "diskDiv", toolbarId: "diskToolbarIcon" },
-    { id: "qstDiv", toolbarId: "qstToolbarIcon" }
+    { id: "qstDiv", toolbarId: "qstToolbarIcon" },
+    { id: "updatesDiv", toolbarId: "notesToolbarIcon" }
 ];
 
 function updateToolbarVisibility() {

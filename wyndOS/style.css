@@ -169,6 +169,17 @@ margin-right: 5px;
     max-width: 75%;
     max-height: 75%;
 }
+#updatesDiv {
+    resize: both; 
+    overflow: scroll; 
+    width: 35vw; 
+    height: 30vh; 
+    min-width: 250px;
+    min-height: 200px;
+    max-width: 75%;
+    max-height: 75%;
+    background: linear-gradient(rgba(255,255,255,0.5), rgba(255,255,255,0.5)), url(/images/background/macesque.png) !important;
+}
 .draggable {
     background-repeat:no-repeat; 
     width: 300px;
@@ -503,6 +514,9 @@ details[open] > summary {
     #Activate {
         display: none;
     }
+    #notesColumn {
+        left: 10px !important;
+    }
 }
 #lampLow {
     display: none;
@@ -683,35 +697,35 @@ color: white;
 }
 @supports (-moz-appearance: none) {
     #wiiIcon {
-      margin-top: 4px; 
+      margin-top: 0px; 
     }
     #wiiContainer {
-        margin-top: 4px;
+        margin-top: 0px;
     }
     #wiiShortcut {
         position: relative;
-        top: 3px !important;
+        top: 0px !important;
     }
     #dsIcon {
-        margin-top: 4px;
+        margin-top: 0px;
     }
     #dsContainer {
-        margin-top: 4px;
+        margin-top: 0px;
     }
     #dsShortcut {
         position: relative;
-        top: 3px !important;
+        top: 0px !important;
     }
     #homeIcon {
         position: relative;
-        top: 5px !important;
+        top: 2px !important;
     }
     #homeShortcut {
         position: relative;
-        top: 4px !important;
+        top: 0px !important;
     }
     #homeContainer {
-        margin-top: 4px;
+        margin-top: 0px;
     }
     #diskDiv {
         padding-bottom: 28px !important;
@@ -892,6 +906,17 @@ left: 7px;
     background-color: skyblue;
     color: white;
 }
+#notesToolbarClose {
+    width: 22px !important;
+    height: 22px !important;
+    display: none;
+    color: #252525;
+    background-color: transparent;
+}
+#notesToolbarClose:hover {
+    background-color: skyblue;
+    color: white;
+}
 #qstToolbarClose {
     width: 22px !important;
     height: 22px !important;
@@ -919,7 +944,7 @@ left: 7px;
         animation: subtlesway 4s linear infinite;
     }
 }
-@media screen and (min-width: 600px) {
+@media screen and (min-width: 700px) {
     .toolbar-icon {
         width: 120px;
     }
@@ -935,6 +960,9 @@ left: 7px;
     }
     .aboutException img {
         display: none;
+    }
+    #notesException img {
+        margin-top: -10px !important;
     }
     .aboutException2 img {
         display: block;
@@ -953,6 +981,9 @@ left: 7px;
             display: block;
         }
         #diskToolbarClose {
+            display: block;
+        }
+        #notesToolbarClose {
             display: block;
         }
     }
@@ -1020,6 +1051,12 @@ left: 7px;
 .context-menu ul li a {
     text-decoration: none;
     color: black;
+}
+.updateUl {
+list-style-type: square;
+}
+.updateHeader {
+    color: rgb(62, 95, 108);
 }
 .contextButton {
     all: unset;
