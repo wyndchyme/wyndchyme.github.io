@@ -29,7 +29,7 @@
     <div style="position: fixed; width: 100%; height: 100%; text-align: center; line-height: calc(100vh - 50px); color: rgb(0, 78, 109); font-size: calc(16px + 5vw); opacity: 0.25; pointer-events: none;" id="wallpaperDecor">
 <img src="/icons/faviconalt.png" style="width: calc(16px + 3.5vw)"> wyndOS
     </div>
-<div class="dtcolumn" style="position: fixed; bottom: 100px; right: 40px;" id="notesColumn">
+<div class="dtcolumn" style="position: fixed; bottom: 100px; right: 43px;" id="notesColumn">
     <div class="dticon"><img src="/wyndOS/icons/update.png">
         <div class="dtcontainer"></div>
     <div class="dtlabel">Notes</div>
@@ -52,14 +52,12 @@
 </div>
 </a>
 <br>
-<a href="https://wyndchyme.github.io/docs/all-pages/">
-<div class="dticon"><img src="/icons/other/crateicon.png">
+<div class="dticon"><img src="/wyndOS/icons/desktopfolder.png" style="position: relative; top: 4px; left: 1px;">
     <div class="dtcontainer"></div>
-    <div class="dtshortcut"><img src="/icons/other/linkicon.png"></div>
-<div class="dtlabel">Index</div>
+<div class="dtlabel" style="position: relative; left: -10px;">Options</div>
+<button id="optionsButton" class="dtbutton"></button>
 </div>
 </div>
-</a>
 <div class="dtcolumn" style="position: fixed; left: 75px;">
     <a href="https://wyndchyme.github.io/consoles/wii/">
     <div class="dticon"><img src="/icons/consoles/iconwii.png" style="position: relative; bottom: 2px;" id="wiiIcon">
@@ -81,7 +79,7 @@
 <div class="dticon"><img src="/icons/aboutme/whatcaniexpect.png" style="position: relative; top: 3px;" id="homeIcon">
     <div class="dtcontainer" style="left: -13px;" id="homeContainer"></div>
     <div class="dtshortcut"><img src="/icons/other/linkicon.png" id="homeShortcut"></div>
-<div class="dtlabel">Home</div>
+<div class="dtlabel" id="homeLabel">Home</div>
 </a>
 </div>
     </div>
@@ -107,6 +105,8 @@
             <details>
                 <summary>audio</summary>
                 <ul style="position: relative; left: -16px;">
+                    <li><a href="https://wyndchyme.github.io/audio/degauss.mp3" style="color: #252525;"><img src="/wyndOS/icons/record.png" style="width: 16px; position: relative; left: -3px; top: 3px;">degauss.mp3</a></li>
+                    <li><a href="https://wyndchyme.github.io/audio/fullscreen.mp3" style="color: #252525;"><img src="/wyndOS/icons/record.png" style="width: 16px; position: relative; left: -3px; top: 3px;">fullscreen.mp3</a></li>
                     <li><a href="https://wyndchyme.github.io/audio/hover.mp3" style="color: #252525;"><img src="/wyndOS/icons/record.png" style="width: 16px; position: relative; left: -3px; top: 3px;">hover.mp3</a></li>
                     <li><a href="https://wyndchyme.github.io/audio/lamp.mp3" style="color: #252525;"><img src="/wyndOS/icons/record.png" style="width: 16px; position: relative; left: -3px; top: 3px;">lamp.mp3</a></li>
                 </details>
@@ -312,10 +312,14 @@
                                 <li><a href="https://wyndchyme.github.io/wyndOS/icons/audio.png" style="color: #252525;"><img src="/wyndOS/icons/photo.png" style="width: 16px; position: relative; left: -3px; top: 3px;">audio.png</a></li>
                                 <li><a href="https://wyndchyme.github.io/wyndOS/icons/audioalt.png" style="color: #252525;"><img src="/wyndOS/icons/photo.png" style="width: 16px; position: relative; left: -3px; top: 3px;">audioalt.png</a></li>
                                 <li><a href="https://wyndchyme.github.io/wyndOS/icons/audiooff.png" style="color: #252525;"><img src="/wyndOS/icons/photo.png" style="width: 16px; position: relative; left: -3px; top: 3px;">audiooff.png</a></li>
+                                <li><a href="https://wyndchyme.github.io/wyndOS/icons/crt.png" style="color: #252525;"><img src="/wyndOS/icons/photo.png" style="width: 16px; position: relative; left: -3px; top: 3px;">crt.png</a></li>
+                                <li><a href="https://wyndchyme.github.io/wyndOS/icons/crtalt.png" style="color: #252525;"><img src="/wyndOS/icons/photo.png" style="width: 16px; position: relative; left: -3px; top: 3px;">crtalt.png</a></li>
+                                <li><a href="https://wyndchyme.github.io/wyndOS/icons/desktopfolder.png" style="color: #252525;"><img src="/wyndOS/icons/photo.png" style="width: 16px; position: relative; left: -3px; top: 3px;">desktopfolder.png</a></li>
                                 <li><a href="https://wyndchyme.github.io/wyndOS/icons/discalt.png" style="color: #252525;"><img src="/wyndOS/icons/photo.png" style="width: 16px; position: relative; left: -3px; top: 3px;">discalt.png</a></li>
                                 <li><a href="https://wyndchyme.github.io/wyndOS/icons/doohickey.png" style="color: #252525;"><img src="/wyndOS/icons/photo.png" style="width: 16px; position: relative; left: -3px; top: 3px;">doohickey.png</a></li>
                                 <li><a href="https://wyndchyme.github.io/wyndOS/icons/folder.png" style="color: #252525;"><img src="/wyndOS/icons/photo.png" style="width: 16px; position: relative; left: -3px; top: 3px;">folder.png</a></li>
                                 <li><a href="https://wyndchyme.github.io/wyndOS/icons/folderopen.png" style="color: #252525;"><img src="/wyndOS/icons/photo.png" style="width: 16px; position: relative; left: -3px; top: 3px;">folderopen.png</a></li>
+                                <li><a href="https://wyndchyme.github.io/wyndOS/icons/fullscreenalt.png" style="color: #252525;"><img src="/wyndOS/icons/photo.png" style="width: 16px; position: relative; left: -3px; top: 3px;">fullscreenalt.png</a></li>
                                 <li><a href="https://wyndchyme.github.io/wyndOS/icons/help.png" style="color: #252525;"><img src="/wyndOS/icons/photo.png" style="width: 16px; position: relative; left: -3px; top: 3px;">help.png</a></li>
                                 <li><a href="https://wyndchyme.github.io/wyndOS/icons/photo.png" style="color: #252525;"><img src="/wyndOS/icons/photo.png" style="width: 16px; position: relative; left: -3px; top: 3px;">photo.png</a></li>
                                 <li><a href="https://wyndchyme.github.io/wyndOS/icons/record.png" style="color: #252525;"><img src="/wyndOS/icons/photo.png" style="width: 16px; position: relative; left: -3px; top: 3px;">record.png</a></li>
@@ -370,12 +374,21 @@
     </div>
     <div class="draggable" id="updatesDiv" style="display: none; z-index: 1; padding-bottom: 15px; overflow: hidden;">
         <div class="header">
-            Update Notes (v501)
+            Update Notes (v506)
             <button class="close-btn" id="notesClose">X</button>
         </div>
         <div style="width: 100%; height: 10px; background-image: url(/images/background/moroccan-flower-dark.png);" id="notesDecorI"></div>
         <div style="width: 100%; height: 10px; background-image: url(/images/background/moroccan-flower.png);" id="notesDecorII"></div>
         <div class="content-box" style="white-space: wrap;">
+            <span class="updateHeader">Commit 506</span>
+            <ul class="updateUl" style="margin-right: 30px;">
+                <li>Added CRT filter support</li>
+                <li>Added fullscreen support</li>
+                <li>Added Options folder</li>
+                <li>Changed hover sound</li>
+                <li>Slightly increased letter spacing</li>
+            </ul>
+            <br>
             <span class="updateHeader">Commit 501</span>
             <ul class="updateUl" style="margin-right: 30px;">
                 <li>Added wyndOS logo to wallpaper</li>
@@ -405,8 +418,34 @@
             </ul>  
     </div>
     </div>
+    <div class="draggable" id="optionsDiv" style="display: none; z-index: 1; padding-bottom: 15px; overflow: hidden;">
+        <div class="header">
+            <img src="/wyndOS/icons/folder.png" style="width: 26px; position: relative; top: 4px;"> <span style="position: relative; bottom: 5px;">Options</span>
+            <button class="close-btn">X</button>
+        </div>
+        <div style="background-color: rgb(112, 146, 178);" id="locationDiv">
+        <span style="position: relative; left: 10px; color: white;" id="diskLocation">HDD/wyndOS/desktop/options</span>
+    </div>
+        <div class="content-box" id="folderBox">
+            <div class="dticon" style="position: absolute; left: 20px; top: 63px; cursor: default;" id="crtIcon">
+                <img src="/wyndOS/icons/crt.png" style="width: 44px; position: relative; top: -4px; right: 4px;" id="crt">
+                <img src="/wyndOS/icons/crtalt.png" style="width: 44px; position: relative; top: -4px; right: 4px;" id="crtAlt">
+                <div class="dtcontainer" style="left: -12px; height: 65px; top: -4px;"></div>
+            <div class="dtlabel" style="position: relative; bottom: 8px;">crt.wyn</div>
+            <button id="crtToggleBtn" class="dtbutton" style="position: relative; bottom: 70px;"></button>
+            </div>
+            <div class="dticon" style="position: absolute; left: 90px; top: 63px; cursor: default;" id="crtIcon">
+                <img src="/icons/consoles/3ds/homemenu.png" style="width: 44px; position: relative; top: -5px; right: 4px;" id="crt">
+                <img src="/wyndOS/icons/fullscreenalt.png" style="width: 44px; position: relative; top: -5px; right: 4px;" id="crtAlt">
+                <div class="dtcontainer" style="left: -12px; height: 65px; top: -4px;"></div>
+            <div class="dtlabel" style="position: relative; bottom: 8px;">full.wyn</div>
+            <button id="fullscreenBtn" class="dtbutton" style="position: relative; bottom: 70px;"></button>
+            </div>
+            <div style="background-color: transparent; width: 100%; height: 90px; position: relative; bottom: -63px;"></div>
+    </div>
+    </div>
     </div> 
-<div class="dtcolumn" style="position: fixed; right: 40px;">
+<div class="dtcolumn" style="position: fixed; right: 43px;">
     <div class="dticon"><img src="/wyndOS/icons/doohickey.png" style="width: 44px; position: relative; right: 5px; top: -4px;">
         <div class="dtcontainer" style="left: -12px; height: 65px; top: -4px"></div>
     <div class="dtlabel" style="position: relative; bottom: 8px;">Disk</div>
@@ -416,7 +455,7 @@
     <div class="dticon" id="lamp">
         <div id="lampHigh"><img src="/icons/lightlamp.png" style="position: relative; left: 1px;"></div>
         <div id="lamplow"><img src="/icons/lightlamp2.png" style="position: relative; left: 1px;"></div>
-        <div class="dtcontainer" style="left: -16px; width: 75px;"></div>
+        <div class="dtcontainer" style="left: -16px; width: 78px;"></div>
     <div class="dtlabel">lamp.wyn</div>
     <button class="dtbutton" onclick="toggleLamp()"></button>
     <audio id="lampSound" src="/audio/lamp.mp3"></audio>
@@ -426,13 +465,13 @@
         <div id="audioHigh"><img src="/wyndOS/icons/audioalt.png" id="audioIcon" style="position: relative; left: 2px;"></div>
         <div id="audioLow"><img src="/wyndOS/icons/audio.png" id="audioIcon" style="position: relative; left: 2px;"></div>
         <div id="audioOff"><img src="/wyndOS/icons/audiooff.png" id="audioMute" style="position: relative; left: 2px;"></div>
-        <div class="dtcontainer" style="left: -20px; width: 80px;"></div>
+        <div class="dtcontainer" style="left: -20px; width: 83px;"></div>
     <div class="dtlabel" style="position: relative; left: -15px;">audio.wyn</div>
     <button id="audioToggleBtn" class="dtbutton" style=" width: 120%; position: relative; left: -19px;"></button>
     </div>
     <br>
     <div class="dticon" id="questIcon"><img src="/wyndOS/icons/discalt.png">
-        <div class="dtcontainer" style="left: -15px; width: 70px;"></div>
+        <div class="dtcontainer" style="left: -16px; width: 73px;"></div>
     <div class="dtlabel">wyndQST</div>
     <button id="qstButton" class="dtbutton"></button>
     </div>
@@ -617,6 +656,5 @@
     <script src="/wyndOS/scripts/audio.js"></script>
     <script src="/wyndOS/scripts/rightclick.js"></script>
     <script src="/wyndOS/scripts/pageshow.js"></script>
-
 </body>
 </html>

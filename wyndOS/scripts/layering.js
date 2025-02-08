@@ -83,6 +83,7 @@ let currentZIndex = 1;
     const diskButton = document.getElementById('diskButton');
     const qstButton = document.getElementById('qstButton');
     const notesButton = document.getElementById('notesButton');
+    const optionsButton = document.getElementById('optionsButton');
     const aboutButton2 = document.getElementById('aboutButton2');
     const diskButton2 = document.getElementById('diskButton2');
     const qstButton2 = document.getElementById('qstButton2');
@@ -96,6 +97,7 @@ let currentZIndex = 1;
     const diskDiv = document.getElementById('diskDiv');
     const qstDiv = document.getElementById('qstDiv');
     const updatesDiv = document.getElementById('updatesDiv');
+    const optionsDiv = document.getElementById('optionsDiv');
     function bringToFront(div) {
       div.style.zIndex = ++currentZIndex;
     }
@@ -104,6 +106,7 @@ let currentZIndex = 1;
     [diskButton, diskButton2, diskButton3, diskToolbarButton].forEach(btn => btn?.addEventListener('click', () => bringToFront(diskDiv)));
     [qstButton, qstButton2, qstToolbarButton].forEach(btn => btn?.addEventListener('click', () => bringToFront(qstDiv)));
     [notesButton, notesButton2, notesToolbarButton].forEach(btn => btn?.addEventListener('click', () => bringToFront(updatesDiv)));
+    [optionsButton].forEach(btn => btn?.addEventListener('click', () => bringToFront(optionsDiv)));
     
     let lastWidth = window.innerWidth;
     window.addEventListener("resize", () => {
