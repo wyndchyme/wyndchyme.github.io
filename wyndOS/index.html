@@ -103,9 +103,9 @@
             <div style="position: relative; bottom: 5px;">
             <details>
                 <summary>audio</summary>
-                <ul style="position: relative; left: -16px;"><li>
-                <a href="https://wyndchyme.github.io/audio/lamp.mp3" style="color: #252525;"><img src="/wyndOS/icons/record.png" style="width: 16px; position: relative; left: -3px; top: 3px;">lamp.mp3</a>
-                </li>
+                <ul style="position: relative; left: -16px;">
+                    <li><a href="https://wyndchyme.github.io/audio/hover.mp3" style="color: #252525;"><img src="/wyndOS/icons/record.png" style="width: 16px; position: relative; left: -3px; top: 3px;">hover.mp3</a></li>
+                    <li><a href="https://wyndchyme.github.io/audio/lamp.mp3" style="color: #252525;"><img src="/wyndOS/icons/record.png" style="width: 16px; position: relative; left: -3px; top: 3px;">lamp.mp3</a></li>
                 </details>
                 <details>
                     <summary>consoles</summary>
@@ -331,6 +331,7 @@
                                 <li><a href="https://wyndchyme.github.io/wyndOS/scripts/clock.js" style="color: #252525;"><img src="/icons/contactme/git.png" style="width: 16px; position: relative; left: -3px; top: 3px;">clock.js</a></li>
                                 <li><a href="https://wyndchyme.github.io/wyndOS/scripts/closing.js" style="color: #252525;"><img src="/icons/contactme/git.png" style="width: 16px; position: relative; left: -3px; top: 3px;">closing.js</a></li>
                                 <li><a href="https://wyndchyme.github.io/wyndOS/scripts/diskclose.js" style="color: #252525;"><img src="/icons/contactme/git.png" style="width: 16px; position: relative; left: -3px; top: 3px;">diskclose.js</a></li>
+                                <li><a href="https://wyndchyme.github.io/wyndOS/scripts/hover.js" style="color: #252525;"><img src="/icons/contactme/git.png" style="width: 16px; position: relative; left: -3px; top: 3px;">hover.js</a></li>
                                 <li><a href="https://wyndchyme.github.io/wyndOS/scripts/lamp.js" style="color: #252525;"><img src="/icons/contactme/git.png" style="width: 16px; position: relative; left: -3px; top: 3px;">lamp.js</a></li>
                                 <li><a href="https://wyndchyme.github.io/wyndOS/scripts/layering.js" style="color: #252525;"><img src="/icons/contactme/git.png" style="width: 16px; position: relative; left: -3px; top: 3px;">layering.js</a></li>
                                 <li><a href="https://wyndchyme.github.io/wyndOS/scripts/nozoom.js" style="color: #252525;"><img src="/icons/contactme/git.png" style="width: 16px; position: relative; left: -3px; top: 3px;">nozoom.js</a></li>
@@ -367,12 +368,17 @@
     </div>
     <div class="draggable" id="updatesDiv" style="display: none; z-index: 1; padding-bottom: 15px; overflow: hidden;">
         <div class="header">
-            Update Notes (v494)
+            Update Notes (v496)
             <button class="close-btn" id="notesClose">X</button>
         </div>
         <div style="width: 100%; height: 10px; background-image: url(/images/background/moroccan-flower-dark.png);" id="notesDecorI"></div>
         <div style="width: 100%; height: 10px; background-image: url(/images/background/moroccan-flower.png);" id="notesDecorII"></div>
         <div class="content-box" style="white-space: wrap;">
+            <span class="updateHeader">Commit 496</span>
+            <ul class="updateUl" style="margin-right: 30px;">
+                <li>Added hover sounds</li>
+            </ul>
+            <br>
             <span class="updateHeader">Commit 494</span>
             <ul class="updateUl" style="margin-right: 30px;">
                 <li>Added new mini icon for update notes window</li>
@@ -603,6 +609,7 @@
     <script src="/wyndOS/scripts/audio.js"></script>
     <script src="/wyndOS/scripts/rightclick.js"></script>
     <script src="/wyndOS/scripts/pageshow.js"></script>
+    <script src="/wyndOS/scripts/hover.js"></script>
 
 </body>
 </html>

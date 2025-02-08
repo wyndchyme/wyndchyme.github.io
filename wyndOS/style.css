@@ -1102,3 +1102,8 @@ list-style-type: square;
 .dark-mode #notesDecorII {
     display: block;
 }
+@media screen and (max-height: 460px) {
+    #notesColumn {
+        display: none;
+    }
+}
