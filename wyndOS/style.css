@@ -876,6 +876,9 @@ left: 7px;
         position: relative;
         right: 6px !important;
     }
+    #wallpaperDecor {
+        margin-top: -10px;
+    }
 }
 .toolbar-icon button {
     background: none;
