@@ -45,7 +45,7 @@ html {
  }
  .dark-mode .dticon:hover {
     filter: drop-shadow(2px 2px 2px white);
-    transition: 0.1s;
+
  }
  .dark-mode .header {
     background-color: #195770;
@@ -266,7 +266,6 @@ margin-right: 5px;
 .dticon:hover {
     .dtcontainer {
         background-color: rgba(28, 28, 28, 0.15);
-        transition: 0.1s;
     }
     cursor: pointer;
 }
@@ -317,7 +316,6 @@ margin-right: 5px;
     left: -11px;
     top: -5px;
     z-index: -1;
-    transition: 0.1s;
     border-radius: 5px
 }
 .dtshortcut {
