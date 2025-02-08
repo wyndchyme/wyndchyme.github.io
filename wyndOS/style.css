@@ -1107,3 +1107,11 @@ list-style-type: square;
         display: none;
     }
 }
+@media screen and (max-width: 370px) {
+    #wallpaperDecor {
+        display: none;
+    }
+}
+.dark-mode #wallpaperDecor {
+    color: white !important;
+}

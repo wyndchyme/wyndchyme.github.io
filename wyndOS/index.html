@@ -26,6 +26,9 @@
     <div id="top"></div>
     <div id="bottom"></div>
 
+    <div style="position: absolute; width: 100%; height: 100%; text-align: center; line-height: calc(100vh - 50px); color: rgb(0, 78, 109); font-size: calc(16px + 5vw); opacity: 0.25; pointer-events: none;" id="wallpaperDecor">
+<img src="/icons/faviconalt.png" style="width: calc(16px + 3.5vw)"> wyndOS
+    </div>
 <div class="dtcolumn" style="position: fixed; bottom: 100px; right: 40px;" id="notesColumn">
     <div class="dticon"><img src="/wyndOS/icons/update.png">
         <div class="dtcontainer"></div>
@@ -367,12 +370,18 @@
     </div>
     <div class="draggable" id="updatesDiv" style="display: none; z-index: 1; padding-bottom: 15px; overflow: hidden;">
         <div class="header">
-            Update Notes (v496)
+            Update Notes (v501)
             <button class="close-btn" id="notesClose">X</button>
         </div>
         <div style="width: 100%; height: 10px; background-image: url(/images/background/moroccan-flower-dark.png);" id="notesDecorI"></div>
         <div style="width: 100%; height: 10px; background-image: url(/images/background/moroccan-flower.png);" id="notesDecorII"></div>
         <div class="content-box" style="white-space: wrap;">
+            <span class="updateHeader">Commit 501</span>
+            <ul class="updateUl" style="margin-right: 30px;">
+                <li>Added wyndOS logo to wallpaper</li>
+                <li>Adjusted sound effect volume levels</li>
+            </ul>
+            <br>
             <span class="updateHeader">Commit 496</span>
             <ul class="updateUl" style="margin-right: 30px;">
                 <li>Added hover sound effects</li>
@@ -519,7 +528,7 @@
         
     <div id="startMenu" class="hidden" style="position: absolute; left: 21px; bottom: 70px; filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.2)); height: 275px;">
         <div style="position: relative; bottom: 3px; left: -5px;">
-        <img src="/icons/aboutme/aboutme.webp" style="background-color: #d4f1fc; border: 2px solid white; filter: none; border-radius: 3px;"><span style="font-size: 18pt; position: relative; bottom: 12px; left:9px; color: white;">wyndchyme</span>
+        <img src="/icons/aboutme/aboutme.webp" style="background-color: #d4f1fc; border: 2px solid white; filter: none; border-radius: 3px;" draggable="false"><span style="font-size: 18pt; position: relative; bottom: 12px; left:9px; color: white;">wyndchyme</span>
     </div>
     <div style="position: relative; left: 2px;">
         <div class="content-box" style="background: linear-gradient(rgba(255,255,255,0.5), rgba(255,255,255,0.5)), url(/images/background/macesque.png); background-size: 15% 15%; background-repeat: repeat; image-rendering: pixelated; width: 110px; height: 210px; position: relative; right: 10px; overflow-y: scroll; overflow-x: hidden;" id="startContent">
@@ -543,21 +552,21 @@
                     <button id="qstButton2" class="startMenuButton"></button></div>
                     <hr style="position: relative; bottom: 15px;">
                     <div style="position: relative; bottom: 15px;" id="aboutShortcuts">
-                        <a href="https://wyndchyme.github.io/other/"><img src="/icons/news.png"></a>
-                        <a href="https://wyndchyme.github.io/docs/all-pages/"><img src="/icons/other/crateicon.png" style="position: relative; bottom: 1px;"></a>
-                        <a href="https://wyndchyme.github.io"><img src="/icons/aboutme/whatcaniexpect.png" style="position: relative; top: 1px;"></a>
+                        <a href="https://wyndchyme.github.io/other/"><img src="/icons/news.png" draggable="false"></a>
+                        <a href="https://wyndchyme.github.io/docs/all-pages/"><img src="/icons/other/crateicon.png" style="position: relative; bottom: 1px;" draggable="false"></a>
+                        <a href="https://wyndchyme.github.io"><img src="/icons/aboutme/whatcaniexpect.png" style="position: relative; top: 1px;" draggable="false"></a>
                     </div>
                     <div style="position: absolute; bottom: 5px; right: 5px;">
                         <span style="font-size: 15pt; position: relative; bottom: 1px; left: 7px;">Help</span>
                         <a href="https://github.com/wyndchyme/wyndchyme.github.io/issues" id="helpLink">
-                            <img src="/wyndOS/icons/help.png" style="width: 32px; position: relative; top: 10px;">
+                            <img src="/wyndOS/icons/help.png" style="width: 32px; position: relative; top: 10px;" draggable="false">
                         </a>
                     </div>
                 </div>
         </div>
         <span style="position: absolute; bottom: 5px; right: 27px; font-size: 15pt; color: white;" id="restartLabel">Restart</span>
         <button style="position: absolute; right: 5px; bottom: 5px; height: 20px; width: 20px; background: none; border: none; margin: 0; text-align: center; display: block;" onclick="refreshPage()">
-            <img src="/wyndOS/icons/refresh.png" style="position: relative; bottom: 7px; right: 12px; width: 32px;" id="powerOffButton">
+            <img src="/wyndOS/icons/refresh.png" style="position: relative; bottom: 7px; right: 12px; width: 32px;" id="powerOffButton" draggable="false">
         </button>
     </div>
     </div>
