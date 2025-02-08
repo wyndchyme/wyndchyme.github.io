@@ -34,7 +34,7 @@ document.addEventListener('DOMContentLoaded', function () {
         element.addEventListener("mouseenter", () => {
             if (document.body.classList.contains("muted")) return; // Stop if muted
             
-            const sound = new Audio("/audio/hover.mp3");
+            const sound = new Audio("disable");
             sound.volume = 0.1;
             sound.play();
         });
