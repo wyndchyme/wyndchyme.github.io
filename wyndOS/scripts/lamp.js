@@ -12,7 +12,7 @@ function toggleLamp() {
     const lampSound = document.getElementById("lampSound");
 
 
-    lampSound.volume = 0.25;
+    lampSound.volume = 0.6;
 
 
     lampSound.play();
