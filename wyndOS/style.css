@@ -179,6 +179,7 @@ margin-right: 5px;
     max-width: 75%;
     max-height: 75%;
     background: linear-gradient(rgba(255,255,255,0.5), rgba(255,255,255,0.5)), url(/images/background/macesque.png) !important;
+    image-rendering: pixelated;
 }
 .draggable {
     background-repeat:no-repeat; 
@@ -1091,4 +1092,13 @@ list-style-type: square;
     .qstImageAlt {
         display: block;
     }
+}
+#notesDecorII {
+    display: none;
+}
+.dark-mode #notesDecorI {
+    display: none;
+}
+.dark-mode #notesDecorII {
+    display: block;
 }
