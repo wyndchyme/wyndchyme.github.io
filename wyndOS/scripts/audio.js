@@ -32,11 +32,26 @@ document.addEventListener('DOMContentLoaded', function () {
 
     document.querySelectorAll("button, a").forEach(element => {
         element.addEventListener("mouseenter", () => {
-            if (document.body.classList.contains("muted")) return; // Stop if muted
+            if (document.body.classList.contains("muted")) return;
             
             const sound = new Audio("/audio/hover.mp3");
             sound.volume = 0.3;
             sound.play();
+        });
+    });
+});
+
+document.addEventListener("DOMContentLoaded", function () {
+    const soundSrc = "/audio/click.mp3";
+    
+    document.querySelectorAll("button").forEach(button => {
+        button.addEventListener("click", (event) => {
+            if (document.body.classList.contains("muted")) return;
+            if (event.target.id === "fullscreenBtn") return;
+            
+            const clickSound = new Audio(soundSrc);
+            clickSound.volume = 0.75;
+            clickSound.play();
         });
     });
 });
