@@ -1207,3 +1207,31 @@ list-style-type: square;
         display: none;
     }
   }
+  .color-transparent {
+    background-color: transparent;
+}
+
+.color-red {
+    background-color: red;
+    color: white !important;
+}
+
+.color-orange {
+    background-color: orange;
+    color: white !important;
+}
+
+.color-yellow {
+    background-color: rgb(158, 170, 61);
+    color: white !important;
+}
+
+.color-green {
+    background-color: green;
+    color: white !important;
+}
+
+.color-purple {
+    background-color: purple;
+    color: white !important;
+}
