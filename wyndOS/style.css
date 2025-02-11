@@ -1239,11 +1239,9 @@ list-style-type: square;
     min-height: 200px;
     max-width: 75%;
     max-height: 75%;
-    background-color: rgba(255, 255, 255, 0.7); 
+    background-color: rgba(255, 255, 255, 0.75); 
     backdrop-filter: blur(7px);
 }
 .dark-mode #optionsDiv {
     background-image: none;
-    background-color: rgba(255, 255, 255, 0.7) !important;
-     backdrop-filter: blur(7px);
 }
