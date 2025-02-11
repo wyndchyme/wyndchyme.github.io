@@ -3,65 +3,65 @@ html {
     background-repeat: repeat;
     background-attachment: fixed;
     -webkit-font-smoothing: antialiased;
-    animation: scrollBackground 150s linear infinite; 
+    animation: scrollBackground 150s linear infinite;
     -webkit-touch-callout: none !important;
-        -webkit-user-select: none !important;     
-           -moz-user-select: none !important;
-            -ms-user-select: none !important;
-                user-select: none !important; 
-                touch-action: manipulation;
-                overflow: hidden;
-                background-position: fixed;
-                letter-spacing: 0.02em;
+    -webkit-user-select: none !important;
+    -moz-user-select: none !important;
+    -ms-user-select: none !important;
+    user-select: none !important;
+    touch-action: manipulation;
+    overflow: hidden;
+    background-position: fixed;
+    letter-spacing: 0.02em;
 }
 .dark-mode {
-   background: url("/images/background/moroccan-flower-dark.png");
-   animation: scrollBackground 150s linear infinite;
+    background: url("/images/background/moroccan-flower-dark.png");
+    animation: scrollBackground 150s linear infinite;
 }
 .dark-mode a {
     color: white;
- }
- .dark-mode .dtlabel {
+}
+.dark-mode .dtlabel {
     color: white;
- }
- .dark-mode .toolbar {
+}
+.dark-mode .toolbar {
     background-color: #195770;
     background-image: linear-gradient(#195770, #044058);
-    left:0;
+    left: 0;
     z-index: 3;
     border-top: 2px solid #044058 !important;
- }
- .dark-mode .tbicon {
+}
+.dark-mode .tbicon {
     border-top: 3px solid #195770;
     border-bottom: 3px solid #267da0;
     background-color: skyblue;
- }
- .dark-mode .tbclock {
+}
+.dark-mode .tbclock {
     border-top: 3px solid #195770;
     border-bottom: 3px solid #195770;
     background-color: skyblue;
- }
- .dark-mode .boing {
+}
+.dark-mode .boing {
     color: white !important;
- }
- .dark-mode .dticon:hover {
+}
+.dark-mode .dticon:hover {
     filter: drop-shadow(2px 2px 2px white);
 
- }
- .dark-mode .header {
+}
+.dark-mode .header {
     background-color: #195770;
     border-color: #195770;
- }
- .dark-mode .draggable {
+}
+.dark-mode .draggable {
     border-color: #195770;
-    background-image: 
-    linear-gradient(#f0f0f0, #f0f0f0),
-    linear-gradient(#195770, #195770);
- }
- .dark-mode .close-btn {
+    background-image:
+        linear-gradient(#f0f0f0, #f0f0f0),
+        linear-gradient(#195770, #195770);
+}
+.dark-mode .close-btn {
     background-color: #195770;
     border-color: #195770;
- }
+}
 @keyframes scrollBackground {
     0% {
         background-position: 0 0;
@@ -76,7 +76,7 @@ html img {
 @font-face {
     font-family: 'Jersey 10';
     src: url(/plugins/jersey/Jersey10-Regular.woff2) format(woff2),
-    url(/plugins/jersey/Jersey10-Regular.ttf) format(truetype);
+        url(/plugins/jersey/Jersey10-Regular.ttf) format(truetype);
 }
 @font-face {
     font-family: 'Jersey 15';
@@ -95,45 +95,55 @@ body {
     color: #252525;
 }
 #top, #bottom, #left, #right {
-	background: white;
-	position: fixed;
+    background: white;
+    position: fixed;
     z-index: 99999999999;
     transition: 0.5s;
-	}
-	#left, #right {
-		top: 0; bottom: 0;
-		width: 15px;
-		}
-		#left { left: 0; }
-		#right { right: 0; }
-		
-	#top, #bottom {
-		left: 0; right: 0;
-		height: 15px;
-		}
-		#top { top: 0; }
-		#bottom { bottom: 0; }
+}
+#left, #right {
+    top: 0;
+    bottom: 0;
+    width: 15px;
+}
+#left {
+    left: 0;
+}
+#right {
+    right: 0;
+}
+
+#top, #bottom {
+    left: 0;
+    right: 0;
+    height: 15px;
+}
+#top {
+    top: 0;
+}
+#bottom {
+    bottom: 0;
+}
 .toolbar {
     position: fixed !important;
     bottom: 12px;
     padding-left: 16px;
     background-image: linear-gradient(skyblue, rgb(110, 182, 211));
-    left:0;
-    right:1;
+    left: 0;
+    right: 1;
     z-index: 9999;
     border-top: 2px solid rgb(110, 182, 211);
 }
 .tbicon {
-background-color: #e1f6ff;
-width: 40px;
-height: 40px;
-text-align: center;
-position: relative;
-border-top: 3px solid skyblue;
-border-bottom: 3px solid rgb(95, 140, 162);
-display: inline-block;
-border-radius: 5px 5px 0 0;
-margin-right: 5px;
+    background-color: #e1f6ff;
+    width: 40px;
+    height: 40px;
+    text-align: center;
+    position: relative;
+    border-top: 3px solid skyblue;
+    border-bottom: 3px solid rgb(95, 140, 162);
+    display: inline-block;
+    border-radius: 5px 5px 0 0;
+    margin-right: 5px;
 }
 .tbicon:hover {
     background-color: white;
@@ -147,7 +157,7 @@ margin-right: 5px;
     border-top: 3px solid skyblue;
     border-bottom: 3px solid skyblue;
     display: inline-block;
-    right:18px;
+    right: 18px;
     font-size: 16pt;
     align-content: center;
     padding-left: 3px;
@@ -161,36 +171,35 @@ margin-right: 5px;
 #diskDiv {
     display: block;
     z-index: 1;
-    resize: both; 
-    overflow: auto; 
-    min-width: 190px; 
-    min-height: 150px; 
-    width: 300px; 
-    height: 200px; 
+    resize: both;
+    overflow: auto;
+    min-width: 190px;
+    min-height: 150px;
+    width: 300px;
+    height: 200px;
     max-width: 75%;
     max-height: 75%;
 }
 #updatesDiv {
-    resize: both; 
-    overflow: scroll; 
-    width: 35vw; 
-    height: 32vh; 
+    resize: both;
+    overflow: scroll;
+    width: 35vw;
+    height: 32vh;
     min-width: 250px;
     min-height: 200px;
     max-width: 75%;
     max-height: 75%;
-    background: linear-gradient(rgba(255,255,255,0.5), rgba(255,255,255,0.5)), url(/images/background/macesque.png) !important;
+    background: linear-gradient(rgba(255, 255, 255, 0.5), rgba(255, 255, 255, 0.5)), url(/images/background/macesque.png) !important;
     image-rendering: pixelated;
 }
 .draggable {
-    background-repeat:no-repeat; 
+    background-repeat: no-repeat;
     width: 300px;
     height: 200px;
     background: #f0f0f0;
-    background-image: 
-    linear-gradient(skyblue, skyblue),
-    linear-gradient(#f0f0f0, #f0f0f0)
-    border: 1px solid skyblue;
+    background-image:
+        linear-gradient(skyblue, skyblue),
+        linear-gradient(#f0f0f0, #f0f0f0) border: 1px solid skyblue;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
     position: absolute;
     top: 50px;
@@ -342,16 +351,16 @@ margin-right: 5px;
 }
 @keyframes squish {
     0%, 100% {
-      transform: scale(1, 1);
+        transform: scale(1, 1);
     }
     25% {
-      transform: scale(1.1, 0.9); /* Wider and shorter */
+        transform: scale(1.1, 0.9);
     }
     50% {
-      transform: scale(0.9, 1.1); /* Taller and narrower */
+        transform: scale(0.9, 1.1);
     }
     75% {
-      transform: scale(1.05, 0.95); /* Slightly wider and shorter */
+        transform: scale(1.05, 0.95);
     }
 }
 button {
@@ -386,13 +395,13 @@ ul {
 ul a:hover {
     text-decoration: underline;
 }
-details > summary {
+details>summary {
     background: url('/wyndOS/icons/folder.png') no-repeat left center;
     padding-left: 20px;
     background-size: 20px 20px;
     cursor: pointer;
 }
-details[open] > summary {
+details[open]>summary {
     background: url('/wyndOS/icons/folderopen.png') no-repeat left center;
     padding-left: 20px;
     background-size: 20px 20px;
@@ -443,23 +452,23 @@ details[open] > summary {
         margin-bottom: -10px;
     }
     #fileExplorer {
-        details > summary {
+        details>summary {
             background-size: 26px 26px;
             text-indent: 5px;
         }
-        details[open] > summary {
+        details[open]>summary {
             background-size: 26px 26px;
             text-indent: 5px;
         }
-       details > details > summary {
-        text-indent: 22px !important;
-       }
-       details > details > details > summary {
-        text-indent: 38px !important;
-       }
-       details > details > details > details > summary {
-        text-indent: 54px !important;
-       }
+        details>details>summary {
+            text-indent: 22px !important;
+        }
+        details>details>details>summary {
+            text-indent: 38px !important;
+        }
+        details>details>details>details>summary {
+            text-indent: 54px !important;
+        }
     }
     .tab {
         font-size: 16pt !important;
@@ -475,7 +484,7 @@ details[open] > summary {
         font-size: 15pt !important;
     }
     #questContent {
-        height:calc(100% + 100px) !important;
+        height: calc(100% + 100px) !important;
     }
     #qstDiv {
         width: 350px !important;
@@ -522,12 +531,12 @@ details[open] > summary {
     display: none;
 }
 #lamp:hover {
-#lampHigh {
-    display: none;
-}
-#lampLow {
-    display: block;
-}
+    #lampHigh {
+        display: none;
+    }
+    #lampLow {
+        display: block;
+    }
 }
 #aboutLinks a {
     color: #252525 !important;
@@ -536,7 +545,7 @@ details[open] > summary {
     animation: sway 3s linear infinite;
 }
 #audioToggleBtn img {
-display: none;
+    display: none;
 }
 #audioOff {
     display: none;
@@ -548,12 +557,12 @@ display: none;
     display: none;
 }
 #audio:hover {
-#audioHigh {
-    display: none;
-}
-#audioLow {
-    display: block;
-}
+    #audioHigh {
+        display: none;
+    }
+    #audioLow {
+        display: block;
+    }
 }
 .muted {
     #audioHigh {
@@ -656,24 +665,24 @@ display: none;
     .tabbed {
         font-size: 11pt !important;
     }
-#tab1 {
-    width: 64px !important;
-}
-#tab2 {
-    width: 53px !important;
-}
-#tab3 {
-    width: 50px !important;
-}
-#tab4 {
-    width: 40px !important;
-}
+    #tab1 {
+        width: 64px !important;
+    }
+    #tab2 {
+        width: 53px !important;
+    }
+    #tab3 {
+        width: 50px !important;
+    }
+    #tab4 {
+        width: 40px !important;
+    }
 }
 .wait-cursor * {
     cursor: wait !important;
 }
 #locationDiv a {
-color: white;
+    color: white;
 }
 #locationDiv a:hover {
     color: rgb(214, 222, 226);
@@ -697,7 +706,7 @@ color: white;
 }
 @supports (-moz-appearance: none) {
     #wiiIcon {
-      margin-top: 0px; 
+        margin-top: 0px;
     }
     #wiiContainer {
         margin-top: 0px;
@@ -747,11 +756,11 @@ color: white;
         position: relative;
         bottom: 5px;
     }
-  }
-  #aboutDiv img {
+}
+#aboutDiv img {
     image-rendering: auto;
-  }
-  .hidden {
+}
+.hidden {
     display: none;
 }
 #startMenu {
@@ -803,12 +812,12 @@ color: white;
     width: 20px;
 }
 .dark-mode #startContentRight {
-background: #6ca1b3 !important;
+    background: #6ca1b3 !important;
 }
 .startLabels {
-position: relative;
-bottom: 3px;
-left: 7px;
+    position: relative;
+    bottom: 3px;
+    left: 7px;
 }
 .dark-mode #powerOffButton:hover {
     scale: 1.1;
@@ -833,25 +842,25 @@ left: 7px;
 }
 .toolbar-icon {
     background-image: linear-gradient(rgb(191, 239, 255), rgb(138, 199, 225));
-        width: 40px;
-        height: 40px;
-        text-align: center;
-        position: relative;
-        border-top: 3px solid skyblue;
-        border-bottom: 3px solid rgb(93, 149, 173);
-        display: none;
-        border-radius: 5px 5px 0 0;
-        top: 1px;
-        margin-left: 5px;
-        cursor: pointer;
-        margin-bottom: 2px;
-        left: 2px;
+    width: 40px;
+    height: 40px;
+    text-align: center;
+    position: relative;
+    border-top: 3px solid skyblue;
+    border-bottom: 3px solid rgb(93, 149, 173);
+    display: none;
+    border-radius: 5px 5px 0 0;
+    top: 1px;
+    margin-left: 5px;
+    cursor: pointer;
+    margin-bottom: 2px;
+    left: 2px;
 }
 .dark-mode .toolbar-icon {
     border-top: 3px solid #195770;
     border-bottom: 3px solid #267da0;
     background-image: linear-gradient(rgb(206, 238, 249), rgb(136, 182, 201));
- }
+}
 .toolbar-icon img {
     width: 28px;
     position: relative;
@@ -974,8 +983,8 @@ left: 7px;
     .aboutException2 img {
         display: block;
         width: 23px;
-    margin-left: 2px;
-    margin-top: 17px;
+        margin-left: 2px;
+        margin-top: 17px;
     }
     .diskException img {
         margin-top: 15px;
@@ -1022,7 +1031,7 @@ left: 7px;
 }
 #aboutShortcuts a:hover {
     img {
-    scale: 1.1;
+        scale: 1.1;
     }
 }
 #helpLink:hover {
@@ -1039,7 +1048,7 @@ left: 7px;
 .context-menu {
     position: absolute;
     text-align: left;
-    background: linear-gradient(rgba(255,255,255,0.5), rgba(255,255,255,0.5)), url(/images/background/macesque.png);
+    background: linear-gradient(rgba(255, 255, 255, 0.5), rgba(255, 255, 255, 0.5)), url(/images/background/macesque.png);
     filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.2));
     border-radius: 5px;
     z-index: 100000;
@@ -1060,7 +1069,7 @@ left: 7px;
     color: black;
 }
 .updateUl {
-list-style-type: square;
+    list-style-type: square;
 }
 .updateHeader {
     color: rgb(62, 95, 108);
@@ -1133,36 +1142,36 @@ list-style-type: square;
     z-index: 9999999999999;
     background-size: 100% 2px, 3px 100%;
     pointer-events: none;
-  }
-  
-  @keyframes flicker {
+}
+
+@keyframes flicker {
     0% {
-    opacity: 0.27861;
+        opacity: 0.27861;
     }
     5% {
-    opacity: 0.34769;
+        opacity: 0.34769;
     }
     10% {
-    opacity: 0.23604;
+        opacity: 0.23604;
     }
     15% {
-    opacity: 0.10626;
+        opacity: 0.10626;
     }
     20% {
-    opacity: 0.18128;
+        opacity: 0.18128;
     }
     25% {
-    opacity: 0.10626;
+        opacity: 0.10626;
     }
     30% {
-    opacity: 0.18128;
+        opacity: 0.18128;
     }
     35% {
-    opacity: 0.23604;
+        opacity: 0.23604;
     }
-  }
-  
-  .crt::after {
+}
+
+.crt::after {
     content: " ";
     display: block;
     position: fixed;
@@ -1175,27 +1184,27 @@ list-style-type: square;
     z-index: 9999999999;
     pointer-events: none;
     animation: flicker 0.15s infinite;
-  }  
-  #folderBox {
+}
+#folderBox {
     img {
         image-rendering: auto;
     }
     .dtlabel {
         color: #252525 !important;
     }
-  }
-  #crtAlt {
+}
+#crtAlt {
     display: none;
-  }
-  #crtIcon:hover {
+}
+#crtIcon:hover {
     #crtAlt {
         display: block;
     }
     #crt {
         display: none;
     }
-  }
-  .color-transparent {
+}
+.color-transparent {
     background-color: transparent;
 }
 
@@ -1224,22 +1233,22 @@ list-style-type: square;
     color: white !important;
 }
 #folderBox {
-    overflow: auto; 
-    white-space: nowrap; 
+    overflow: auto;
+    white-space: nowrap;
     max-height: 300px;
     max-width: 400px;
     position: relative;
 }
 #optionsDiv {
-    resize: both; 
-    overflow: scroll; 
-    width: 35vw; 
-    height: 32vh; 
+    resize: both;
+    overflow: scroll;
+    width: 35vw;
+    height: 32vh;
     min-width: 250px;
     min-height: 200px;
     max-width: 75%;
     max-height: 75%;
-    background-color: rgba(255, 255, 255, 0.75); 
+    background-color: rgba(255, 255, 255, 0.75);
     backdrop-filter: blur(7px);
 }
 .dark-mode #optionsDiv {
