@@ -47,7 +47,6 @@ document.addEventListener("DOMContentLoaded", function () {
     document.querySelectorAll("button").forEach(button => {
         button.addEventListener("click", (event) => {
             if (document.body.classList.contains("muted")) return;
-            if (event.target.id === "fullscreenBtn") return;
             
             const clickSound = new Audio(soundSrc);
             clickSound.volume = 0.75;
