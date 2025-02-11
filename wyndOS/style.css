@@ -182,18 +182,6 @@ margin-right: 5px;
     background: linear-gradient(rgba(255,255,255,0.5), rgba(255,255,255,0.5)), url(/images/background/macesque.png) !important;
     image-rendering: pixelated;
 }
-#optionsDiv {
-    resize: both; 
-    overflow: scroll; 
-    width: 35vw; 
-    height: 32vh; 
-    min-width: 250px;
-    min-height: 200px;
-    max-width: 75%;
-    max-height: 75%;
-    background: linear-gradient(rgba(255,255,255,0.5), rgba(255,255,255,0.5)), url(/images/background/macesque.png) !important;
-    image-rendering: pixelated;
-}
 .draggable {
     background-repeat:no-repeat; 
     width: 300px;
@@ -1236,9 +1224,26 @@ list-style-type: square;
     color: white !important;
 }
 #folderBox {
-    overflow: auto; /* Enables both horizontal and vertical scrolling */
-    white-space: nowrap; /* Prevents wrapping of icons */
-    max-height: 300px; /* Adjust as needed */
-    max-width: 400px; /* Adjust as needed */
+    overflow: auto; 
+    white-space: nowrap; 
+    max-height: 300px;
+    max-width: 400px;
     position: relative;
+}
+#optionsDiv {
+    resize: both; 
+    overflow: scroll; 
+    width: 35vw; 
+    height: 32vh; 
+    min-width: 250px;
+    min-height: 200px;
+    max-width: 75%;
+    max-height: 75%;
+    background-color: rgba(255, 255, 255, 0.7); 
+    backdrop-filter: blur(7px);
+}
+.dark-mode #optionsDiv {
+    background-image: none;
+    background-color: rgba(255, 255, 255, 0.7) !important;
+     backdrop-filter: blur(7px);
 }
