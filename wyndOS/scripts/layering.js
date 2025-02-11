@@ -18,7 +18,9 @@ let currentZIndex = 1;
       el.addEventListener('touchstart', bringToFront, { passive: true });
     
       function startDrag(event) {
-        el.style.zIndex = ++currentZIndex;
+        bringToFront(el);
+        el.style.zIndex = ++currentZIndex; 
+    
     
         let shiftX, shiftY;
     
