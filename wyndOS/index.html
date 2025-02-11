@@ -442,34 +442,36 @@
         <span style="position: relative; left: 10px; color: white;" id="diskLocation">HDD/wyndOS/desktop/options</span>
     </div>
         <div class="content-box" id="folderBox">
+            <div style="position: relative; bottom: 60px; left: -10px;">
             <div class="dticon" style="position: absolute; left: 20px; top: 63px; cursor: default;" id="crtIcon">
                 <img src="/wyndOS/icons/crt.png" style="width: 44px; position: relative; top: -4px; right: 4px;" id="crt">
                 <img src="/wyndOS/icons/crtalt.png" style="width: 44px; position: relative; top: -4px; right: 4px;" id="crtAlt">
                 <div class="dtcontainer" style="left: -12px; height: 65px; top: -4px;"></div>
             <div class="dtlabel" style="position: relative; bottom: 8px;">crt.wyn</div>
-            <button id="crtToggleBtn" class="dtbutton" style="position: relative; bottom: 70px;"></button>
+            <button id="crtToggleBtn" class="dtbutton"></button>
             </div>
             <div class="dticon" style="position: absolute; left: 90px; top: 63px; cursor: default;" id="crtIcon">
                 <img src="/icons/consoles/3ds/homemenu.png" style="width: 44px; position: relative; top: -5px; right: 4px;" id="crt">
                 <img src="/wyndOS/icons/fullscreenalt.png" style="width: 44px; position: relative; top: -5px; right: 4px;" id="crtAlt">
                 <div class="dtcontainer" style="left: -12px; height: 65px; top: -4px;"></div>
             <div class="dtlabel" style="position: relative; bottom: 8px;">full.wyn</div>
-            <button id="fullscreenBtn" class="dtbutton" style="position: relative; bottom: 70px;"></button>
+            <button id="fullscreenBtn" class="dtbutton"></button>
             </div>
             <div class="dticon" style="position: absolute; left: 160px; top: 63px; cursor: default;" id="crtIcon">
                 <img src="/icons/aboutme/favoritecolor.png" style="width: 44px; position: relative; top: -5px; right: 4px;" id="crt">
                 <img src="/wyndOS/icons/coloralt.png" style="width: 44px; position: relative; top: -5px; right: 4px;" id="crtAlt">
                 <div class="dtcontainer" style="left: -12px; height: 65px; top: -4px;"></div>
             <div class="dtlabel" style="position: relative; bottom: 8px;">clr.wyn</div>
-            <button id="colorBtn" class="dtbutton" style="position: relative; bottom: 70px;"></button>
+            <button id="colorBtn" class="dtbutton"></button>
             </div>
-            <div style="background-color: transparent; width: 100%; height: 90px; position: relative; bottom: -63px;"></div>
+            </div>
+        </div>
     </div>
     </div>
     </div> 
 <div class="dtcolumn" style="position: fixed; right: 43px;">
     <div class="dticon"><img src="/wyndOS/icons/doohickey.png" style="width: 44px; position: relative; right: 5px; top: -4px;">
-        <div class="dtcontainer" style="left: -12px; height: 65px; top: -4px"></div>
+        <div class="dtcontainer" style="left: -12px; height: 65px; top: -4px;"></div>
     <div class="dtlabel" style="position: relative; bottom: 8px;">Disk</div>
     <button id="diskButton" class="dtbutton"></button>
     </div>
@@ -479,7 +481,7 @@
         <div id="lamplow"><img src="/icons/lightlamp2.png" style="position: relative; left: 1px;"></div>
         <div class="dtcontainer" style="left: -16px; width: 78px;"></div>
     <div class="dtlabel">lamp.wyn</div>
-    <button class="dtbutton" onclick="toggleLamp()"></button>
+    <button class="dtbutton" onclick="toggleLamp()" style="width: 115%; position: relative; bottom: 64px; left: -14px;"></button>
     <audio id="lampSound" src="/audio/lamp.mp3"></audio>
     </div>
     <br>
@@ -488,8 +490,8 @@
         <div id="audioLow"><img src="/wyndOS/icons/audio.png" id="audioIcon" style="position: relative; left: 2px;"></div>
         <div id="audioOff"><img src="/wyndOS/icons/audiooff.png" id="audioMute" style="position: relative; left: 2px;"></div>
         <div class="dtcontainer" style="left: -20px; width: 83px;"></div>
-    <div class="dtlabel" style="position: relative; left: -15px;">audio.wyn</div>
-    <button id="audioToggleBtn" class="dtbutton" style=" width: 120%; position: relative; left: -19px;"></button>
+    <div class="dtlabel" style="position: relative; left: -18px;">audio.wyn</div>
+    <button id="audioToggleBtn" class="dtbutton" style=" width: 120%; position: relative; left: -17px; bottom: 64px;"></button>
     </div>
     <br>
     <div class="dticon" id="questIcon"><img src="/wyndOS/icons/discalt.png">
