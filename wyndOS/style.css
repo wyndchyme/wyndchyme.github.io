@@ -846,18 +846,18 @@ details[open]>summary {
     height: 40px;
     text-align: center;
     position: relative;
-    border-top: 3px solid skyblue;
+    border-top: 0px solid skyblue;
     border-bottom: 3px solid rgb(93, 149, 173);
     display: none;
-    border-radius: 5px 5px 0 0;
-    top: 1px;
+    border-radius: 3px 3px 0 0;
+    top: 3px;
     margin-left: 5px;
     cursor: pointer;
     margin-bottom: 2px;
     left: 2px;
 }
 .dark-mode .toolbar-icon {
-    border-top: 3px solid #195770;
+    border-top: 0px solid #195770;
     border-bottom: 3px solid #267da0;
     background-image: linear-gradient(rgb(206, 238, 249), rgb(136, 182, 201));
 }
@@ -883,6 +883,8 @@ details[open]>summary {
         margin-bottom: 2px;
         position: relative;
         left: 7px;
+        height: 39px;
+        top: 2px;
     }
     .toolbar-icon button img {
         position: relative;
