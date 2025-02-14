@@ -5,7 +5,7 @@ document.addEventListener("DOMContentLoaded", function () {
     clockButton.addEventListener("click", function () {
         if (!document.body.classList.contains("muted")) {
         let sound = new Audio("/audio/meow.mp3"); 
-        sound.volume = 0.5;
+        sound.volume = 0.25;
         sound.playbackRate = 1.5;
         sound.play(); 
         }
