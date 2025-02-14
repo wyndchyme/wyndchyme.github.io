@@ -73,24 +73,32 @@ if (button) {
 
 document.addEventListener("DOMContentLoaded", function () {
     const wallpaperDecor = document.getElementById("wallpaperDecor");
+    const catEasterEgg = document.getElementById("catEasterEgg");
     const colorBtn = document.getElementById("colorBtn");
     const colorClasses = ["color-transparent", "color-red", "color-orange", "color-yellow", "color-green", "color-purple"];
     
-
     let currentIndex = localStorage.getItem("wallpaperColorIndex");
     currentIndex = currentIndex ? parseInt(currentIndex) : 0;
+    
     wallpaperDecor.classList.add(colorClasses[currentIndex]);
+    catEasterEgg.classList.add(colorClasses[currentIndex]);
 
     colorBtn.addEventListener("click", function () {
         if (!document.body.classList.contains("muted")) {
-        const clickSound = new Audio("/audio/paint.mp3"); 
-        clickSound.volume = 0.7;
-        clickSound.play();
+            const clickSound = new Audio("/audio/paint.mp3"); 
+            clickSound.volume = 0.7;
+            clickSound.play();
         }
         
         wallpaperDecor.classList.remove(colorClasses[currentIndex]);
+        catEasterEgg.classList.remove(colorClasses[currentIndex]);
+
         currentIndex = (currentIndex + 1) % colorClasses.length;
+
         wallpaperDecor.classList.add(colorClasses[currentIndex]);
+        catEasterEgg.classList.add(colorClasses[currentIndex]);
+
         localStorage.setItem("wallpaperColorIndex", currentIndex);
     });
 });
+

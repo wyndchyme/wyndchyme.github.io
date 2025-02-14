@@ -37,8 +37,8 @@ html {
     background-color: skyblue;
 }
 .dark-mode .tbclock {
-    border-top: 3px solid #195770;
-    border-bottom: 3px solid #195770;
+    border-top: 3px solid skyblue !important;
+    border-bottom: 3px solid skyblue !important;
     background-color: skyblue;
 }
 .dark-mode .boing {
@@ -154,19 +154,24 @@ body {
     height: 40px;
     text-align: center;
     position: absolute;
-    border-top: 3px solid skyblue;
-    border-bottom: 3px solid skyblue;
+    border-top: 3px solid #d4f1fc !important;
+    border-bottom: 3px solid #d4f1fc !important;
+    border-left: none;
+    border-right: none !important;
     display: inline-block;
     right: 18px;
     font-size: 16pt;
+    font-family: 'Jersey 10';
     align-content: center;
-    padding-left: 3px;
-    border-radius: 5px
+    border-radius: 5px;
+    padding-right: 3px;
+    color: #252525;
 }
 .tbclock:hover {
     background-color: white;
     transition: 0.1s;
-    cursor: help;
+    border-top: 3px solid white !important;
+    border-bottom: 3px solid white !important;
 }
 #diskDiv {
     display: block;
@@ -261,6 +266,9 @@ body {
     }
     .version {
         font-size: 16pt;
+    }
+    #catEasterEgg {
+        display: none !important;
     }
 }
 .dticon {
@@ -518,6 +526,9 @@ details[open]>summary {
     #restartLabel {
         bottom: 4px !important;
     }
+    #catEasterEgg {
+        bottom: 70px !important;
+    }
 }
 @media screen and (max-height: 550px) {
     #Activate {
@@ -616,6 +627,9 @@ details[open]>summary {
     }
     #powerOffButton {
         margin-top: 1px;
+    }
+    #catEasterEgg {
+        bottom:  77px !important;
     }
 }
 .tabbed {
@@ -1124,11 +1138,6 @@ details[open]>summary {
         display: none;
     }
 }
-@media screen and (max-width: 370px) {
-    #wallpaperDecor {
-        display: none;
-    }
-}
 .dark-mode #wallpaperDecor {
     color: white !important;
 }
@@ -1255,4 +1264,69 @@ details[open]>summary {
 }
 .dark-mode #optionsDiv {
     background-image: none;
+}
+#catEasterEgg {
+    display: none;
+    background-image: url(/wyndOS/icons/tabiegh.png);
+    image-rendering: pixelated;
+    width: 64px;
+    height: 64px;
+    background-size: 300%;
+    position: absolute;
+    left: calc(50vw - 16px);
+    bottom: 61px;
+    animation: tabby 4s steps(1) infinite;
+    filter: drop-shadow(1px 1px 1px black) hue-rotate(180deg) contrast(60%);
+}
+#catEasterEgg.color-red {
+    background-color: transparent !important;
+    filter: drop-shadow(1px 1px 1px black) hue-rotate(320deg) contrast(60%);
+}
+#catEasterEgg.color-orange {
+    background-color: transparent !important;
+    filter: drop-shadow(1px 1px 1px black) hue-rotate(13deg) contrast(60%);
+}
+#catEasterEgg.color-yellow {
+    background-color: transparent !important;
+    filter: drop-shadow(1px 1px 1px black) hue-rotate(30deg) contrast(60%) grayscale(30%);
+}
+#catEasterEgg.color-green {
+    background-color: transparent !important;
+    filter: drop-shadow(1px 1px 1px black) hue-rotate(70deg) contrast(60%) grayscale(40%);
+}
+#catEasterEgg.color-purple {
+    background-color: transparent !important;
+    filter: drop-shadow(1px 1px 1px black) hue-rotate(210deg) contrast(60%) grayscale(10%);
+}
+@keyframes tabby {
+    0%   { background-position:   0px   0px; } 
+    8.3% { background-position: -64px   0px; }
+    16.6% { background-position: -128px   0px; }
+    25% { background-position: 0px   -64px; } 
+    33.3% { background-position:   -64px -64px; }
+    41.6% { background-position: -128px -64px; } 
+    50% { background-position: 0px -128px; } 
+    58.3% { background-position: -64px -128px; }  
+    66.6% { background-position:   -128px -128px; } 
+    75% { background-position: 0px -192px; } 
+    83.3% { background-position: -64px -192px; }  
+    91.6% { background-position: -128px -192px; } 
+  }
+#catEasterEgg:hover {
+    animation: tabby 4s steps(1) infinite, pat 0.6s ease-in-out infinite !important;
+    transform-origin: bottom center;
+}
+@keyframes pat {
+    0%, 100% {
+        transform: scale(1, 1);
+    }
+    25% {
+        transform: scale(1.05, 0.95);
+    }
+    50% {
+        transform: scale(1, 1.05);
+    }
+    75% {
+        transform: scale(1, 0.95);
+    }
 }
