@@ -5,7 +5,7 @@ document.addEventListener("DOMContentLoaded", function () {
     clockButton.addEventListener("click", function () {
         if (!document.body.classList.contains("muted")) {
         let sound = new Audio("/audio/meow.mp3"); 
-        sound.volume = 0.25;
+        sound.volume = 0.15;
         sound.playbackRate = 1.5;
         sound.play(); 
         }
@@ -14,7 +14,7 @@ document.addEventListener("DOMContentLoaded", function () {
             cat.style.display = "none";
         } else {
             cat.style.display = "block";
-            cat.style.animation = "fadeUp 0.25s ease-out";
+            cat.style.animation = "catUp 0.5s ease-in-out";
 
             setTimeout(() => {
                 cat.style.animation = "tabby 4s steps(1) infinite";
