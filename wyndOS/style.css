@@ -1320,6 +1320,9 @@ details[open]>summary {
     transform-origin: bottom center;
     cursor: grab !important;
 }
+#catEasterEgg:active {
+    cursor: grabbing !important;
+}
 @keyframes pat {
     0%, 100% {
         transform: scale(1, 1);
