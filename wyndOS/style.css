@@ -1275,7 +1275,7 @@ details[open]>summary {
     width: 64px;
     height: 64px;
     background-size: 300%;
-    position: absolute;
+    position: fixed;
     left: calc(50vw - 16px);
     bottom: 61px;
     animation: tabby 4s steps(1) infinite;
