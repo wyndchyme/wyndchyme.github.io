@@ -14,7 +14,7 @@ document.addEventListener("DOMContentLoaded", function () {
             cat.style.display = "none";
         } else {
             cat.style.display = "block";
-            cat.style.animation = "fadeUp 0.5s ease-in-out";
+            cat.style.animation = "fadeUp 0.25s ease-out";
 
             setTimeout(() => {
                 cat.style.animation = "tabby 4s steps(1) infinite";
