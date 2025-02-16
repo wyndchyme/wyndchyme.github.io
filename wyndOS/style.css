@@ -876,6 +876,9 @@ details[open]>summary {
     .toolbar-icon {
         margin-top: -1px;
     }
+    #startButton {
+        margin-top: 1px;
+    }
 }
 .safari-mobile {
     .tbicon {
