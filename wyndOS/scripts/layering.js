@@ -121,11 +121,21 @@ window.addEventListener("resize", () => {
 });
 
 /* CONTEXT MENU */
-document.onclick = hideMenu;
+let lastContextMenuTime = 0;
+
+// Use an event listener with a debounce for clicks
+document.addEventListener("click", (e) => {
+  // If a click happens within 600ms of opening the menu, ignore it.
+  if (Date.now() - lastContextMenuTime < 600) return;
+  hideMenu();
+});
+
 document.oncontextmenu = rightClick;
+
 function hideMenu() {
   document.getElementById("contextMenu").style.display = "none";
 }
+
 function rightClick(e) {
   e.preventDefault();
   const draggableTarget = e.target.closest('.draggable');
@@ -147,12 +157,15 @@ function rightClick(e) {
       menu.style.top = `${menuY - menuHeight}px`;
     }
     menu.style.left = `${menuX}px`;
+    // Record the time when the context menu was opened.
+    lastContextMenuTime = Date.now();
   }
 }
 
 let touchTimer = null;
 let touchStartX = 0;
 let touchStartY = 0;
+
 document.addEventListener("touchstart", function (e) {
   if (e.touches.length === 1) {
     let touch = e.touches[0];
@@ -172,6 +185,7 @@ document.addEventListener("touchstart", function (e) {
     }, 500);
   }
 });
+
 document.addEventListener("touchmove", function (e) {
   if (touchTimer) {
     let touch = e.touches[0];
@@ -183,6 +197,7 @@ document.addEventListener("touchmove", function (e) {
     }
   }
 });
+
 document.addEventListener("touchend", function () {
   if (touchTimer) {
     clearTimeout(touchTimer);
