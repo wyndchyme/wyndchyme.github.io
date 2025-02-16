@@ -31,33 +31,7 @@
     </button>
     <audio id="lampSound" src="/audio/lamp.mp3"></audio>
 </lamp-button>
-<script>
-    // Load the saved theme from localStorage
-    document.addEventListener("DOMContentLoaded", () => {
-        const savedTheme = localStorage.getItem('theme');
-        if (savedTheme) {
-            document.body.classList.add(savedTheme);
-        }
-    });
-
-    // Function to toggle theme and play sound
-    function toggleLamp() {
-        const element = document.body;
-        const lampSound = document.getElementById("lampSound");
-
-        // Play the sound
-        lampSound.play();
-
-        // Toggle the theme
-        if (element.classList.contains("dark-mode")) {
-            element.classList.remove("dark-mode");
-            localStorage.setItem("theme", ""); // Save empty to reset
-        } else {
-            element.classList.add("dark-mode");
-            localStorage.setItem("theme", "dark-mode");
-        }
-    }
-</script>
+<script src="/images/backgrounds.js"></script>
 <div style="text-align: left; font-size: 2.2rem; font-family: 'Jersey 10'; background-color: skyblue; color: white;"> <a href="https://wyndchyme.github.io/"; style="color: white"><div style="margin-left: 5%;"><img src="/icons/faviconalt.png"; style="width: 1.5rem"> wyndchyme &#8226 docs</a></div></div>
     <div style="margin-left: 5%; margin-right: 5%; font-family: 'Helvetica'; font-size: 14pt; line-height: 1.4">
         <br>

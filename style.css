@@ -4,6 +4,9 @@ html {
     background-attachment: fixed;
     -webkit-font-smoothing: antialiased;
 }
+.dark-mode html {
+  background: url(/images/background/moroccan-flower-dark.png) !important;
+}
 @font-face {
     font-family: 'Jersey 10';
     src: url(plugins/jersey/Jersey10-Regular.woff2);
