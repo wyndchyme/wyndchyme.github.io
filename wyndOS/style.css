@@ -583,7 +583,7 @@ details[open]>summary {
         display: inline-block;
     }
 }
-@media screen and (min-width: 1200px) and (min-height: 450px) {
+@media screen and (min-width: 1200px) and (min-height: 615px) {
     .dtcolumn {
         zoom: 127%
     }
