@@ -398,9 +398,6 @@ a {
     white-space: nowrap;
 }
 ul {
-    position: relative;
-    bottom: 15px;
-    margin-bottom: -10px;
     list-style-type: none;
 }
 ul a:hover {
@@ -420,6 +417,13 @@ details[open]>summary {
 @media screen and (min-width: 1000px) {
     .dtcolumn {
         zoom: 115%;
+    }
+    .file-tree {
+        position: relative;
+        bottom: 27px !important;
+    }
+    .file a::before {
+        bottom: 2px !important;
     }
     .toolbar {
         zoom: 115%;
@@ -458,28 +462,9 @@ details[open]>summary {
         height: 225px !important;
         width: 350px !important;
     }
-    ul {
+    .updateUl {
         margin-top: 15px;
         margin-bottom: -10px;
-    }
-    #fileExplorer {
-        details>summary {
-            background-size: 26px 26px;
-            text-indent: 5px;
-        }
-        details[open]>summary {
-            background-size: 26px 26px;
-            text-indent: 5px;
-        }
-        details>details>summary {
-            text-indent: 22px !important;
-        }
-        details>details>details>summary {
-            text-indent: 38px !important;
-        }
-        details>details>details>details>summary {
-            text-indent: 54px !important;
-        }
     }
     .tab {
         font-size: 16pt !important;
@@ -1359,3 +1344,94 @@ details[open]>summary {
         opacity: 1;
     }
 }
+.file-tree {
+    position: relative;
+    left: -35px !important;
+    bottom: 22px;
+    line-height: 1.2;
+}
+.folder {
+    cursor: pointer;
+    position: relative;
+    display: block;
+    margin-top: 0;
+  }
+  .folder > span.icon {
+    display: inline-block;
+    width: 16px;
+    height: 16px;
+    background-image: url('/wyndOS/icons/folder.png');
+    background-size: 145%;
+    background-position: 60% 38%;
+    background-repeat: no-repeat;
+    vertical-align: middle;
+    margin-right: 4px;
+  }
+  .folder.open > span.icon {
+    background-image: url('/wyndOS/icons/folderopen.png'); 
+  }
+  .folder > span.label {
+    user-select: none;
+    vertical-align: middle;
+  }
+  .folder > ul {
+    display: none;
+    padding-left: 20px;
+    margin-top: 0px; 
+    transition: max-height 0.3s ease-in-out, opacity 0.3s ease-in-out;
+    max-height: 0; 
+    opacity: 0; 
+    overflow: hidden; 
+  }
+  .folder.open > ul {
+    display: block;
+    max-height: 1000px; 
+    opacity: 1; 
+  }
+  .file a {
+    text-decoration: none;
+    color: inherit;
+  }
+.file a::before {
+    content: "";
+    display: inline-block;
+    width: 16px;
+    height: 16px;
+    background-size: 100%;
+    background-repeat: no-repeat;
+    vertical-align: middle;
+    margin-right: 4px;
+    position: relative;
+    bottom: 2px;
+    background-image: url('/icons/news.png');
+    filter: drop-shadow(1px 1px 1px black);
+  }
+  .file-js a::before {
+    background-image: url('/icons/contactme/git.png');
+    bottom: 1px; 
+    background-size: 100%;
+  }
+  .file-css a::before {
+    background-image: url('/icons/aboutme/whatcaniexpect.png');
+    bottom: 1px;
+    background-size: 100%;
+  }
+  .file-png a::before,
+  .file-jpg a::before,
+  .file-webp a::before,
+  .file-gif a::before {
+    background-image: url('/wyndOS/icons/photo.png');
+    bottom: 2px;
+    background-size: 100%;
+  }
+  .file-mp3 a::before {
+    background-image: url('/wyndOS/icons/record.png');
+    bottom: 1px;
+    background-size: 100%;
+  }
+  .file-woff2 a::before {
+    background-image: url('/icons/other/crateicon.png');
+    bottom: 3px;
+    background-size: 100%;
+  }
+  
