@@ -1427,6 +1427,7 @@ details[open]>summary {
   .file-png a::before,
   .file-jpg a::before,
   .file-webp a::before,
+  .file-ico a::before,
   .file-gif a::before {
     background-image: url('/wyndOS/icons/photo.png');
     bottom: 2px;
