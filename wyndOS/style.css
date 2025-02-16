@@ -1349,6 +1349,12 @@ details[open]>summary {
     left: -35px !important;
     bottom: 22px;
     line-height: 1.2;
+    display: inline-block;
+    min-width: 100%;
+}
+#fileExplorer {
+    overflow-x: auto;
+    white-space: nowrap;
 }
 .folder {
     cursor: pointer;
