@@ -1074,6 +1074,8 @@ details[open]>summary {
 }
 .updateUl {
     list-style-type: square;
+    margin-top: 10px;
+    margin-bottom: 5px;
 }
 .updateHeader {
     color: rgb(62, 95, 108);
