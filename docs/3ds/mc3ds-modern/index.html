@@ -67,10 +67,6 @@
     <hr>
     <ul>
     <li><a href="#Introduction">Introduction</a></li>
-    <li><a href="#Indexing-files">Indexing files</a>
-    <ul>
-        <li><a href="#Defining-file-version-with-variable-a">Defining file version with variable <code>a</code></a></li>
-    </ul></li>
     <li><a href="#Loading-images-in-credits.txt">Loading images in <code>credits.txt</code></a><ul>
 <li><a href="#Defining-image-scale">Defining image scale</a>
 <ul>
@@ -91,20 +87,8 @@
     <br>
     <h2 id="Introduction">Introduction</h2>
     <hr>
-    <p style="text-indent:2em;">Welcome to the documentation for <i>Modernization MegaPack.</i> This page describes techniques used in <i>Modernization MegaPack</i> and its integration in programs like Cracko298's MegaPack Updater.</p>
+    <p style="text-indent:2em;">Welcome to the documentation for <i>Modernization MegaPack.</i> This page describes techniques used in <i>Modernization MegaPack.</i></p>
     <p style="text-indent:2em;">This is not an exhaustive list of techniques employed within <i>Modernization MegaPack;</i> rather it serves as documentation for techniques used that may not have been documented in-depth in the past.</p>
-    <br>
-    <br>
-    <h2 id="Indexing-files">Indexing files</code></h2>
-    <hr>
-    <p style="text-indent:2em">The file <code>appConfiguration.info</code> in the root of the <code>romfs</code> directory is an index of all the files present in releases of <i>Modernization MegaPack,</i> and was introduced in version 2.0.0 "Romantic" in order to integrate with Cracko298's MegaPack Updater. As an example, the following syntax is used to list <code>en_US_pocket.blang</code>:</p>
-    <code>\loc\en_US-pocket.blang, 1</code>
-    <p style="text-indent:2em">Files are defined using their relative path within the <code>romfs</code> directory. The following is the format to list a file in <code>appConfiguration.info</code>:</p>
-    <code>\path\to\file.extension, (a)</code>
-    <p style="text-indent:2em">Refer back to this syntax format when variable <code>a</code> is defined in this documentation.</p>
-    <br>
-    <h3 id="Defining-file-version-with-variable-a">Defining file version with variable <code style="font-size:15.5pt">a</code></h3>
-    <p style="text-indent:2em">The variable <code>a</code> in the syntax format defines the file's version, and should be updated when a file is modified between releases. For a file's first revision, <code>a</code> should be set to <code>1</code>. If the file is modified, <code>a</code> should be set to <code>2</code>. If the file is modified again, <code>a</code> should be set to <code>3</code> and so on.</p>
     <br>
     <br>
     <h2 id="Loading-images-in-credits.txt">Loading images in <code style="font-size: 20pt;">credits.txt</code></h2>
