@@ -414,7 +414,7 @@ details[open]>summary {
     padding-left: 20px;
     background-size: 20px 20px;
 }
-@media screen and (min-width: 1000px) {
+@media screen and (min-width: 1000px) and (min-height: 600px) {
     .dtcolumn {
         zoom: 115%;
     }
@@ -583,9 +583,9 @@ details[open]>summary {
         display: inline-block;
     }
 }
-@media screen and (min-width: 1200px) {
+@media screen and (min-width: 1200px) and (min-height: 450px) {
     .dtcolumn {
-        zoom: 127%;
+        zoom: 127%
     }
     .toolbar {
         zoom: 125%;
