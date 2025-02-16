@@ -96,7 +96,7 @@ parentElement.appendChild(li);
     if (fileList === null) {
       const errorMessage = document.createElement("li");
       errorMessage.classList.add("error");
-      errorMessage.textContent = "Failed to fetch data from GitHub. Please try again later.";
+      errorMessage.textContent = "Failed to fetch data from GitHub.";
       repoTree.appendChild(errorMessage);
     } else {
       const treeData = buildTree(fileList);
