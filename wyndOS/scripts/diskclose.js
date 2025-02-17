@@ -20,7 +20,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const updatesDiv = document.getElementById('updatesDiv');
     const closeButtons = document.querySelectorAll('#notesToolbarClose, #notesClose'); // Select both buttons
 
-    const updatesVersion = "110"; 
+    const updatesVersion = "111"; 
 
 
     const seenVersion = localStorage.getItem("updates_seen");
@@ -46,7 +46,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 document.body.classList.remove('wait-cursor');
 
                 localStorage.setItem("updates_seen", updatesVersion);
-            }, 110);
+            }, 111);
         });
     });
 });
