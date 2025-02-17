@@ -1,113 +1,427 @@
-<html> 
-<head>
-    <title>wyndchyme</title>
-    <meta property="og:title" content="wyndchyme" />
-    <meta property="og:type" content="website" />
-    <meta property="og:url" content="https://wyndchyme.github.io/" />
-    <meta name="description" content="my personal website" />
-    <meta property="og:image" content="/images/meta/preview.png" />
-    <meta property="twitter:card" content="summary_large_image" />
-    <meta property="twitter:url" content="https://wyndchyme.github.io/" />
-    <meta property="twitter:title" content="wyndchyme" />
-    <meta property="twitter:description" content="my personal website" />
-    <meta property="twitter:image" content="/images/meta/preview.png" />
-    <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?">
-    <link rel="preload" as="image" href="/icons/lightlamp2.png">
-    <link rel="stylesheet" href="plugins/flickity/flickity.css" media="screen">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" type="text/css" href="style.css">
-    <link rel="preload" href="plugins/jersey/Jersey10-Regular.woff2" as="font" type="font/woff2" crossorigin>
-    <link rel="preload" href="plugins/jersey/Jersey25-Regular.woff2" as="font" type="font/woff2" crossorigin>
-    <script src="plugins/flickity/flickity.pkgd.js"></script>
-    <style>
-        html {
-    background: "/background/moroccan-flower.png";
-    background-repeat: repeat;
-            background-attachment: fixed;
-        }
-    </style>
-</head>
-<lamp-button>
-    <button class="buttonbg" onclick="toggleLamp()" style="background-color: #d4f1fc; border-radius: 0.6rem; padding-left: 8px; padding-right: 8px; border: 2px solid #9adafc">
-        <div class="image-hover"></div>
-    </button>
-    <audio id="lampSound" src="audio/lamp.mp3"></audio>
-</lamp-button>
-<script src="/images/backgrounds.js"></script>
+<html>
+    <head>
+        <title>wyndOS</title>
+        <meta property="og:title" content="wyndOS" />
+        <meta property="og:type" content="website" />
+        <meta property="og:url" content="https://wyndchyme.github.io/" />
+        <meta name="description" content="the world's least useful operating system" />
+        <meta property="og:image" content="/images/meta/preview.png" />
+        <meta property="twitter:card" content="summary_large_image" />
+        <meta property="twitter:url" content="https://wyndchyme.github.io/" />
+        <meta property="twitter:title" content="wyndOS" />
+        <meta property="twitter:description" content="the world's least useful operating system" />
+        <meta property="twitter:image" content="/images/meta/preview.png" />
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+        <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?">
+        <link rel="preload" as="image" href="/icons/lightlamp2.png">
+        <link rel="preload" as="image" href="/wyndOS/icons/folderopen.png">
+        <link rel="preload" as="image" href="/images/background/moroccan-flower-dark.png">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" type="text/css" href="/wyndOS/style.css">
+        <link rel="preload" href="/plugins/jersey/Jersey10-Regular.woff2" as="font" type="font/woff2" crossorigin>
+    </head>
+<body style="height:100%">
+    <div id="left"></div>
+    <div id="right"></div>
+    <div id="top"></div>
+    <div id="bottom"></div>
+    <div style="position: fixed; width: 100%; height: 100%; text-align: center; line-height: calc(100vh - 50px); color: rgb(0, 78, 109); font-size: calc(16px + 5vw); opacity: 0.25; pointer-events: none;;" id="wallpaperDecor">
+        <span style="position: relative; left: -4px;">
+<img src="/icons/faviconalt.png" style="width: calc(16px + 3.5vw);"> wyndOS
+</span>
+    </div>
+<div class="dtcolumn" style="position: fixed; bottom: 100px; right: 43px;" id="notesColumn">
+    <div class="dticon"><img src="/wyndOS/icons/update.png">
+        <div class="dtcontainer"></div>
+    <div class="dtlabel">Notes</div>
+    <button id="notesButton" class="dtbutton"></button>
+    </div>
+</div>
 
-<div style="text-align: center; font-size: 3rem; font-family: 'Jersey 10'; background-color: skyblue; color: white"> <a href="https://wyndchyme.github.io/"; style="color: white"><img src= /icons/faviconalt.png> wyndchyme</a></div>
-<div style="text-align: center; font-size: 1.25rem; font-family: 'Jersey 10'" class="boing">(sometimes i make things)</div>
-<p></p>
-<div class="responsive-menu">
+<div class="dtcolumn" style="position: fixed;">
+<div class="dticon"><img src="/icons/faviconalt.png">
+    <div class="dtcontainer"></div>
+<div class="dtlabel">About</div>
+<button id="aboutButton" class="dtbutton"></button>
+</div>
+<br>
+<a href="https://wyndchyme.github.io/other/" style="color: #252525; text-decoration: none;">
+<div class="dticon"><img src="/icons/news.png">
+    <div class="dtcontainer" style="position: absolute; left: -12px;"></div>
+    <div class="dtshortcut"><img src="/icons/other/linkicon.png"></div>
+<div class="dtlabel">News</div>
+</div>
+</a>
+<br>
+<div class="dticon"><img src="/wyndOS/icons/desktopfolder.png" style="position: relative; top: 4px; left: 1px;">
+    <div class="dtcontainer"></div>
+<div class="dtlabel" style="position: relative; left: -10px;">Options</div>
+<button id="optionsButton" class="dtbutton"></button>
+</div>
+</div>
+<div class="dtcolumn" style="position: fixed; left: 75px;">
     <a href="https://wyndchyme.github.io/consoles/wii/">
-      <img src="/icons/consoles/iconwii.png" style="bottom: -1px; filter:drop-shadow(2px 2px 1px)"> Wii
+    <div class="dticon"><img src="/icons/consoles/iconwii.png" style="position: relative; bottom: 2px;" id="wiiIcon">
+        <div class="dtcontainer" style="left: -13px;" id="wiiContainer"></div>
+        <div class="dtshortcut"><img src="/icons/other/linkicon.png" id="wiiShortcut"></div>
+    <div class="dtlabel">Wii</div>
+    </div>
     </a>
-    &#8226;
+    <br>
     <a href="https://wyndchyme.github.io/consoles/3ds/">
-      <img src="/icons/consoles/icon3ds.png" style="bottom: -1px; filter:drop-shadow(2px 2px 1px)"> 3DS
+    <div class="dticon"><img src="/icons/consoles/icon3ds.png" id="dsIcon">
+        <div class="dtcontainer" style="left: -13px;" id="dsContainer"></div>
+        <div class="dtshortcut"><img src="/icons/other/linkicon.png" id="dsShortcut"></div>
+    <div class="dtlabel">3DS</div>
+    </div>
     </a>
-    &#8226;
-    <a href="https://wyndchyme.github.io/other/">
-      <img src="/icons/other/crateicon.png" style="bottom: -2px; filter:drop-shadow(2px 2px 1px)"> Other
-    </a>
-  </div>
-
-  <br>
-  <div class="gallery js-flickity"
-  data-flickity-options='{"autoPlay": 3500, "wrapAround": true}'>
-  <div class="gallery-cell"><img src="images/consoles/3ds/mc3ds-modern.png" style="width: 400px; position: relative; right: 12"><div style="background-color: rgba(21, 40, 70, 0.5); position: absolute; padding-left: 300px; padding-bottom: 20px; bottom: 0;">IO</div><gallerysubtitle><a href="https://github.com/wyndchyme/mc3ds-modern" style="color: white;">mc3ds-modern</a></gallerysubtitle></div>
-  <div class="gallery-cell"><img src="images/consoles/wii/wiiflow-forwarder.png" style="width: 300px; position: relative; right: 20"><div style="background-color: rgba(21, 40, 70, 0.5); position: absolute; padding-left: 300px; padding-bottom: 20px; bottom: 0;">IO</div><gallerysubtitle><a href="https://github.com/wyndchyme/wiiflow-forwarder" style="color: white;">wiiflow-forwarder</a></gallerysubtitle></div>
-  <div class="gallery-cell"><img src="images/consoles/3ds/mc3ds-classic-textures.png" style="width: 700px; position: relative; right: 20"><div style="background-color: rgba(21, 40, 70, 0.5); position: absolute; padding-left: 300px; padding-bottom: 20px; bottom: 0;">IO</div><gallerysubtitle><a href="https://github.com/wyndchyme/mc3ds-classic-textures" style="color: white;">mc3ds-classic-textures</a></gallerysubtitle></div>
-  <div class="gallery-cell"><img src="images/consoles/3ds/mc3ds-pinkfloyd.png" style="width: 700px; position: relative; right: 20"><div style="background-color: rgba(21, 40, 70, 0.5); position: absolute; padding-left: 300px; padding-bottom: 20px; bottom: 0;">IO</div><gallerysubtitle><a href="https://github.com/wyndchyme/mc3ds-classic-textures" style="color: white;">mc3ds-pinkfloyd</a></gallerysubtitle></div>
-  <div class="gallery-cell"><img src="images/consoles/3ds/homemenu-basiclightgray.webp" style="width: 270px; position: relative; right: 20; bottom: 5px"><div style="background-color: rgba(21, 40, 70, 0.5); position: absolute; padding-left: 300px; padding-bottom: 20px; bottom: 0;">IO</div><gallerysubtitle><a href="https://github.com/wyndchyme/homemenu-basiclightgray" style="color: white;">homemenu-basiclightgray</a></gallerysubtitle></div>
+    <br>
+    <a href="https://wyndchyme.github.io/" style="color: #252525; text-decoration: none;">
+<div class="dticon"><img src="/icons/aboutme/whatcaniexpect.png" style="position: relative; top: 3px;" id="homeIcon">
+    <div class="dtcontainer" style="left: -13px;" id="homeContainer"></div>
+    <div class="dtshortcut"><img src="/icons/other/linkicon.png" id="homeShortcut"></div>
+<div class="dtlabel" id="homeLabel">Home</div>
+</a>
 </div>
-<br>
-<div style="padding-left: 10%; padding-right: 10%">
-    <h1><img src="/icons/aboutme/aboutme.webp"; style="position: relative; bottom: -5px; filter:drop-shadow(2px 2px 1px black)"> About Me</h1></div>
-    <hr>
-<div style="padding-left: 10%; padding-right: 10%">
-    <h2><img src="/icons/aboutme/whoami.png"; style="position: relative; bottom: -5px; filter: drop-shadow(2px 2px 1px black)"> Who am I?</h2>
-    <p style= "text-indent: 5%; line-height: 1.4;">I'm wyndchyme <i>(often known as Dale).</i> I make mods for <i>Minecraft: New Nintendo 3DS Edition,</i> along with making some things for the Wii on the side. My favorite part of making things is making them look nice and pretty. I'm also a known Pink Floyd defender.</p>
-     <h2><img src="/icons/aboutme/whatkindofthings.png"; style="position:relative; bottom: -6px; filter: drop-shadow(2px 2px 1px black)"> What kind of things do I do?</h2>
-     <p style= "text-indent: 5%; line-height: 1.4;">For <i>Minecraft: New Nintendo 3DS Edition,</i> I've worked on texture packs, GUI textures, some audio work, and a little work on fonts as well. Texture work is certainly my strong suit. For the Wii, I mostly design WAD forwarders for homebrew applications. Pixel art is another interest of mine – I made all the icons for this website! I also maintain an archived version of the Minecraft 3DS UniStore for Universal-Updater, along with a modpack for <i>Minecraft: New Nintendo 3DS Edition</i> that contains a lot of quality-of-life fixes.</p>
-     <h2><img src="/icons/aboutme/whatcaniexpect.png"; style="position:relative; bottom: -4px; filter: drop-shadow(2px 2px 1px black)"> What can I expect to find on this website?</h2>
-    <p style= "text-indent: 5%; line-height: 1.4;">This website has links to all the things I've worked on for the Wii and 3DS along with links to modding tools and a newsletter for <i>Minecraft: New Nintendo 3DS Edition</i> modding.</p>
-    <h2><img src="/icons/aboutme/favoritecolor.png"; style="position:relative; bottom: -1px; filter: drop-shadow(2px 2px 1px black)"> What's my favorite color?</h2>
-    <p style= "text-indent: 5%; line-height: 1.4;">Blue. Can you tell?</p>
-    <h2><img src="/icons/aboutme/anythingelse.png"; style="position:relative; bottom: -8px; filter: drop-shadow(2px 2px 1px black)"> Anything else?</h2>
-    <p style= "text-indent: 5%; line-height: 1.4;">Sometimes I eat rocks.</p>
-    
-</div>
-<br>
-    <hr>
-</div>
-<div style="line-height: 10%;">
+    </div>
+    </div>
+    <div class="draggable" id="aboutDiv" style="display: none; z-index: 1; background: linear-gradient(rgba(255,255,255,0.5), rgba(255,255,255,0.5)), url(/images/background/macesque.png); background-size: 15% 15%; background-repeat: repeat; image-rendering: pixelated;">
+        <div class="header">About wyndOS <button class="close-btn">X</button></div>
+        
+        <div class="content" id="aboutLinks">
+            <p style="text-align: center;"><img src="/icons/faviconalt.png" style="position: relative; bottom: 10px;"></p>
+            <p style="text-align: center; font-size: 16pt; position: relative; bottom: 24px; color: #252525 !important;" class="boing">wyndOS 0.42</p>
+            <p style="text-align: center; position: relative; bottom: 38px;"><a href="https://wyndchyme.github.io/docs/legal/">© 2024-2025 wyndchyme. All Rights Reserved.</a></p>
+            <p style="text-align: center; position: relative; bottom: 50px;"><a href="https://github.com/wyndchyme/wyndchyme.github.io">Powered by GitHub Pages.</a></p>
+        </div>
+    </div>
+    <div class="draggable" id="diskDiv" style="display: none; z-index: 1; padding-bottom: 15px; overflow: hidden;">
+        <div class="header">
+            File Explorer
+            <button class="close-btn">X</button>
+        </div>
+        <div style="background-color: rgb(112, 146, 178);" id="locationDiv"><span style="position: relative; left: 10px; color: white;" id="diskLocation">Location: <a href="https://github.com/wyndchyme/wyndchyme.github.io"><img src="/wyndOS/icons/doohickey.png" style="width: 13px; position: relative; top: 1px;"> wyndOS HDD</a></span></div>
+        <div class="content-box" id="fileExplorer">
+            <ul id="repoTree" class="file-tree" style="overflow-x: hidden;"></ul>         
+    </div>
+    </div>
+    <div class="draggable" id="updatesDiv" style="display: none; z-index: 1; padding-bottom: 15px; overflow: hidden;">
+        <div class="header">
+            Update Notes (v553)
+            <button class="close-btn" id="notesClose">X</button>
+        </div>
+        <div style="width: 100%; height: 10px; background-image: url(/images/background/moroccan-flower-dark.png);" id="notesDecorI"></div>
+        <div style="width: 100%; height: 10px; background-image: url(/images/background/moroccan-flower.png);" id="notesDecorII"></div>
+        <div class="content-box" style="white-space: wrap;">
+            <span class="updateHeader">Commit 553</span>
+            <ul class="updateUl" style="margin-right: 30px;">
+                <li>Overhauled the file explorer, allowing it to generate dynamically and save space in the HTML file  (make sure to clear your cache to see changes!)</li>
+            </ul>
+            <br>
+            <span class="updateHeader">Commit 523</span>
+            <ul class="updateUl" style="margin-right: 30px;">
+                <li>Clicking on the toolbar clock now reveals a feline friend</li>
+            </ul>
+            <br>
+            <span class="updateHeader">Commit 510</span>
+            <ul class="updateUl" style="margin-right: 30px;">
+                <li>Added ability to change background color in Options folder</li>
+            </ul>
+            <br>
+            <span class="updateHeader">Commit 508</span>
+            <ul class="updateUl" style="margin-right: 30px;">
+                <li>Added click sound effect</li>
+                <li>Tweaked CRT filter button appearance</li>
+            </ul>
+            <br>
+            <span class="updateHeader">Commit 506</span>
+            <ul class="updateUl" style="margin-right: 30px;">
+                <li>Added CRT filter support</li>
+                <li>Added fullscreen support</li>
+                <li>Added Options folder</li>
+                <li>Changed hover sound</li>
+                <li>Slightly increased letter spacing</li>
+            </ul>
+            <br>
+            <span class="updateHeader">Commit 501</span>
+            <ul class="updateUl" style="margin-right: 30px;">
+                <li>Added wyndOS logo to wallpaper</li>
+                <li>Adjusted sound effect volume levels</li>
+            </ul>
+            <br>
+            <span class="updateHeader">Commit 496</span>
+            <ul class="updateUl" style="margin-right: 30px;">
+                <li>Added hover sound effects</li>
+            </ul>
+            <br>
+            <span class="updateHeader">Commit 494</span>
+            <ul class="updateUl" style="margin-right: 30px;">
+                <li>Added new mini icon for update notes window</li>
+            </ul>
+            <br>
+            <span class="updateHeader">Commit 490</span>
+            <ul class="updateUl" style="margin-right: 30px;">
+                <li>Added more decoration to update notes window</li>
+            </ul>
+            <br>
+            <span class="updateHeader">Commit 489</span>
+            <ul class="updateUl" style="margin-right: 30px;">
+                <li>Added update notes window</li>
+                <li>Removed 'Activate wyndOS' text from bottom right</li>
+                <li>Added version text to bottom left</li>
+            </ul>  
+    </div>
+    </div>
+    <div class="draggable" id="optionsDiv" style="display: none; z-index: 1; padding-bottom: 15px; overflow: hidden;">
+        <div class="header">
+            <img src="/wyndOS/icons/folder.png" style="width: 26px; position: relative; top: 4px; image-rendering: auto;"> <span style="position: relative; bottom: 5px;">Options</span>
+            <button class="close-btn">X</button>
+        </div>
+        <div style="background-color: rgb(112, 146, 178);" id="locationDiv">
+        <span style="position: relative; left: 10px; color: white;" id="diskLocation">:HDD/wyndOS/desktop/options</span>
+    </div>
+        <div class="content-box" id="folderBox">
+            <div style="position: relative; bottom: 60px; left: -10px;">
+            <div class="dticon" style="position: absolute; left: 20px; top: 63px; cursor: default;" id="crtIcon">
+                <img src="/wyndOS/icons/crt.png" style="width: 44px; position: relative; top: -4px; right: 4px;" id="crt">
+                <img src="/wyndOS/icons/crtalt.png" style="width: 44px; position: relative; top: -4px; right: 4px;" id="crtAlt">
+                <div class="dtcontainer" style="left: -12px; height: 65px; top: -4px;"></div>
+            <div class="dtlabel" style="position: relative; bottom: 8px;">crt.wyn</div>
+            <button id="crtToggleBtn" class="dtbutton"></button>
+            </div>
+            <div class="dticon" style="position: absolute; left: 90px; top: 63px; cursor: default;" id="crtIcon">
+                <img src="/icons/consoles/3ds/homemenu.png" style="width: 44px; position: relative; top: -5px; right: 4px;" id="crt">
+                <img src="/wyndOS/icons/fullscreenalt.png" style="width: 44px; position: relative; top: -5px; right: 4px;" id="crtAlt">
+                <div class="dtcontainer" style="left: -12px; height: 65px; top: -4px;"></div>
+            <div class="dtlabel" style="position: relative; bottom: 8px;">full.wyn</div>
+            <button id="fullscreenBtn" class="dtbutton"></button>
+            </div>
+            <div class="dticon" style="position: absolute; left: 160px; top: 63px; cursor: default;" id="crtIcon">
+                <img src="/icons/aboutme/favoritecolor.png" style="width: 44px; position: relative; top: -5px; right: 4px;" id="crt">
+                <img src="/wyndOS/icons/coloralt.png" style="width: 44px; position: relative; top: -5px; right: 4px;" id="crtAlt">
+                <div class="dtcontainer" style="left: -12px; height: 65px; top: -4px;"></div>
+            <div class="dtlabel" style="position: relative; bottom: 8px;">clr.wyn</div>
+            <button id="colorBtn" class="dtbutton"></button>
+            </div>
+            </div>
+        </div>
+    </div>
+    </div>
+    </div> 
+<div class="dtcolumn" style="position: fixed; right: 43px;">
+    <div class="dticon"><img src="/wyndOS/icons/doohickey.png" style="width: 44px; position: relative; right: 5px; top: -4px;">
+        <div class="dtcontainer" style="left: -12px; height: 65px; top: -4px;"></div>
+    <div class="dtlabel" style="position: relative; bottom: 8px;">Disk</div>
+    <button id="diskButton" class="dtbutton"></button>
+    </div>
+    <br>
+    <div class="dticon" id="lamp">
+        <div id="lampHigh"><img src="/icons/lightlamp.png" style="position: relative; left: 2px;"></div>
+        <div id="lamplow"><img src="/icons/lightlamp2.png" style="position: relative; left: 2px;"></div>
+        <div class="dtcontainer" style="left: -16px; width: 78px;"></div>
+    <div class="dtlabel">lamp.wyn</div>
+    <button class="dtbutton" onclick="toggleLamp()" style="width: 115%; position: relative; bottom: 64px; left: -14px;"></button>
+    <audio id="lampSound" src="/audio/lamp.mp3"></audio>
+    </div>
+    <br>
+    <div class="dticon" id="audio">
+        <div id="audioHigh"><img src="/wyndOS/icons/audioalt.png" id="audioIcon" style="position: relative; left: 2px;"></div>
+        <div id="audioLow"><img src="/wyndOS/icons/audio.png" id="audioIcon" style="position: relative; left: 2px;"></div>
+        <div id="audioOff"><img src="/wyndOS/icons/audiooff.png" id="audioMute" style="position: relative; left: 2px;"></div>
+        <div class="dtcontainer" style="left: -20px; width: 83px;"></div>
+    <div class="dtlabel" style="position: relative; left: -18px;">audio.wyn</div>
+    <button id="audioToggleBtn" class="dtbutton" style=" width: 120%; position: relative; left: -17px; bottom: 64px;"></button>
+    </div>
+    <br>
+    <div class="dticon" id="questIcon"><img src="/wyndOS/icons/discalt.png">
+        <div class="dtcontainer" style="left: -16px; width: 73px;"></div>
+    <div class="dtlabel">wyndQST</div>
+    <button id="qstButton" class="dtbutton"></button>
+    </div>
     <br>
 </div>
-<h1 style="padding-left: 10%"><img style= "position:relative; bottom: -2px; filter: drop-shadow(2px 2px 1px black)" src ="/icons/other/linkicon.png"> Contact Me</h1>
-<div style="padding-left: 15%; padding-right: 10%">
-<h2 style="padding-left:"><img src="/icons/contactme/email.png"; style="position:relative; bottom:-4px; filter: drop-shadow(2px 2px 1px black)"> Email</h2>
-<ul>
-    <div style="padding-left:5%">
-    <li style="color:skyblue">mega-3ds@outlook.com</li>
+<div class="draggable" id="qstDiv" style="display: none; z-index: 1; width: 300px; ;">
+    <div class="header" style="width: calc(100% - 20px)">wyndQuest Launcher <button class="close-btn">X</button></div>
+    <div class="content" style="background-color: gainsboro; border-radius: 0 0 5px 5px; height: calc(100%)" id="questContent">
+        <div class="tabbar" style="position: relative; bottom: 3px;">
+            <button class="tabbed active" onclick="openTab('London', this)" style="width: 72px;" id="tab1">wyndQuest</button>
+            <button class="tabbed" onclick="openTab('Paris', this)" style="width: 61px;" id="tab2">Graphics</button>
+            <button class="tabbed" onclick="openTab('Tokyo', this)" style="width: 62px;" id="tab3">Settings</button>
+            <button class="tabbed" onclick="openTab('Munich', this)" style="width: 48px;" id="tab4">About</button>
+        </div>
+        <div class="questBody">
+        <div style="background-color: #f0f0f0; block; width: 100%; height: 90%; position: relative; bottom: 24px; text-indent: 10px; border-radius: 0 5px 5px 5px;">
+            <div id="London" class="tab">
+                <h2 style="padding-top: 4px;"><img src="/images/questbanner.png" style="width: 100%; height: 30px; position: relative; left: -10px; filter: none; bottom: 4px; border-radius: 0 5px 0 0; object-fit: cover;" class="qstImage">
+                    <img src="/images/questbanneralt.png" style="width: 100%; height: 30px; position: relative; filter: none; bottom: 4px; border-radius: 0 5px 0 0; object-fit: cover;" class="qstImageAlt"></h2>
+                <div style="text-indent: 0; position: relative; left: 10px; bottom: 15px; width: calc(100% - 30px)">wyndQuest is not yet avaliable – please stay tuned for updates.</div>
+                <div style="position: absolute; right: 15px; bottom: 15px;"><button class="questLauncherButton" id="questLaunch">Launch</button></div>
+            </div>
+            <div id="Paris" class="tab" style="display:none">
+                <h2 style="padding-top: 4px;"><img src="/images/questbanner.png" style="width: 100%; height: 30px; position: relative; left: -10px; filter: none; bottom: 4px; border-radius: 0 5px 0 0; object-fit: cover;" class="qstImage">
+                    <img src="/images/questbanneralt.png" style="width: 100%; height: 30px; position: relative; filter: none; bottom: 4px; border-radius: 0 5px 0 0; object-fit: cover;" class="qstImageAlt"></h2>
+                <div style="text-indent: 0; position: relative; left: 10px; bottom: 15px; width: calc(100% - 30px)">wyndQuest is not yet avaliable – please stay tuned for updates.</div>
+            </div>
+            <div id="Tokyo" class="tab" style="display:none">
+                <h2 style="padding-top: 4px;"><img src="/images/questbanner.png" style="width: 100%; height: 30px; position: relative; left: -10px; filter: none; bottom: 4px; border-radius: 0 5px 0 0; object-fit: cover;" class="qstImage">
+                    <img src="/images/questbanneralt.png" style="width: 100%; height: 30px; position: relative; filter: none; bottom: 4px; border-radius: 0 5px 0 0; object-fit: cover;" class="qstImageAlt"></h2>
+                <div style="text-indent: 0; position: relative; left: 10px; bottom: 15px; width: calc(100% - 30px)">wyndQuest is not yet avaliable – please stay tuned for updates.</div>
+            </div>
+            <div id="Munich" class="tab" style="display:none">
+                <h2 style="padding-top: 4px;"><img src="/images/questbanner.png" style="width: 100%; height: 30px; position: relative; left: -10px; filter: none; bottom: 4px; border-radius: 0 5px 0 0; object-fit: cover;" class="qstImage">
+                    <img src="/images/questbanneralt.png" style="width: 100%; height: 30px; position: relative; filter: none; bottom: 4px; border-radius: 0 5px 0 0; object-fit: cover;" class="qstImageAlt"></h2>
+                <div style="text-indent: 0; position: relative; left: 10px; bottom: 15px; width: calc(100% - 30px)">wyndQuest is not yet avaliable – please stay tuned for updates.</div>
+            </div>
+        </div>
+        </div>
     </div>
-</ul>
-<h2><img src="/icons/contactme/git.png"; style="position:relative; bottom:-5px; filter: drop-shadow(2px 2px 1px black)"> GitHub</h2>
-<ul>
-<div style="padding-left:5%">
-    <li style="color:skyblue; padding-left:"><a href="https://github.com/wyndchyme">wyndchyme</a></li>
 </div>
-</ul>
-<h2><img src="/icons/contactme/discord.png"; style="position:relative; bottom:-6px; filter: drop-shadow(2px 2px 1px black)"> Discord</h2>
-<ul>
-    <div style="padding-left:5%">
-    <li style="color: skyblue">wyndchyme_</li>
+<div style="position: fixed; left: 30px; bottom: 75; font-size: 18pt; color: #252525;" class="boing" id="Activate">wyndOS 0.42</div>
+<div class="toolbar" style="position: absolute; left: 3px; bottom: 15px; display: flex; align-items: center;">
+    <button class="tbclock" id="clockButton"></button>
+    <button id="startButton" style="border: none; background-color: transparent; width: 40px; z-index: 5;">
+      <div class="tbicon" style="width: 40px; text-align: left; position: relative; left: -6px; height: 40px;">
+        <img src="/icons/faviconalt.png" style="position: relative; top: 5px; left: 5px; width: 28px;">
+      </div>
+    </button>
+    <div id="toolbarIconsContainer" style="display: flex; gap: 2px;">
+      <div id="aboutToolbarIcon" class="toolbar-icon" style="display: none;">
+        <button id="aboutToolbarButton">
+            <div class="aboutException">
+        <img src="/icons/aboutme/anythingelse.png" style="position: relative; bottom: 3px;">
     </div>
-</ul>
+    <div class="aboutException2">
+        <img src="/icons/faviconalt.png" style="position: relative; bottom: 3px;">
+    </div>
+        <span class="toolbarLabel">About</span>
+        <button class="close-btn" id="aboutToolbarClose" style="top: 8px;">X</button>
+    </button>
+      </div>
+      <div id="diskToolbarIcon" class="toolbar-icon" style="display: none;">
+        <button id="diskToolbarButton">
+        <div class="diskException"><img src="/wyndOS/icons/doohickey.png" style="right: 2px;"></div>
+        <span class="toolbarLabel">Disk</span>
+        <button class="close-btn" id="diskToolbarClose" style="top: 8px;">X</button>
+    </button>
+      </div>
+      <div id="qstToolbarIcon" class="toolbar-icon" style="display: none;">
+        <button id="qstToolbarButton">
+        <img src="/wyndOS/icons/discalt.png">
+        <span class="toolbarLabel">wyndQST</span>
+        <button class="close-btn" id="qstToolbarClose" style="top: 8px;">X</button>
+    </button>
+      </div>
+      <div id="notesToolbarIcon" class="toolbar-icon" style="display: none;">
+        <button id="notesToolbarButton">
+            <div class="aboutException">
+                <img src="/wyndOS/icons/updatemini.png" style="position: relative; right: 1px;">
+            </div>
+            <div class="aboutException2">
+                <img src="/wyndOS/icons/update.png" style="position: relative; bottom: 3px;">
+            </div>
+        <span class="toolbarLabel">Notes</span>
+        <button class="close-btn" id="notesToolbarClose" style="top: 8px;">X</button>
+    </button>
+      </div>
+  </div>
+  
+
+    </div>
+        
+    <div id="startMenu" class="hidden" style="position: absolute; left: 21px; bottom: 70px; filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.2)); height: 275px;">
+        <div style="position: relative; bottom: 3px; left: -5px;">
+        <img src="/icons/aboutme/aboutme.webp" style="background-color: #d4f1fc; border: 2px solid white; filter: none; border-radius: 3px;" draggable="false"><span style="font-size: 18pt; position: relative; bottom: 12px; left:9px; color: white;">wyndchyme</span>
+    </div>
+    <div style="position: relative; left: 2px;">
+        <div class="content-box" style="background: linear-gradient(rgba(255,255,255,0.5), rgba(255,255,255,0.5)), url(/images/background/macesque.png); background-size: 15% 15%; background-repeat: repeat; image-rendering: pixelated; width: 110px; height: 210px; position: relative; right: 10px; overflow-y: scroll; overflow-x: hidden;" id="startContent">
+            <div style="position: relative; right: 3px; color: #252525; image-rendering: auto !important;">
+                <div class="startImage"><img src="/icons/faviconalt.png" style="position: relative; top: 1px;"><span class="startLabels">About</span>
+                <button id="aboutButton2" class="startMenuButton"></button></div>
+                <hr>
+                <div class="startImage" id="startLampButton"><img src="/icons/lightlamp.png" style="position: relative; top: 1px;" id="startLampI"><img src="/icons/lightlamp2.png" style="position: relative; top: 1px;" id="startLampII"><span class="startLabels">lamp.wyn</span>
+            <button onclick="toggleLamp()" class="startMenuButton"></button></div>
+            <br>
+            <div class="startImage" style="position: relative; bottom: 15px;" id="startAudioButton"><img src="/wyndOS/icons/audioalt.png" id="startAudioI"><img src="/wyndOS/icons/audio.png" id="startAudioII"><img src="/wyndOS/icons/audiooff.png" id="startAudioIII"><span class="startLabels">audio.wyn</span>
+                <button id="audioToggleBtnStart" class="startMenuButton"></button></div>
+            </div>
+        </div>
+        <div class="content-box" style="background-color: #c3edfd; width: 110px; height: 210px; position: relative; right: -100px; bottom: 210px; overflow: hidden;" id="startContentRight">
+            <div style="position: relative; right: 3px; color: #252525;"></div>
+            <div class="startImage"><img src="/wyndOS/icons/doohickey.png" style="position: relative; top: 1px; left: 2px;"><span class="startLabels">HDD</span>
+                <button id="diskButton2" class="startMenuButton" style="left: 8px;"></button></div>
+                <br>
+                <div class="startImage" style="position: relative; bottom: 15px; left: 4px;"><img src="/wyndOS/icons/discalt.png" style="position: relative; top: 1px;"><span class="startLabels" style="position: relative; left: 4px;">wyndQST</span>
+                    <button id="qstButton2" class="startMenuButton"></button></div>
+                    <hr style="position: relative; bottom: 15px;">
+                    <div style="position: relative; bottom: 15px;" id="aboutShortcuts">
+                        <a href="https://wyndchyme.github.io/other/"><img src="/icons/news.png" draggable="false"></a>
+                        <a href="https://wyndchyme.github.io/docs/all-pages/"><img src="/icons/other/crateicon.png" style="position: relative; bottom: 1px;" draggable="false"></a>
+                        <a href="https://wyndchyme.github.io"><img src="/icons/aboutme/whatcaniexpect.png" style="position: relative; top: 1px;" draggable="false"></a>
+                    </div>
+                    <div style="position: absolute; bottom: 5px; right: 5px;">
+                        <span style="font-size: 15pt; position: relative; bottom: 1px; left: 7px;">Help</span>
+                        <a href="https://github.com/wyndchyme/wyndchyme.github.io/issues" id="helpLink">
+                            <img src="/wyndOS/icons/help.png" style="width: 32px; position: relative; top: 10px;" draggable="false">
+                        </a>
+                    </div>
+                </div>
+        </div>
+        <span style="position: absolute; bottom: 5px; right: 27px; font-size: 15pt; color: white;" id="restartLabel">Restart</span>
+        <button style="position: absolute; right: 5px; bottom: 5px; height: 20px; width: 20px; background: none; border: none; margin: 0; text-align: center; display: block;" onclick="refreshPage()">
+            <img src="/wyndOS/icons/refresh.png" style="position: relative; bottom: 7px; right: 12px; width: 32px;" id="powerOffButton" draggable="false">
+        </button>
+    </div>
+    </div>
+    </div>
+    <div id="contextMenu" class="context-menu" style="display:none">
+        <ul>
+            <li id="topitem"><button id="aboutButton3" class="contextButton">
+                <span class="contextLabel">About...</span></button></li>
+
+                <li><button id="diskButton3" class="contextButton">
+                    <span class="contextLabel">File Explorer</span></button></li>
+
+                    <li><button id="notesButton2" class="contextButton">
+                        <span class="contextLabel">Update Notes</span></button></li>
+
+                    <li><button onclick="toggleLamp()" class="contextButton">
+                        <span class="contextLabel">Change Theme</span></button></li>
+                        
+                        <li><button id="audioToggleBtn2" class="contextButton">
+                            <span class="contextLabel">Toggle Audio</span></button></li>
+
+                                <li><button onclick="refreshPage()" class="contextButton">
+                                    <span class="contextLabel">Restart</span></button></li>
+            
+                                    <li id="bottomitem"><button onclick="location.href='/docs/all-pages/index.html'" class="contextButton">
+                                        <span class="contextLabel">All Pages</span></button></li>
+        </ul>
+    </div>
+<div id="catEasterEgg">
+
 </div>
-<br>
-<hr>
-<br>
-<footer><a href="https://wyndchyme.github.io/docs/legal/" style="color:black">© 2024-2025 wyndchyme. All Rights Reserved.</a></footer>
+    <script src="/wyndOS/scripts/webkitmobile.js"></script>
+    <script src="/wyndOS/scripts/tbicons.js"></script>
+    <script src="/wyndOS/scripts/webkitdesktop.js"></script>
+    <script src="/wyndOS/scripts/tbvis.js"></script>
+    <script src="/wyndOS/scripts/refresh.js"></script>
+    <script src="/wyndOS/scripts/start.js"></script>
+    <script src="/wyndOS/scripts/closing.js"></script>  
+    <script src="/wyndOS/scripts/nozoom.js"></script> 
+    <script src="/wyndOS/scripts/aboutbtn.js"></script>
+    <script src="/wyndOS/scripts/aboutbtn2.js"></script>
+    <script src="/wyndOS/scripts/lamp.js"></script>
+    <script src="/wyndOS/scripts/clock.js"></script>
+    <script src="/wyndOS/scripts/layering.js"></script>
+    <script src="/wyndOS/scripts/resize.js"></script> 
+    <script src="/wyndOS/scripts/tabs.js"></script>
+    <script src="/wyndOS/scripts/qstbtn.js"></script>
+    <script src="/wyndOS/scripts/diskclose.js"></script>
+    <script src="/wyndOS/scripts/btns.js"></script>
+    <script src="/wyndOS/scripts/audio.js"></script>
+    <script src="/wyndOS/scripts/pageshow.js"></script>
+    <script src="/wyndOS/scripts/cat.js"></script>
+    <script src="/wyndOS/scripts/explorer.js"></script>
+      
 </body>
 </html>
