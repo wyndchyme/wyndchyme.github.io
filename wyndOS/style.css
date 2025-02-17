@@ -1437,6 +1437,18 @@ details[open]>summary {
     bottom: 2px;
     background-size: 100%;
   }
+  .file-ico a::before {
+    background-image: url('/icons/faviconalt.png');
+    bottom: 2px;
+    right: 1px;
+    background-size: 100%;
+  }
+  .file-gitignore a::before {
+    background-image: url('/icons/aboutme/whatkindofthings.png');
+    bottom: 0px;
+    right: 1px;
+    background-size: 100%;
+  }
   .file-mp3 a::before {
     background-image: url('/wyndOS/icons/record.png');
     bottom: 1px;
