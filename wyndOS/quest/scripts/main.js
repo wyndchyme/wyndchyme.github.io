@@ -23,21 +23,29 @@ function loadPixelatedTexture(path) {
     const texture = textureLoader.load(path, (tex) => {
         tex.magFilter = THREE.NearestFilter; // Prevents smoothing when scaling up
         tex.minFilter = THREE.NearestFilter; // Prevents smoothing when scaling down
-        tex.generateMipmaps = false; // Disables mipmaps for sharper pixels
+        tex.generateMipmaps = true; // Disables mipmaps for sharper pixels
     });
     return texture;
 }
 
-// Load pixelated textures
-const groundTexture = loadPixelatedTexture('/images/questbanneralt.png');
 const playerTexture = loadPixelatedTexture('/icons/faviconalt.png');
 
-// Ground
-const groundGeometry = new THREE.PlaneGeometry(110, 10);
-const groundMaterial = new THREE.MeshStandardMaterial({ map: groundTexture });
-const ground = new THREE.Mesh(groundGeometry, groundMaterial);
-ground.rotation.x = -Math.PI / 2;
-scene.add(ground);
+const tileTexture = loadPixelatedTexture('/wyndOS/quest/textures/tiletest.png');
+
+// Create a tiled ground (e.g., 10x10 grid)
+const tileSize = 1;
+const gridSize = 100;
+
+for (let x = 0; x < gridSize; x++) {
+    for (let z = 0; z < gridSize; z++) {
+        const tileGeometry = new THREE.PlaneGeometry(tileSize, tileSize);
+        const tileMaterial = new THREE.MeshStandardMaterial({ map: tileTexture });
+        const tile = new THREE.Mesh(tileGeometry, tileMaterial);
+        tile.rotation.x = -Math.PI / 2; // Align to the ground
+        tile.position.set(x - gridSize / 2, 0, z - gridSize / 2);
+        scene.add(tile);
+    }
+}
 
 // Player Cube
 const playerGeometry = new THREE.BoxGeometry(1, 1, 1);
