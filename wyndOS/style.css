@@ -229,20 +229,26 @@ body {
     color: white;
     background-color: skyblue;
     border: 2px solid skyblue;
-    font-size: 20px;
-    line-height: 20px;
+    font-size: 18px;
+    line-height: 23px; 
     cursor: pointer;
-    font-family: 'Jersey 10';
+    font-family: 'Jersey 10', sans-serif;
     width: 25px;
     height: 25px;
     border-radius: 5px;
     position: absolute;
     right: 5px;
     top: 2px;
-    text-align: center !important;
-    vertical-align: middle;
-    margin: 0 !important;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+    box-sizing: border-box;
+    appearance: none;
+    -webkit-appearance: none;
 }
+
 .close-btn:hover {
     color: teal;
     background-color: #d4f1fc;
@@ -914,6 +920,7 @@ details[open]>summary {
     display: none;
     font-family: 'Jersey 10';
     font-size: 13pt;
+    color: #252525;
 }
 .aboutException2 img {
     display: none;
