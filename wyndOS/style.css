@@ -75,8 +75,7 @@ html img {
 }
 @font-face {
     font-family: 'Jersey 10';
-    src: url(/plugins/jersey/Jersey10-Regular.woff2) format(woff2),
-        url(/plugins/jersey/Jersey10-Regular.ttf) format(truetype);
+    src: url(/plugins/jersey/Jersey10-Regular.woff2);
 }
 @font-face {
     font-family: 'Jersey 15';
