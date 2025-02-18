@@ -54,10 +54,10 @@ fetch('/wyndOS/quest/tilemaps/demo.tiles')
   .catch(error => console.error('Error loading tilemap:', error));
 
 document.addEventListener('keydown', (event) => {
-  if (event.key === 'ArrowUp') offsetY -= step;
-  if (event.key === 'ArrowDown') offsetY += step;
-  if (event.key === 'ArrowLeft') offsetX -= step;
-  if (event.key === 'ArrowRight') offsetX += step;
+  if (event.key === 'ArrowUp') offsetY += step;
+  if (event.key === 'ArrowDown') offsetY -= step;
+  if (event.key === 'ArrowLeft') offsetX += step;
+  if (event.key === 'ArrowRight') offsetX -= step;
   
   tilemap.style.transform = `translate(${offsetX}px, ${offsetY}px)`;
 });
