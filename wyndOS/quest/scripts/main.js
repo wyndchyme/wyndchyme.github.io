@@ -161,36 +161,34 @@ Promise.all([loadTileImages(tileImages), loadTileMap()])
 
   function render(currentTime) {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
+    ctx.imageSmoothingEnabled = false; // Disable smoothing
     ctx.save();
-    ctx.translate(offsetX, offsetY);
-    
+    ctx.translate(Math.floor(offsetX), Math.floor(offsetY)); // Ensure integer offsets
+  
     for (let r = 0; r < totalRows; r++) {
       for (let c = 0; c < totalCols; c++) {
-        // Get the tile data, including height information
-        let tileData;
-        if (r >= extra && r < extra + loadedTileData.length && c >= extra && c < extra + loadedTileData[0].length) {
-          tileData = loadedTileData[r - extra][c - extra];
-        } else {
-          tileData = { tiles: [0], height: 'h0' };
-        }
-        
-        // Calculate the height offset (adjust multiplier as needed for visual effect)
+        // Retrieve tile data (with height) or default to a water tile at height h0
+        let tileData = (r >= extra && r < extra + loadedTileData.length && c >= extra && c < extra + loadedTileData[0].length)
+          ? loadedTileData[r - extra][c - extra]
+          : { tiles: [0], height: 'h0' };
+  
+        // Calculate the height offset from the tile's height value (adjust multiplier as needed)
         const heightValue = parseInt(tileData.height.replace('h', '')) || 0;
         const heightOffset = heightValue * -8;
-        
-        // Calculate isometric positions with height adjustment
-        const isoX = (c - r) * (tileWidth / 2);
-        const isoY = (c + r) * (tileHeight / 4) + heightOffset;
-        
-        // Loop through each tile number in this cell
+  
+        // Compute isometric coordinates with rounding to avoid subpixel issues
+        const isoX = Math.round((c - r) * (tileWidth / 2));
+        const isoY = Math.round((c + r) * (tileHeight / 4) + heightOffset);
+  
+        // Process each tile in the cell
         tileData.tiles.forEach(tileNum => {
           const imgs = loadedTileImages[tileNum];
           let imgToDraw;
           const frameDuration = 350;
-        
+  
           if (Array.isArray(imgs)) {
             if (tileNum === 0) {
-              // For tile 0 (assumed static water), always use the first frame
+              // For water (tile 0) always use the first frame
               imgToDraw = imgs[0];
             } else {
               if (!animationState[tileNum]) {
@@ -206,11 +204,11 @@ Promise.all([loadTileImages(tileImages), loadTileMap()])
           } else {
             imgToDraw = imgs[0];
           }
-        
-          // Draw the tile image at the calculated isometric position
+  
+          // Draw the tile image at its calculated isometric position
           ctx.drawImage(imgToDraw, isoX - tileWidth / 2, isoY - tileHeight / 2, tileWidth, tileHeight);
-        
-          // Apply water tint if the tile number is 0
+  
+          // Apply water tint for tile 0
           if (tileNum === 0) {
             const tintKey = r + ',' + c;
             if (!waterTileTint[tintKey]) {
@@ -225,10 +223,9 @@ Promise.all([loadTileImages(tileImages), loadTileMap()])
         });
       }
     }
-    
+  
     ctx.restore();
     requestAnimationFrame(render);
-    ctx.imageSmoothingEnabled = false;
   }
   
   
