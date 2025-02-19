@@ -134,9 +134,12 @@ function loadTileMap() {
       return text.trim().split('\n').map(line => {
         return line.match(/\[.*?\]|\d+/g).map(cell => {
           if (cell.startsWith('[') && cell.endsWith(']')) {
-            return cell.slice(1, -1).split(',').map(Number);
+            let parts = cell.slice(1, -1).split(',').map(x => isNaN(x) ? x.trim() : Number(x));
+            let tiles = parts.filter(x => typeof x === 'number');
+            let height = parts.find(x => typeof x === 'string') || 'h0'; // Default to h0
+            return { tiles, height };
           } else {
-            return [Number(cell)];
+            return { tiles: [Number(cell)], height: 'h0' };
           }
         });
       });
@@ -156,65 +159,80 @@ Promise.all([loadTileImages(tileImages), loadTileMap()])
   })
   .catch(error => console.error('Error loading resources:', error));
 
-function render(currentTime) {
-  ctx.clearRect(0, 0, canvas.width, canvas.height);
-  ctx.save();
-  ctx.translate(offsetX, offsetY);
-  for (let r = 0; r < totalRows; r++) {
-    for (let c = 0; c < totalCols; c++) {
-      let tileNums;
-      if (r >= extra && r < extra + loadedTileData.length && c >= extra && c < extra + loadedTileData[0].length) {
-        tileNums = loadedTileData[r - extra][c - extra];
-      } else {
-        tileNums = [0];
-      }
-      const isoX = (c - r) * (tileWidth / 2);
-      const isoY = (c + r) * (tileHeight / 4);
-      tileNums.forEach(tileNum => {
-        const imgs = loadedTileImages[tileNum];
-        let imgToDraw;
-        const frameDuration = 350;
-      
-        if (Array.isArray(imgs)) {
-          if (tileNum === 0) {
-
-            imgToDraw = imgs[0];
-          } else {
-            if (!animationState[tileNum]) {
-              animationState[tileNum] = { frameIndex: 0, lastFrameTime: currentTime };
-            }
-            const state = animationState[tileNum];
-            if (currentTime - state.lastFrameTime > frameDuration) {
-              state.frameIndex = (state.frameIndex + 1) % imgs.length;
-              state.lastFrameTime = currentTime;
-            }
-            imgToDraw = imgs[state.frameIndex];
-          }
+  function render(currentTime) {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    ctx.save();
+    ctx.translate(offsetX, offsetY);
+    
+    for (let r = 0; r < totalRows; r++) {
+      for (let c = 0; c < totalCols; c++) {
+        // Get the tile data, including height information
+        let tileData;
+        if (r >= extra && r < extra + loadedTileData.length && c >= extra && c < extra + loadedTileData[0].length) {
+          tileData = loadedTileData[r - extra][c - extra];
         } else {
-          imgToDraw = imgs[0];
+          tileData = { tiles: [0], height: 'h0' };
         }
-      
-        ctx.drawImage(imgToDraw, isoX - tileWidth / 2, isoY - tileHeight / 2, tileWidth, tileHeight);
-      
-        if (tileNum === 0) {
-          const tintKey = r + ',' + c;
-          if (!waterTileTint[tintKey]) {
-            const hue = 200 + Math.floor(Math.random() * 21) - 10;
-            waterTileTint[tintKey] = "hsla(" + hue + ",60%,50%,0.1)";
+        
+        // Calculate the height offset (adjust multiplier as needed for visual effect)
+        const heightValue = parseInt(tileData.height.replace('h', '')) || 0;
+        const heightOffset = heightValue * -8;
+        
+        // Calculate isometric positions with height adjustment
+        const isoX = (c - r) * (tileWidth / 2);
+        const isoY = (c + r) * (tileHeight / 4) + heightOffset;
+        
+        // Loop through each tile number in this cell
+        tileData.tiles.forEach(tileNum => {
+          const imgs = loadedTileImages[tileNum];
+          let imgToDraw;
+          const frameDuration = 350;
+        
+          if (Array.isArray(imgs)) {
+            if (tileNum === 0) {
+              // For tile 0 (assumed static water), always use the first frame
+              imgToDraw = imgs[0];
+            } else {
+              if (!animationState[tileNum]) {
+                animationState[tileNum] = { frameIndex: 0, lastFrameTime: currentTime };
+              }
+              const state = animationState[tileNum];
+              if (currentTime - state.lastFrameTime > frameDuration) {
+                state.frameIndex = (state.frameIndex + 1) % imgs.length;
+                state.lastFrameTime = currentTime;
+              }
+              imgToDraw = imgs[state.frameIndex];
+            }
+          } else {
+            imgToDraw = imgs[0];
           }
-          ctx.save();
-          ctx.fillStyle = waterTileTint[tintKey];
-          ctx.fillRect(isoX - tileWidth / 2, isoY - tileHeight / 2, tileWidth, tileHeight);
-          ctx.restore();
-        }
-      });
-      
+        
+          // Draw the tile image at the calculated isometric position
+          ctx.drawImage(imgToDraw, isoX - tileWidth / 2, isoY - tileHeight / 2, tileWidth, tileHeight);
+        
+          // Apply water tint if the tile number is 0
+          if (tileNum === 0) {
+            const tintKey = r + ',' + c;
+            if (!waterTileTint[tintKey]) {
+              const hue = 200 + Math.floor(Math.random() * 21) - 10;
+              waterTileTint[tintKey] = "hsla(" + hue + ",60%,50%,0.1)";
+            }
+            ctx.save();
+            ctx.fillStyle = waterTileTint[tintKey];
+            ctx.fillRect(isoX - tileWidth / 2, isoY - tileHeight / 2, tileWidth, tileHeight);
+            ctx.restore();
+          }
+        });
+      }
     }
+    
+    ctx.restore();
+    requestAnimationFrame(render);
+    ctx.imageSmoothingEnabled = false;
   }
-  ctx.restore();
-  requestAnimationFrame(render);
-  ctx.imageSmoothingEnabled = false;
-}
+  
+  
+  
 
 const diagStep = step / Math.sqrt(2);
 document.addEventListener('keydown', (event) => {
