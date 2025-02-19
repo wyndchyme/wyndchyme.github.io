@@ -1,9 +1,13 @@
+@font-face {
+    font-family: 'Jersey 10';
+    src: url(/plugins/jersey/Jersey10-Regular.woff2);
+}
 body {
     display: flex;
     justify-content: center;
     align-items: center;
     height: 100vh;
-    font-family: monospace;
+    font-family: 'Jersey 10';
     overflow: hidden;
     background-color: black;
 }
