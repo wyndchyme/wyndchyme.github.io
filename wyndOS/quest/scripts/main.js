@@ -131,11 +131,11 @@ function render(currentTime) {
       tileNums.forEach(tileNum => {
         const imgs = loadedTileImages[tileNum];
         let imgToDraw;
-        const frameDuration = 350;  // You can keep this or remove if not needed
+        const frameDuration = 350;
       
         if (Array.isArray(imgs)) {
           if (tileNum === 0) {
-            // Remove the animation frame selection and just choose the first image for water
+
             imgToDraw = imgs[0];
           } else {
             if (!animationState[tileNum]) {
