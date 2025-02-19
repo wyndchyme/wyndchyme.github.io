@@ -1,11 +1,6 @@
 const tileImages = {
   0: [
-    '/wyndOS/quest/tiles/water/water.png',
-    '/wyndOS/quest/tiles/water/water_2.png',
-    '/wyndOS/quest/tiles/water/water_3.png',
-    '/wyndOS/quest/tiles/water/water_4.png',
-    '/wyndOS/quest/tiles/water/water_3.png',
-    '/wyndOS/quest/tiles/water/water_2.png'
+    '/wyndOS/quest/tiles/tile.png',
   ],
   1: [
     '/wyndOS/quest/tiles/seafoam/seafoam.png',
@@ -136,19 +131,12 @@ function render(currentTime) {
       tileNums.forEach(tileNum => {
         const imgs = loadedTileImages[tileNum];
         let imgToDraw;
-        const frameDuration = 350;
+        const frameDuration = 350;  // You can keep this or remove if not needed
+      
         if (Array.isArray(imgs)) {
           if (tileNum === 0) {
-            const key = r + ',' + c;
-            if (!waterAnimationState[key]) {
-              waterAnimationState[key] = { frameIndex: Math.floor(Math.random() * imgs.length), lastFrameTime: currentTime };
-            }
-            const state = waterAnimationState[key];
-            if (currentTime - state.lastFrameTime > frameDuration) {
-              state.frameIndex = (state.frameIndex + 1) % imgs.length;
-              state.lastFrameTime = currentTime;
-            }
-            imgToDraw = imgs[state.frameIndex];
+            // Remove the animation frame selection and just choose the first image for water
+            imgToDraw = imgs[0];
           } else {
             if (!animationState[tileNum]) {
               animationState[tileNum] = { frameIndex: 0, lastFrameTime: currentTime };
@@ -163,7 +151,9 @@ function render(currentTime) {
         } else {
           imgToDraw = imgs[0];
         }
+      
         ctx.drawImage(imgToDraw, isoX - tileWidth / 2, isoY - tileHeight / 2, tileWidth, tileHeight);
+      
         if (tileNum === 0) {
           const tintKey = r + ',' + c;
           if (!waterTileTint[tintKey]) {
@@ -176,6 +166,7 @@ function render(currentTime) {
           ctx.restore();
         }
       });
+      
     }
   }
   ctx.restore();
