@@ -1,8 +1,37 @@
 const tileImages = {
-  0: [
+  0:
     '/wyndOS/quest/tiles/tile.png',
-  ],
-  1: [
+  1:
+    '/wyndOS/quest/tiles/coast/coast.png',
+  2: 
+    '/wyndOS/quest/tiles/coast/coast_tl.png',
+  3: 
+    '/wyndOS/quest/tiles/coast/coast_bl.png',
+  4: 
+    '/wyndOS/quest/tiles/coast/coast_tr.png',
+  5: 
+    '/wyndOS/quest/tiles/coast/coast_br.png',
+  6: 
+    '/wyndOS/quest/tiles/coast/coast_mod.png',
+  7: 
+    '/wyndOS/quest/tiles/shore/shore.png',
+    /* RESERVED FOR SHORE_TL */
+  9: 
+    '/wyndOS/quest/tiles/shore/shore_bl.png',
+    /* RESERVED FOR SHORE_TR */
+  11: 
+    '/wyndOS/quest/tiles/shore/shore_br.png',
+  12: 
+    '/wyndOS/quest/tiles/shore/shore_mod.png',
+    /* RESERVED FOR SHORE_JOINER_TL */
+  14: 
+    '/wyndOS/quest/tiles/shore/shore_joiner_bl.png',
+    /* RESERVED FOR SHORE_JOINER_TR */
+  16: 
+    '/wyndOS/quest/tiles/shore/shore_joiner_br.png',
+  17: 
+    '/wyndOS/quest/tiles/sand/sand.png',
+  18: [
     '/wyndOS/quest/tiles/seafoam/seafoam.png',
     '/wyndOS/quest/tiles/seafoam/seafoam_2.png',
     '/wyndOS/quest/tiles/seafoam/seafoam_3.png',
@@ -10,23 +39,36 @@ const tileImages = {
     '/wyndOS/quest/tiles/seafoam/seafoam_5.png',
     '/wyndOS/quest/tiles/seafoam/seafoam_4.png',
     '/wyndOS/quest/tiles/seafoam/seafoam_3.png',
-    '/wyndOS/quest/tiles/seafoam/seafoam_2.png'
+    '/wyndOS/quest/tiles/seafoam/seafoam_2.png',
   ],
-  2: [
+  19: [
+  '/wyndOS/quest/tiles/seafoam/seafoam_l.png',
+  '/wyndOS/quest/tiles/seafoam/seafoam_l_2.png',
+  '/wyndOS/quest/tiles/seafoam/seafoam_l_3.png',
+  '/wyndOS/quest/tiles/seafoam/seafoam_l_4.png',
+  '/wyndOS/quest/tiles/seafoam/seafoam_l_5.png',
+  '/wyndOS/quest/tiles/seafoam/seafoam_l_4.png',
+  '/wyndOS/quest/tiles/seafoam/seafoam_l_3.png',
+  '/wyndOS/quest/tiles/seafoam/seafoam_l_2.png',
+  ],
+  20: [
+    '/wyndOS/quest/tiles/seafoam/seafoam_r.png',
+    '/wyndOS/quest/tiles/seafoam/seafoam_r_2.png',
+    '/wyndOS/quest/tiles/seafoam/seafoam_r_3.png',
+    '/wyndOS/quest/tiles/seafoam/seafoam_r_4.png',
+    '/wyndOS/quest/tiles/seafoam/seafoam_r_5.png',
+    '/wyndOS/quest/tiles/seafoam/seafoam_r_4.png',
+    '/wyndOS/quest/tiles/seafoam/seafoam_r_3.png',
+    '/wyndOS/quest/tiles/seafoam/seafoam_r_2.png',
+    ],
+  21: 
+    '/wyndOS/quest/tiles/seaweed/seaweed.png',
+  22: [
     '/wyndOS/quest/tiles/sprig/sprig.png',
     '/wyndOS/quest/tiles/sprig/sprig_2.png',
     '/wyndOS/quest/tiles/sprig/sprig.png',
-    '/wyndOS/quest/tiles/sprig/sprig_3.png'
+    '/wyndOS/quest/tiles/sprig/sprig_3.png',
   ],
-  3: '/wyndOS/quest/tiles/coast/coast.png',
-  4: '/wyndOS/quest/tiles/shore/shore.png',
-  5: '/wyndOS/quest/tiles/shore/shore_bl.png',
-  6: '/wyndOS/quest/tiles/shore/shore_br.png',
-  7: '/wyndOS/quest/tiles/shore/shore_joiner_bl.png',
-  8: '/wyndOS/quest/tiles/shore/shore_joiner_br.png',
-  9: '/wyndOS/quest/tiles/shore/shore_modifier.png',
-  10: '/wyndOS/quest/tiles/shore/shore_rim_l.png',
-  11: '/wyndOS/quest/tiles/seaweed/seaweed.png'
 };
 
 const tileWidth = 32;
@@ -86,7 +128,7 @@ function loadTileImages(tileImages) {
 }
 
 function loadTileMap() {
-  return fetch('/wyndOS/quest/tilemaps/demo.tiles')
+  return fetch('/wyndOS/quest/tilemaps/demo.tls')
     .then(response => response.text())
     .then(text => {
       return text.trim().split('\n').map(line => {
