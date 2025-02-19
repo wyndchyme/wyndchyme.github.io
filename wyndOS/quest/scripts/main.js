@@ -14,7 +14,7 @@ const tileWidth = 32;
 const tileHeight = 32;
 let offsetX, offsetY;
 const step = 20;
-const extra = 5;
+const extra = 20;
 
 const canvas = document.getElementById("tilemap");
 const ctx = canvas.getContext("2d");
