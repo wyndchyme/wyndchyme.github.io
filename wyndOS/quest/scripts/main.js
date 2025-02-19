@@ -12,7 +12,7 @@ const tileImages = {
   5: 
     '/wyndOS/quest/tiles/coast/coast_br.png',
   6: 
-    '/wyndOS/quest/tiles/coast/coast_mod.png',
+    '/wyndOS/quest/tiles/puddle/puddle.png',
   7: 
     '/wyndOS/quest/tiles/shore/shore.png',
     /* RESERVED FOR SHORE_TL */
