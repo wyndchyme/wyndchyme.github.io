@@ -5,16 +5,5 @@ body {
     height: 100vh;
     font-family: monospace;
     overflow: hidden;
-}
-.grid {
-    display: grid;
-    position: relative;
-}
-.tile {
-    width: 32px;
-    height: 32px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background-size: cover;
+    background-color: black;
 }
