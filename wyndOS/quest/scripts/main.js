@@ -161,26 +161,26 @@ Promise.all([loadTileImages(tileImages), loadTileMap()])
 
   function render(currentTime) {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
-    ctx.imageSmoothingEnabled = false; // Disable smoothing
+    ctx.imageSmoothingEnabled = false; 
     ctx.save();
-    ctx.translate(Math.floor(offsetX), Math.floor(offsetY)); // Ensure integer offsets
+    ctx.translate(Math.floor(offsetX), Math.floor(offsetY)); 
   
     for (let r = 0; r < totalRows; r++) {
       for (let c = 0; c < totalCols; c++) {
-        // Retrieve tile data (with height) or default to a water tile at height h0
+        
         let tileData = (r >= extra && r < extra + loadedTileData.length && c >= extra && c < extra + loadedTileData[0].length)
           ? loadedTileData[r - extra][c - extra]
           : { tiles: [0], height: 'h0' };
   
-        // Calculate the height offset from the tile's height value (adjust multiplier as needed)
+        
         const heightValue = parseInt(tileData.height.replace('h', '')) || 0;
         const heightOffset = heightValue * -8;
   
-        // Compute isometric coordinates with rounding to avoid subpixel issues
+       
         const isoX = Math.round((c - r) * (tileWidth / 2));
         const isoY = Math.round((c + r) * (tileHeight / 4) + heightOffset);
   
-        // Process each tile in the cell
+        
         tileData.tiles.forEach(tileNum => {
           const imgs = loadedTileImages[tileNum];
           let imgToDraw;
@@ -188,7 +188,7 @@ Promise.all([loadTileImages(tileImages), loadTileMap()])
   
           if (Array.isArray(imgs)) {
             if (tileNum === 0) {
-              // For water (tile 0) always use the first frame
+              
               imgToDraw = imgs[0];
             } else {
               if (!animationState[tileNum]) {
@@ -205,10 +205,10 @@ Promise.all([loadTileImages(tileImages), loadTileMap()])
             imgToDraw = imgs[0];
           }
   
-          // Draw the tile image at its calculated isometric position
+          
           ctx.drawImage(imgToDraw, isoX - tileWidth / 2, isoY - tileHeight / 2, tileWidth, tileHeight);
   
-          // Apply water tint for tile 0
+          
           if (tileNum === 0) {
             const tintKey = r + ',' + c;
             if (!waterTileTint[tintKey]) {
