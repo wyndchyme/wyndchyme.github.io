@@ -43,3 +43,13 @@ body {
     top: 0;
     transform: translateX(-50%);
 }
+#fpsCounter {
+    position: fixed;
+    top: 10px;
+    left: 20px;
+    background-color: rgba(0, 0, 0, 0.7);
+    color: white;
+    font-size: 16pt;
+    padding: 5px 10px;
+    border-radius: 5px;
+}

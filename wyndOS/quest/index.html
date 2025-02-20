@@ -8,9 +8,30 @@
 <body>
     <canvas id="tilemap" style="width: 100%; image-rendering: pixelated;"></canvas>
     <script type="module" src="/wyndOS/quest/scripts/wyndISO.js"></script>
+    <script src="/wyndOS/quest/scripts/fps.js"></script>
     <div style="position: fixed; left: 10px; bottom: 10px; color: white; font-size: 16pt">
         wyndISO pre-Alpha 0.4.0<br>
     (wyndchyme Isometric Rendering Engine)</div>
     <div class="crosshair"></div>
+    <div id="fpsCounter">FPS: 0</div>
+    <script>
+        let lastTime = 0;
+        let frameCount = 0;
+        let fps = 0;
+        const fpsCounter = document.getElementById('fpsCounter');
+
+        function updateFPS(timestamp) {
+            frameCount++;
+            if (timestamp - lastTime >= 1000) {
+                fps = frameCount;
+                frameCount = 0;
+                lastTime = timestamp;
+                fpsCounter.textContent = `FPS: ${fps}`;
+            }
+            requestAnimationFrame(updateFPS);
+        }
+
+        requestAnimationFrame(updateFPS);
+    </script>
 </body>
 </html>
