@@ -15,7 +15,6 @@ let totalRows, totalCols;
 let animationState = {};
 let waterTileTint = {};
 
-// Cache object for filtered tile images
 const brightnessCache = {};
 
 function centerWorld() {
@@ -79,16 +78,11 @@ function loadTileMap(url) {
     });
 }
 
-/**
- * Returns a brightened version of the tile image using an offscreen canvas.
- * Uses the cache to avoid recomputation.
- */
 function getBrightenedTile(img, brightnessFactor) {
   const cacheKey = img.src + '-' + brightnessFactor;
   if (brightnessCache[cacheKey]) {
     return brightnessCache[cacheKey];
   }
-  // Create offscreen canvas
   const offCanvas = document.createElement('canvas');
   offCanvas.width = tileWidth;
   offCanvas.height = tileHeight;
@@ -109,7 +103,6 @@ Promise.all([
     loadedTileImages = tileImgs;
     baseTileMap = baseData;
     overlayTileMap = overlayData;
-    // For simplicity, assume both tilemaps have the same dimensions
     totalRows = baseTileMap.length + extra * 2;
     totalCols = baseTileMap[0].length + extra * 2;
     canvas.width = (totalCols * tileWidth) / 2 + (tileWidth / 2) * (totalRows - 1);
@@ -142,7 +135,6 @@ function render(currentTime) {
       const baseHeightOffset = baseHeightValue * -8;
       const baseIsoY = Math.round((c + r) * (tileHeight / 4) + baseHeightOffset);
 
-      // Render Base Tile
       baseTile.tiles.forEach(tileNum => {
         const imgs = loadedTileImages[tileNum];
         let imgToDraw;
@@ -166,13 +158,10 @@ function render(currentTime) {
           imgToDraw = imgs[0];
         }
 
-        // Calculate brightness factor based on tile height
         const brightnessFactor = 1 + (baseHeightValue * 0.1);
-        // Use the cached brightened version
         const brightTile = getBrightenedTile(imgToDraw, brightnessFactor);
         ctx.drawImage(brightTile, isoX - tileWidth / 2, baseIsoY - tileHeight / 2, tileWidth, tileHeight);
 
-        // Apply water tint if it's a water tile (tileNum 0)
         if (tileNum === 0) {
           const tintKey = r + ',' + c;
           if (!waterTileTint[tintKey]) {
@@ -186,7 +175,6 @@ function render(currentTime) {
         }
       });
 
-      // Render Overlay Tile if present
       if (overlayTile) {
         const overlayHeightValue = parseInt(overlayTile.height.replace('h', '')) || 0;
         const overlayHeightOffset = overlayHeightValue * -8;
@@ -215,7 +203,6 @@ function render(currentTime) {
             imgToDraw = imgs[0];
           }
 
-          // Calculate brightness for the overlay tile
           const brightnessFactor = 1 + (overlayHeightValue * 0.1);
           const brightTile = getBrightenedTile(imgToDraw, brightnessFactor);
           ctx.drawImage(brightTile, isoX - tileWidth / 2, overlayIsoY - tileHeight / 2, tileWidth, tileHeight);
