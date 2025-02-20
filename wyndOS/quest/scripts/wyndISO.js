@@ -113,10 +113,10 @@ Promise.all([
   loadTileMap('/wyndOS/quest/tilemaps/demo.tls'),
   loadTileMap('/wyndOS/quest/tilemaps/demo_2.tls')
 ])
-  .then(([tileImgs, baseData, overlayData]) => {
+  .then(([tileImgs, baseData, ...overlayData]) => {
     loadedTileImages = tileImgs;
     baseTileMap = baseData;
-    overlayTileMap = overlayData;
+    overlayTileMap = overlayData; 
     totalRows = baseTileMap.length + extra * 2;
     totalCols = baseTileMap[0].length + extra * 2;
     canvas.width = (totalCols * tileWidth) / 2 + (tileWidth / 2) * (totalRows - 1);
@@ -126,79 +126,29 @@ Promise.all([
   })
   .catch(error => console.error('Error loading resources:', error));
 
-function render(currentTime) {
-  ctx.clearRect(0, 0, canvas.width, canvas.height);
-  ctx.imageSmoothingEnabled = false; 
-  ctx.save();
-  ctx.translate(Math.floor(offsetX), Math.floor(offsetY)); 
-
-  for (let r = 0; r < totalRows; r++) {
-    for (let c = 0; c < totalCols; c++) {
-      let baseTile = (r >= extra && r < extra + baseTileMap.length &&
-                      c >= extra && c < extra + baseTileMap[0].length)
-          ? baseTileMap[r - extra][c - extra]
-          : { tiles: [0], height: 'h0' };
-
-      let overlayTile = (r >= extra && r < extra + overlayTileMap.length &&
-                         c >= extra && c < extra + overlayTileMap[0].length)
-          ? overlayTileMap[r - extra][c - extra]
-          : null;
-
-      const isoX = Math.round((c - r) * (tileWidth / 2));
-      const baseHeightValue = parseInt(baseTile.height.replace('h', '')) || 0;
-      const baseHeightOffset = baseHeightValue * -8;
-      const baseIsoY = Math.round((c + r) * (tileHeight / 4) + baseHeightOffset);
-
-      baseTile.tiles.forEach(tileNum => {
-        const imgs = loadedTileImages[tileNum];
-        let imgToDraw;
-        const frameDuration = 350;
-
-        if (Array.isArray(imgs)) {
-          if (tileNum === 0) {
-            imgToDraw = imgs[0];
-          } else {
-            if (!animationState[tileNum]) {
-              animationState[tileNum] = { frameIndex: 0, lastFrameTime: currentTime };
-            }
-            const state = animationState[tileNum];
-            if (currentTime - state.lastFrameTime > frameDuration) {
-              state.frameIndex = (state.frameIndex + 1) % imgs.length;
-              state.lastFrameTime = currentTime;
-            }
-            imgToDraw = imgs[state.frameIndex];
-          }
-        } else {
-          imgToDraw = imgs[0];
-        }
-
-        const brightnessFactor = 1 + (baseHeightValue * 0.1);
-        const brightTile = getBrightenedTile(imgToDraw, brightnessFactor);
-        ctx.drawImage(brightTile, isoX - tileWidth / 2, baseIsoY - tileHeight / 2, tileWidth, tileHeight);
-
-        if (tileNum === 0) {
-          const tintKey = r + ',' + c;
-          if (!waterTileTint[tintKey]) {
-            const hue = 200 + Math.floor(Math.random() * 21) - 10;
-            waterTileTint[tintKey] = `hsla(${hue},60%,50%,0.1)`;
-          }
-          ctx.save();
-          ctx.fillStyle = waterTileTint[tintKey];
-          ctx.fillRect(isoX - tileWidth / 2, baseIsoY - tileHeight / 2, tileWidth, tileHeight);
-          ctx.restore();
-        }
-      });
-
-      if (overlayTile) {
-        const overlayHeightValue = parseInt(overlayTile.height.replace('h', '')) || 0;
-        const overlayHeightOffset = overlayHeightValue * -8;
-        const overlayIsoY = Math.round((c + r) * (tileHeight / 4) + overlayHeightOffset);
-
-        overlayTile.tiles.forEach(tileNum => {
+  function render(currentTime) {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    ctx.imageSmoothingEnabled = false; 
+    ctx.save();
+    ctx.translate(Math.floor(offsetX), Math.floor(offsetY)); 
+  
+    for (let r = 0; r < totalRows; r++) {
+      for (let c = 0; c < totalCols; c++) {
+        let baseTile = (r >= extra && r < extra + baseTileMap.length &&
+                        c >= extra && c < extra + baseTileMap[0].length)
+            ? baseTileMap[r - extra][c - extra]
+            : { tiles: [0], height: 'h0' };
+  
+        const isoX = Math.round((c - r) * (tileWidth / 2));
+        const baseHeightValue = parseInt(baseTile.height.replace('h', '')) || 0;
+        const baseHeightOffset = baseHeightValue * -8;
+        const baseIsoY = Math.round((c + r) * (tileHeight / 4) + baseHeightOffset);
+  
+        baseTile.tiles.forEach(tileNum => {
           const imgs = loadedTileImages[tileNum];
           let imgToDraw;
           const frameDuration = 350;
-
+  
           if (Array.isArray(imgs)) {
             if (tileNum === 0) {
               imgToDraw = imgs[0];
@@ -216,18 +166,71 @@ function render(currentTime) {
           } else {
             imgToDraw = imgs[0];
           }
-
-          const brightnessFactor = 1 + (overlayHeightValue * 0.1);
+  
+          const brightnessFactor = 1 + (baseHeightValue * 0.1);
           const brightTile = getBrightenedTile(imgToDraw, brightnessFactor);
-          ctx.drawImage(brightTile, isoX - tileWidth / 2, overlayIsoY - tileHeight / 2, tileWidth, tileHeight);
+          ctx.drawImage(brightTile, isoX - tileWidth / 2, baseIsoY - tileHeight / 2, tileWidth, tileHeight);
+  
+          if (tileNum === 0) {
+            const tintKey = r + ',' + c;
+            if (!waterTileTint[tintKey]) {
+              const hue = 200 + Math.floor(Math.random() * 21) - 10;
+              waterTileTint[tintKey] = `hsla(${hue},60%,50%,0.1)`;
+            }
+            ctx.save();
+            ctx.fillStyle = waterTileTint[tintKey];
+            ctx.fillRect(isoX - tileWidth / 2, baseIsoY - tileHeight / 2, tileWidth, tileHeight);
+            ctx.restore();
+          }
+        });
+  
+        overlayTileMap.forEach(overlayData => {
+          let overlayTile = (r >= extra && r < extra + overlayData.length &&
+                             c >= extra && c < extra + overlayData[0].length)
+              ? overlayData[r - extra][c - extra]
+              : null;
+  
+          if (overlayTile) {
+            const overlayHeightValue = parseInt(overlayTile.height.replace('h', '')) || 0;
+            const overlayHeightOffset = overlayHeightValue * -8;
+            const overlayIsoY = Math.round((c + r) * (tileHeight / 4) + overlayHeightOffset);
+  
+            overlayTile.tiles.forEach(tileNum => {
+              const imgs = loadedTileImages[tileNum];
+              let imgToDraw;
+              const frameDuration = 350;
+  
+              if (Array.isArray(imgs)) {
+                if (tileNum === 0) {
+                  imgToDraw = imgs[0];
+                } else {
+                  if (!animationState[tileNum]) {
+                    animationState[tileNum] = { frameIndex: 0, lastFrameTime: currentTime };
+                  }
+                  const state = animationState[tileNum];
+                  if (currentTime - state.lastFrameTime > frameDuration) {
+                    state.frameIndex = (state.frameIndex + 1) % imgs.length;
+                    state.lastFrameTime = currentTime;
+                  }
+                  imgToDraw = imgs[state.frameIndex];
+                }
+              } else {
+                imgToDraw = imgs[0];
+              }
+  
+              const brightnessFactor = 1 + (overlayHeightValue * 0.1);
+              const brightTile = getBrightenedTile(imgToDraw, brightnessFactor);
+              ctx.drawImage(brightTile, isoX - tileWidth / 2, overlayIsoY - tileHeight / 2, tileWidth, tileHeight);
+            });
+          }
         });
       }
     }
+  
+    ctx.restore();
+    requestAnimationFrame(render);
   }
   
-  ctx.restore();
-  requestAnimationFrame(render);
-}
 
 const diagStep = step / Math.sqrt(2);
 document.addEventListener('keydown', (event) => {
