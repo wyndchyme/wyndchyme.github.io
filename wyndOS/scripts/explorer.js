@@ -30,7 +30,7 @@ async function fetchGitHubTree(username, repo, branch = "main") {
 
   function getFileExtension(filename) {
 const parts = filename.split(".");
-return parts.length > 1 ? parts.pop().toLowerCase() : ""; // Ensure valid extension
+return parts.length > 1 ? parts.pop().toLowerCase() : "";
 }
 
 function createTreeElement(treeData, parentElement, parentContainer) {
@@ -92,9 +92,9 @@ function createTreeElement(treeData, parentElement, parentContainer) {
     const fileList = await fetchGitHubTree(username, repo, branch);
     
     const repoTree = document.getElementById("repoTree");
-    const explorerDiv = document.getElementById("diskDiv"); // Update with your actual file explorer div ID
+    const explorerDiv = document.getElementById("diskDiv");
     
-    repoTree.innerHTML = ""; // Clear previous content
+    repoTree.innerHTML = ""; 
 
     if (fileList === null) {
         const errorMessage = document.createElement("li");
@@ -103,7 +103,7 @@ function createTreeElement(treeData, parentElement, parentContainer) {
         repoTree.appendChild(errorMessage);
     } else {
         const treeData = buildTree(fileList);
-        createTreeElement(treeData, repoTree, explorerDiv); // Pass explorer div to keep it on top
+        createTreeElement(treeData, repoTree, explorerDiv);
     }
 }
 

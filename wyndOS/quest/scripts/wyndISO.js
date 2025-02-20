@@ -1,5 +1,14 @@
 import { tileImages } from '/wyndOS/quest/scripts/dictionary.js'; 
 
+let environmentConfig = {};
+
+fetch('/wyndOS/quest/tilemaps/environment_config.json')
+  .then(response => response.json())
+  .then(config => {
+    environmentConfig = config;
+  })
+  .catch(error => console.error('Error loading environment config:', error));
+
 const tileWidth = 32;
 const tileHeight = 32;
 let offsetX, offsetY;
@@ -174,14 +183,22 @@ Promise.all([
           if (tileNum === 0) {
             const tintKey = r + ',' + c;
             if (!waterTileTint[tintKey]) {
-              const hue = 200 + Math.floor(Math.random() * 21) - 10;
-              waterTileTint[tintKey] = `hsla(${hue},60%,50%,0.1)`;
+                const hueMin = environmentConfig.waterTints.hueRange[0];
+                const hueMax = environmentConfig.waterTints.hueRange[1];
+                const hue = Math.floor(Math.random() * (hueMax - hueMin + 1)) + hueMin;
+        
+                waterTileTint[tintKey] = `hsla(${hue},${environmentConfig.waterTints.saturation}%,${environmentConfig.waterTints.lightness}%,${environmentConfig.waterTints.alpha})`;
             }
             ctx.save();
             ctx.fillStyle = waterTileTint[tintKey];
-            ctx.fillRect(isoX - tileWidth / 2, baseIsoY - tileHeight / 2, tileWidth, tileHeight);
+            ctx.fillRect(
+                isoX - tileWidth / environmentConfig.waterTints.xOffset,
+                baseIsoY - tileHeight / environmentConfig.waterTints.yOffset,
+                tileWidth,
+                tileHeight
+            );
             ctx.restore();
-          }
+        }        
         });
   
         overlayTileMap.forEach(overlayData => {
