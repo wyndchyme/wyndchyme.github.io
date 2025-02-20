@@ -88,8 +88,22 @@ function getBrightenedTile(img, brightnessFactor) {
   offCanvas.height = tileHeight;
   const offCtx = offCanvas.getContext('2d');
   offCtx.imageSmoothingEnabled = false;
-  offCtx.filter = `brightness(${brightnessFactor})`;
-  offCtx.drawImage(img, 0, 0, tileWidth, tileHeight);
+
+  if ('filter' in offCtx) {
+    offCtx.filter = `brightness(${brightnessFactor})`;
+    offCtx.drawImage(img, 0, 0, tileWidth, tileHeight);
+  } else {
+    offCtx.drawImage(img, 0, 0, tileWidth, tileHeight);
+    let imageData = offCtx.getImageData(0, 0, tileWidth, tileHeight);
+    let data = imageData.data;
+    for (let i = 0; i < data.length; i += 4) {
+      data[i] = Math.min(data[i] * brightnessFactor, 255);    
+      data[i + 1] = Math.min(data[i + 1] * brightnessFactor, 255); 
+      data[i + 2] = Math.min(data[i + 2] * brightnessFactor, 255);
+    }
+    offCtx.putImageData(imageData, 0, 0);
+  }
+
   brightnessCache[cacheKey] = offCanvas;
   return offCanvas;
 }
