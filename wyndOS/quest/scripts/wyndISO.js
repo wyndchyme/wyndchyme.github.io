@@ -9,7 +9,7 @@ fetch('/wyndOS/quest/tilemaps/environment_config.json')
   })
   .catch(error => console.error('Error loading environment config:', error));
 
-const tileWidth = 32;
+const tileWidth =  32;
 const tileHeight = 32;
 let offsetX, offsetY;
 const step = 20;
@@ -77,14 +77,26 @@ function loadTileMap(url) {
           if (cell.startsWith('[') && cell.endsWith(']')) {
             let parts = cell.slice(1, -1).split(',').map(x => isNaN(x) ? x.trim() : Number(x));
             let tiles = parts.filter(x => typeof x === 'number');
-            let height = parts.find(x => typeof x === 'string') || 'h0';
-            return { tiles, height };
+
+            let heightSpec = parts.find(x => typeof x === 'string') || 'h0';
+            let heights = parseHeightRange(heightSpec); // Convert range to an array
+
+            return { tiles, heights };
           } else {
-            return { tiles: [Number(cell)], height: 'h0' };
+            return { tiles: [Number(cell)], heights: [0] };
           }
         });
       });
     });
+}
+
+function parseHeightRange(heightSpec) {
+  const match = heightSpec.match(/^h(\d+)(?:-(\d+))?$/);
+  if (!match) return [0]; 
+  const start = parseInt(match[1]);
+  const end = match[2] ? parseInt(match[2]) : start; 
+
+  return Array.from({ length: end - start + 1 }, (_, i) => start + i);
 }
 
 function getBrightenedTile(img, brightnessFactor) {
@@ -143,64 +155,83 @@ Promise.all([
   
     for (let r = 0; r < totalRows; r++) {
       for (let c = 0; c < totalCols; c++) {
+        
         let baseTile = (r >= extra && r < extra + baseTileMap.length &&
                         c >= extra && c < extra + baseTileMap[0].length)
             ? baseTileMap[r - extra][c - extra]
             : { tiles: [0], height: 'h0' };
   
         const isoX = Math.round((c - r) * (tileWidth / 2));
-        const baseHeightValue = parseInt(baseTile.height.replace('h', '')) || 0;
-        const baseHeightOffset = baseHeightValue * -8;
-        const baseIsoY = Math.round((c + r) * (tileHeight / 4) + baseHeightOffset);
   
-        baseTile.tiles.forEach(tileNum => {
-          const imgs = loadedTileImages[tileNum];
-          let imgToDraw;
-          const frameDuration = 350;
+        
+        let baseHeights = [];
+        if (baseTile.heights) {
+          baseHeights = baseTile.heights;
+        } else {
+          baseHeights = [parseInt(baseTile.height.replace('h', '')) || 0];
+        }
   
-          if (Array.isArray(imgs)) {
-            if (tileNum === 0) {
-              imgToDraw = imgs[0];
+        
+        baseHeights.forEach((heightValue, idx) => {
+          const baseHeightOffset = heightValue * -8;
+          const baseIsoY = Math.round((c + r) * (tileHeight / 4) + baseHeightOffset);
+  
+          baseTile.tiles.forEach(tileNum => {
+            const imgs = loadedTileImages[tileNum];
+            let imgToDraw;
+            const frameDuration = 350;
+  
+            if (Array.isArray(imgs)) {
+              if (tileNum === 0) {
+                imgToDraw = imgs[0];
+              } else {
+                if (!animationState[tileNum]) {
+                  animationState[tileNum] = { frameIndex: 0, lastFrameTime: currentTime };
+                }
+                const state = animationState[tileNum];
+                if (currentTime - state.lastFrameTime > frameDuration) {
+                  state.frameIndex = (state.frameIndex + 1) % imgs.length;
+                  state.lastFrameTime = currentTime;
+                }
+                imgToDraw = imgs[state.frameIndex];
+              }
             } else {
-              if (!animationState[tileNum]) {
-                animationState[tileNum] = { frameIndex: 0, lastFrameTime: currentTime };
-              }
-              const state = animationState[tileNum];
-              if (currentTime - state.lastFrameTime > frameDuration) {
-                state.frameIndex = (state.frameIndex + 1) % imgs.length;
-                state.lastFrameTime = currentTime;
-              }
-              imgToDraw = imgs[state.frameIndex];
+              imgToDraw = imgs[0];
             }
-          } else {
-            imgToDraw = imgs[0];
-          }
   
-          const brightnessFactor = 1 + (baseHeightValue * 0.1);
-          const brightTile = getBrightenedTile(imgToDraw, brightnessFactor);
-          ctx.drawImage(brightTile, isoX - tileWidth / 2, baseIsoY - tileHeight / 2, tileWidth, tileHeight);
+            const brightnessFactor = 1 + (heightValue * 0.1);
+            const brightTile = getBrightenedTile(imgToDraw, brightnessFactor);
+            ctx.drawImage(
+              brightTile,
+              isoX - tileWidth / 2,
+              baseIsoY - tileHeight / 2,
+              tileWidth,
+              tileHeight
+            );
   
-          if (tileNum === 0) {
-            const tintKey = r + ',' + c;
-            if (!waterTileTint[tintKey]) {
+            
+            if (tileNum === 0 && idx === 0) {
+              const tintKey = r + ',' + c;
+              if (!waterTileTint[tintKey]) {
                 const hueMin = environmentConfig.waterTints.hueRange[0];
                 const hueMax = environmentConfig.waterTints.hueRange[1];
                 const hue = Math.floor(Math.random() * (hueMax - hueMin + 1)) + hueMin;
-        
                 waterTileTint[tintKey] = `hsla(${hue},${environmentConfig.waterTints.saturation}%,${environmentConfig.waterTints.lightness}%,${environmentConfig.waterTints.alpha})`;
-            }
-            ctx.save();
-            ctx.fillStyle = waterTileTint[tintKey];
-            ctx.fillRect(
+              }
+              ctx.save();
+              ctx.fillStyle = waterTileTint[tintKey];
+              ctx.fillRect(
                 isoX - tileWidth / environmentConfig.waterTints.xOffset,
                 baseIsoY - tileHeight / environmentConfig.waterTints.yOffset,
                 tileWidth,
                 tileHeight
-            );
-            ctx.restore();
-        }        
+              );
+              ctx.restore();
+            }
+          });
         });
   
+        
         overlayTileMap.forEach(overlayData => {
           let overlayTile = (r >= extra && r < extra + overlayData.length &&
                              c >= extra && c < extra + overlayData[0].length)
@@ -208,36 +239,50 @@ Promise.all([
               : null;
   
           if (overlayTile) {
-            const overlayHeightValue = parseInt(overlayTile.height.replace('h', '')) || 0;
-            const overlayHeightOffset = overlayHeightValue * -8;
-            const overlayIsoY = Math.round((c + r) * (tileHeight / 4) + overlayHeightOffset);
+            let overlayHeights = [];
+            if (overlayTile.heights) {
+              overlayHeights = overlayTile.heights;
+            } else {
+              overlayHeights = [parseInt(overlayTile.height.replace('h', '')) || 0];
+            }
   
-            overlayTile.tiles.forEach(tileNum => {
-              const imgs = loadedTileImages[tileNum];
-              let imgToDraw;
-              const frameDuration = 350;
+            overlayHeights.forEach(heightValue => {
+              const overlayHeightOffset = heightValue * -8;
+              const overlayIsoY = Math.round((c + r) * (tileHeight / 4) + overlayHeightOffset);
   
-              if (Array.isArray(imgs)) {
-                if (tileNum === 0) {
-                  imgToDraw = imgs[0];
+              overlayTile.tiles.forEach(tileNum => {
+                const imgs = loadedTileImages[tileNum];
+                let imgToDraw;
+                const frameDuration = 350;
+  
+                if (Array.isArray(imgs)) {
+                  if (tileNum === 0) {
+                    imgToDraw = imgs[0];
+                  } else {
+                    if (!animationState[tileNum]) {
+                      animationState[tileNum] = { frameIndex: 0, lastFrameTime: currentTime };
+                    }
+                    const state = animationState[tileNum];
+                    if (currentTime - state.lastFrameTime > frameDuration) {
+                      state.frameIndex = (state.frameIndex + 1) % imgs.length;
+                      state.lastFrameTime = currentTime;
+                    }
+                    imgToDraw = imgs[state.frameIndex];
+                  }
                 } else {
-                  if (!animationState[tileNum]) {
-                    animationState[tileNum] = { frameIndex: 0, lastFrameTime: currentTime };
-                  }
-                  const state = animationState[tileNum];
-                  if (currentTime - state.lastFrameTime > frameDuration) {
-                    state.frameIndex = (state.frameIndex + 1) % imgs.length;
-                    state.lastFrameTime = currentTime;
-                  }
-                  imgToDraw = imgs[state.frameIndex];
+                  imgToDraw = imgs[0];
                 }
-              } else {
-                imgToDraw = imgs[0];
-              }
   
-              const brightnessFactor = 1 + (overlayHeightValue * 0.1);
-              const brightTile = getBrightenedTile(imgToDraw, brightnessFactor);
-              ctx.drawImage(brightTile, isoX - tileWidth / 2, overlayIsoY - tileHeight / 2, tileWidth, tileHeight);
+                const brightnessFactor = 1 + (heightValue * 0.1);
+                const brightTile = getBrightenedTile(imgToDraw, brightnessFactor);
+                ctx.drawImage(
+                  brightTile,
+                  isoX - tileWidth / 2,
+                  overlayIsoY - tileHeight / 2,
+                  tileWidth,
+                  tileHeight
+                );
+              });
             });
           }
         });
