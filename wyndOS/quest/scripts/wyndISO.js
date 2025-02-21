@@ -2,7 +2,7 @@ import { tileImages } from '/wyndOS/quest/scripts/dictionary.js';
 
 let environmentConfig = {};
 
-fetch('/wyndOS/quest/tilemaps/environment_config.json')
+fetch('/wyndOS/quest/resources/tilemaps/environment_config.json')
   .then(response => response.json())
   .then(config => {
     environmentConfig = config;
@@ -131,8 +131,8 @@ function getBrightenedTile(img, brightnessFactor) {
 
 Promise.all([
   loadTileImages(tileImages),
-  loadTileMap('/wyndOS/quest/tilemaps/demo.tls'),
-  loadTileMap('/wyndOS/quest/tilemaps/demo_2.tls')
+  loadTileMap('/wyndOS/quest/resources/tilemaps/demo.tls'),
+  loadTileMap('/wyndOS/quest/resources/tilemaps/demo_2.tls')
 ])
   .then(([tileImgs, baseData, ...overlayData]) => {
     loadedTileImages = tileImgs;
