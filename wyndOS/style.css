@@ -1465,4 +1465,9 @@ details[open]>summary {
     bottom: 3px;
     background-size: 100%;
   }
+  .file-tls a::before {
+    background-image: url('/icons/consoles/3ds/mc3ds.png');
+    bottom: 1px;
+    background-size: 100%;
+  }
   
