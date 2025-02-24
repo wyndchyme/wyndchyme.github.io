@@ -1,10 +1,11 @@
 {
-    "waterTints": {
-      "hueRange": [190, 210],
-      "saturation": 60,
-      "lightness": 50,
-      "alpha": 0.1,
-      "xOffset": 2,
-      "yOffset": 2
-    }
+  "extra": 5,
+  "waterTints": {
+    "hueRange": [190, 210],
+    "saturation": 60,
+    "lightness": 50,
+    "alpha": 0.1,
+    "xOffset": 2,
+    "yOffset": 2
+  }
 }

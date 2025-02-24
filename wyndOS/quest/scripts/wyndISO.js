@@ -1,4 +1,4 @@
-import { tileImages } from '/wyndOS/quest/scripts/dictionary.js'; 
+import { tileImages } from '/wyndOS/quest/scripts/dictionary.js';
 
 let environmentConfig = {};
 
@@ -6,6 +6,7 @@ fetch('/wyndOS/quest/resources/tilemaps/environment_config.json')
   .then(response => response.json())
   .then(config => {
     environmentConfig = config;
+    initializeTilemap();
   })
   .catch(error => console.error('Error loading environment config:', error));
 
@@ -13,13 +14,13 @@ const tileWidth =  32;
 const tileHeight = 32;
 let offsetX, offsetY;
 const step = 20;
-const extra = 5;
+let extra = 0;
 const canvas = document.getElementById("tilemap");
 const ctx = canvas.getContext("2d");
 
 let loadedTileImages;
-let baseTileMap;    
-let overlayTileMap; 
+let baseTileMap;
+let overlayTileMap;
 let totalRows, totalCols;
 let animationState = {};
 let waterTileTint = {};
@@ -129,6 +130,28 @@ function getBrightenedTile(img, brightnessFactor) {
   return offCanvas;
 }
 
+function initializeTilemap() {
+  
+  extra = environmentConfig.extra || 0; 
+
+  Promise.all([
+    loadTileImages(tileImages),
+    loadTileMap('/wyndOS/quest/resources/tilemaps/demo.tls'),
+    loadTileMap('/wyndOS/quest/resources/tilemaps/demo_2.tls')
+  ])
+    .then(([tileImgs, baseData, ...overlayData]) => {
+      loadedTileImages = tileImgs;
+      baseTileMap = baseData;
+      overlayTileMap = overlayData; 
+      totalRows = baseTileMap.length + extra * 2;
+      totalCols = baseTileMap[0].length + extra * 2;
+      canvas.width = (totalCols * tileWidth) / 2 + (tileWidth / 2) * (totalRows - 1);
+      canvas.height = (totalCols * tileHeight) / 2 + (tileHeight / 2) * (totalRows - 1);
+      centerWorld();
+      requestAnimationFrame(render);
+    })
+    .catch(error => console.error('Error loading resources:', error));
+}
 Promise.all([
   loadTileImages(tileImages),
   loadTileMap('/wyndOS/quest/resources/tilemaps/demo.tls'),
