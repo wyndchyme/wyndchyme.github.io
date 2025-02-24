@@ -14,23 +14,26 @@
     <div class="crosshair"></div>
     <div id="fpsCounter">FPS: 0</div>
     <script>
-        let lastTime = 0;
+        let lastTime = performance.now();
         let frameCount = 0;
         let fps = 0;
         const fpsCounter = document.getElementById('fpsCounter');
-
-        function updateFPS(timestamp) {
+    
+        function updateFPS() {
+            let now = performance.now();
             frameCount++;
-            if (timestamp - lastTime >= 1000) {
+    
+            if (now - lastTime >= 1000) {
                 fps = frameCount;
                 frameCount = 0;
-                lastTime = timestamp;
+                lastTime = now;
                 fpsCounter.textContent = `FPS: ${fps}`;
             }
-            requestAnimationFrame(updateFPS);
+    
+            setTimeout(updateFPS);
         }
-
-        requestAnimationFrame(updateFPS);
+    
+        updateFPS();
     </script>
 </body>
 </html>
