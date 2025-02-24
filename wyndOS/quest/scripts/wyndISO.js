@@ -6,6 +6,7 @@ fetch('/wyndOS/quest/resources/tilemaps/environment_config.json')
   .then(response => response.json())
   .then(config => {
     environmentConfig = config;
+    applyCanvasStyles(environmentConfig.canvasStyles);
     initializeTilemap();
   })
   .catch(error => console.error('Error loading environment config:', error));
@@ -17,7 +18,12 @@ const step = 20;
 let extra = 0;
 const canvas = document.getElementById("tilemap");
 const ctx = canvas.getContext("2d");
-
+function applyCanvasStyles(styles) {
+  if (!styles) return;
+  Object.entries(styles).forEach(([key, value]) => {
+    canvas.style[key] = value;
+  });
+}
 let loadedTileImages;
 let baseTileMap;
 let overlayTileMap;
@@ -131,8 +137,7 @@ function getBrightenedTile(img, brightnessFactor) {
 }
 
 function initializeTilemap() {
-  
-  extra = environmentConfig.extra || 0; 
+  extra = environmentConfig.extra || 0;
 
   Promise.all([
     loadTileImages(tileImages),
@@ -152,6 +157,8 @@ function initializeTilemap() {
     })
     .catch(error => console.error('Error loading resources:', error));
 }
+
+
 Promise.all([
   loadTileImages(tileImages),
   loadTileMap('/wyndOS/quest/resources/tilemaps/demo.tls'),
