@@ -16,6 +16,7 @@ const tileHeight = 32;
 let offsetX, offsetY;
 const step = 20;
 let extra = 0;
+let zoom = 1;
 const canvas = document.getElementById("tilemap");
 const ctx = canvas.getContext("2d");
 
@@ -86,7 +87,7 @@ function loadTileMap(url) {
             let parts = cell.slice(1, -1).split(',').map(x => isNaN(x) ? x.trim() : Number(x));
             let tiles = parts.filter(x => typeof x === 'number');
             let heightSpec = parts.find(x => typeof x === 'string') || 'h0';
-            let heights = parseHeightRange(heightSpec); // Convert range to an array
+            let heights = parseHeightRange(heightSpec);
             return { tiles, heights };
           } else {
             return { tiles: [Number(cell)], heights: [0] };
@@ -162,30 +163,57 @@ function render(currentTime) {
   ctx.imageSmoothingEnabled = false;
   ctx.save();
   ctx.translate(Math.floor(offsetX), Math.floor(offsetY));
+  ctx.scale(zoom, zoom);
 
-  for (let r = 0; r < totalRows; r++) {
-    for (let c = 0; c < totalCols; c++) {
-      
+  const A = tileWidth / 2;
+  const B = tileHeight / 4;
+  const invA = 1 / A; 
+  const invB = 1 / B;  
+
+  const effectiveWidth = canvas.width / zoom;
+  const effectiveHeight = canvas.height / zoom;
+
+  const corners = [
+    { x: 0, y: 0 },
+    { x: effectiveWidth, y: 0 },
+    { x: 0, y: effectiveHeight },
+    { x: effectiveWidth, y: effectiveHeight }
+  ];
+  let minCol = Infinity, maxCol = -Infinity, minRow = Infinity, maxRow = -Infinity;
+  for (const corner of corners) {
+    const sx = corner.x;
+    const sy = corner.y;
+    const col = ((sx * invA) + (sy * invB)) / 2;
+    const row = ((sy * invB) - (sx * invA)) / 2;
+    if (col < minCol) minCol = col;
+    if (col > maxCol) maxCol = col;
+    if (row < minRow) minRow = row;
+    if (row > maxRow) maxRow = row;
+  }
+  minCol = Math.floor(Math.max(0, minCol) - 1);
+  maxCol = Math.ceil(Math.min(totalCols - 1, maxCol) + 1);
+  minRow = Math.floor(Math.max(0, minRow) - 1);
+  maxRow = Math.ceil(Math.min(totalRows - 1, maxRow) + 1);
+
+  for (let r = minRow; r <= maxRow; r++) {
+    for (let c = minCol; c <= maxCol; c++) {
+      const isoX = Math.round((c - r) * A);
+      const baseY = Math.round((c + r) * B);
+
       let baseTile = (r >= extra && r < extra + baseTileMap.length &&
                       c >= extra && c < extra + baseTileMap[0].length)
         ? baseTileMap[r - extra][c - extra]
         : { tiles: [0], height: 'h0' };
 
-      const isoX = Math.round((c - r) * (tileWidth / 2));
-
-      let baseHeights = baseTile.heights 
-        ? baseTile.heights 
+      let baseHeights = baseTile.heights
+        ? baseTile.heights
         : [parseInt(baseTile.height.replace('h', '')) || 0];
 
       baseHeights.forEach((heightValue, idx) => {
-        const baseHeightOffset = heightValue * -8;
-        const baseIsoY = Math.round((c + r) * (tileHeight / 4) + baseHeightOffset);
-
+        const baseIsoY = baseY + (heightValue * -8);
         baseTile.tiles.forEach(tileNum => {
           const brightnessFactor = 1 + (heightValue * 0.1);
           drawTile(tileNum, isoX, baseIsoY, brightnessFactor, currentTime);
-
-          // Apply water tint effect only for water tile (tile 0) on the first height layer
           if (tileNum === 0 && idx === 0) {
             const tintKey = r + ',' + c;
             if (!waterTileTint[tintKey]) {
@@ -213,12 +241,11 @@ function render(currentTime) {
           ? overlayData[r - extra][c - extra]
           : null;
         if (overlayTile) {
-          let overlayHeights = overlayTile.heights 
-            ? overlayTile.heights 
+          let overlayHeights = overlayTile.heights
+            ? overlayTile.heights
             : [parseInt(overlayTile.height.replace('h', '')) || 0];
           overlayHeights.forEach(heightValue => {
-            const overlayHeightOffset = heightValue * -8;
-            const overlayIsoY = Math.round((c + r) * (tileHeight / 4) + overlayHeightOffset);
+            const overlayIsoY = baseY + (heightValue * -8);
             overlayTile.tiles.forEach(tileNum => {
               const brightnessFactor = 1 + (heightValue * 0.1);
               drawTile(tileNum, isoX, overlayIsoY, brightnessFactor, currentTime);
