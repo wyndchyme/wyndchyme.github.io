@@ -318,5 +318,18 @@ document.addEventListener('keydown', (event) => {
       offsetX -= diagStep;
       offsetY -= diagStep / 2;
       break;
+    case '+':
+    case '=':
+      zoom += 1;
+      break;
+    case '-':
+      zoom -= 1;
+      if (zoom < 1) zoom = 1;
+      break;
+    case '0': 
+      zoom = 1;
+      break;
   }
 });
+
+
