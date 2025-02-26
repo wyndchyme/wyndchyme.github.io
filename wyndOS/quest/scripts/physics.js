@@ -138,7 +138,7 @@ camera.top = size;
 camera.bottom = -size;
 camera.updateProjectionMatrix();
 
-canvas.style.position = 'absolute';
+canvas.style.position = 'fixed';
 canvas.style.top = '20px';
 canvas.style.right = '0';
 
