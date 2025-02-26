@@ -255,7 +255,6 @@ function render(currentTime) {
       });
     }
   }
-
   ctx.restore();
   requestAnimationFrame(render);
 }
@@ -299,37 +298,58 @@ Promise.all([
   })
   .catch(error => console.error('Error loading resources:', error));
 
-const diagStep = step / Math.sqrt(2);
-document.addEventListener('keydown', (event) => {
-  switch (event.key) {
-    case 'ArrowUp':
-      offsetX -= diagStep;
-      offsetY += diagStep / 2;
-      break;
-    case 'ArrowDown':
-      offsetX += diagStep;
-      offsetY -= diagStep / 2;
-      break;
-    case 'ArrowLeft':
-      offsetX += diagStep;
-      offsetY += diagStep / 2;
-      break;
-    case 'ArrowRight':
-      offsetX -= diagStep;
-      offsetY -= diagStep / 2;
-      break;
-    case '+':
-    case '=':
-      zoom += 1;
-      break;
-    case '-':
-      zoom -= 1;
-      if (zoom < 1) zoom = 1;
-      break;
-    case '0': 
-      zoom = 1;
-      break;
-  }
+  document.addEventListener("keydown", (event) => {
+    switch (event.key) {
+      case "+":
+      case "=":
+        zoom += 1;
+        break;
+      case "-":
+        zoom -= 1;
+        if (zoom < 1) zoom = 1;
+        break;
+      case "0":
+        zoom = 1;
+        break;
+    }
+  });
+
+import { playerReady } from '/wyndOS/quest/scripts/physics.js';
+
+let globalPlayer = null;
+playerReady.then(p => {
+  globalPlayer = p;
 });
 
+const originalRender = render;
 
+render = function(currentTime) {
+  originalRender(currentTime);
+  
+  if (globalPlayer && typeof baseTileMap !== 'undefined') {
+    ctx.save();
+    
+    const A = tileWidth / 2;    
+    const B = tileHeight / 4;   
+
+    const baseCols = baseTileMap[0].length;
+    const baseRows = baseTileMap.length;
+    const centerX_grid = (baseCols - 1) / 2;
+    const centerY_grid = (baseRows - 1) / 2;
+    
+    const gridCol = globalPlayer.position.x + centerX_grid + extra;
+    const gridRow = globalPlayer.position.z + centerY_grid + extra;
+    
+    const isoX = (gridCol - gridRow) * A;
+    const isoY = (gridCol + gridRow) * B;
+    
+    const screenX = isoX * zoom + offsetX;
+    const screenY = isoY * zoom + offsetY;
+    
+    const size = 16;
+    ctx.fillStyle = 'red';
+   ctx.fillRect(screenX - size / 2, screenY - 3 - size / 2, size, size);
+    
+    ctx.restore();
+  }
+};
