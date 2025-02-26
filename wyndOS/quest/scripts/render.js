@@ -344,11 +344,11 @@ render = function(currentTime) {
     const isoY = (gridCol + gridRow) * B;
     
     const screenX = isoX * zoom + offsetX;
-    const screenY = isoY * zoom + offsetY;
+    const screenY = (isoY - 20 * (globalPlayer.position.y - 0.75)) * zoom + offsetY;
     
     const size = 16;
     ctx.fillStyle = 'red';
-   ctx.fillRect(screenX - size / 2, screenY - 3 - size / 2, size, size);
+    ctx.fillRect(screenX - size / 2, screenY - 3 - size / 2, size, size);
     
     ctx.restore();
   }
