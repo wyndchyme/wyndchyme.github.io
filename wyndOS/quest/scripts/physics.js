@@ -69,7 +69,7 @@ function createPlayer(tileSize) {
   const geometry = new THREE.BoxGeometry(tileSize, tileSize, tileSize);
   const material = new THREE.MeshBasicMaterial({ color: 0xffff00 });
   const player = new THREE.Mesh(geometry, material);
-  player.position.set(0.5, 0, 1.5);
+  player.position.set(0.5, 0.75, 1.5);
   return player;
 }
 
@@ -150,3 +150,199 @@ window.addEventListener('resize', () => {
   camera.bottom = -size;
   camera.updateProjectionMatrix();
 });
+
+let playerVelocity = new THREE.Vector3(0, 0, 0);
+let isOnGround = false;
+const jumpSpeed = 0.1;
+const gravity = -0.005;
+const maxFallSpeed = -0.2;
+let previousPosition = new THREE.Vector3();
+
+document.addEventListener('keydown', (e) => {
+  if (e.code === 'Space' && isOnGround) {
+    playerVelocity.y = jumpSpeed;
+    isOnGround = false;
+  }
+});
+
+function physicsUpdate() {
+  if (!isOnGround) {
+    playerVelocity.y += gravity;
+    if (playerVelocity.y < maxFallSpeed) {
+      playerVelocity.y = maxFallSpeed;
+    }
+  }
+
+  previousPosition.copy(player.position);
+
+  const newY = player.position.y + playerVelocity.y;
+  
+  const downRay = new THREE.Raycaster(
+    player.position,
+    new THREE.Vector3(0, -1, 0),
+    0,
+    2
+  );
+  const tileMeshes = [];
+  scene.traverse((child) => {
+    if (child.isMesh && child !== player && child.geometry.type === 'BoxGeometry') {
+      tileMeshes.push(child);
+    }
+  });
+  const intersects = downRay.intersectObjects(tileMeshes, true);
+  
+  if (intersects.length > 0) {
+    const tile = intersects[0].object;
+    const tileTop = tile.position.y + 0.25;
+    if (newY - 0.5 <= tileTop + 0.01) {
+      player.position.y = tileTop + 0.5;
+      playerVelocity.y = 0;
+      isOnGround = true;
+    } else {
+      player.position.y = newY;
+      isOnGround = false;
+    }
+  } else {
+    player.position.y = newY;
+    isOnGround = false;
+  }
+  checkHorizontalCollision();
+}
+
+function checkHorizontalCollision() {
+  const downRay = new THREE.Raycaster(
+    player.position,
+    new THREE.Vector3(0, -1, 0),
+    0,
+    2
+  );
+  const tileMeshes = [];
+  scene.traverse((child) => {
+    if (child.isMesh && child !== player && child.geometry.type === 'BoxGeometry') {
+      tileMeshes.push(child);
+    }
+  });
+  const intersects = downRay.intersectObjects(tileMeshes, true);
+  let groundTileTop = -Infinity;
+  if (intersects.length > 0) {
+    groundTileTop = intersects[0].object.position.y + 0.25;
+  }
+  
+  scene.traverse((child) => {
+    if (child.isMesh && child !== player && child.geometry.type === 'BoxGeometry') {
+      const tileTop = child.position.y + 0.25;
+      if (Math.abs(player.position.x - child.position.x) < 1 &&
+          Math.abs(player.position.z - child.position.z) < 1) {
+        if (tileTop > groundTileTop && (player.position.y - 0.5 < tileTop)) {
+          player.position.x = previousPosition.x;
+          player.position.z = previousPosition.z;
+        }
+      }
+    }
+  });
+}
+
+function physicsLoop() {
+  if (typeof player !== 'undefined') {
+    physicsUpdate();
+  }
+  requestAnimationFrame(physicsLoop);
+}
+
+document.addEventListener('playerReady', () => {
+  physicsLoop();
+});
+
+document.addEventListener('playerReady', () => {
+  fetch('/wyndOS/quest/resources/tilemaps/demo_2.tls')
+    .then(response => response.text())
+    .then(tilemapText => {
+      const tilemapArray = tilemapText.trim().split('\n').map(row =>
+        row.split(' ').map(tile => {
+          const match = tile.match(/\[([^\]]+)\]/);
+          return match ? match[1].split(',').map(s => s.trim()) : [];
+        })
+      );
+      
+      const gridGroup = scene.children.find(child => child.type === 'Group');
+      if (!gridGroup) {
+        console.error("Grid group not found.");
+        return;
+      }
+      
+      const numRows = tilemapArray.length;
+      const numCols = tilemapArray[0].length;
+      const centerX = (numCols - 1) / 2;
+      const centerZ = (numRows - 1) / 2;
+      
+      gridGroup.children.forEach(tile => {
+        const col = Math.round(tile.position.x + centerX);
+        const row = Math.round(tile.position.z + centerZ);
+        const tileData = (tilemapArray[row] && tilemapArray[row][col]) || [];
+        const tileNumbers = tileData.filter(part => !/^h\d+$/i.test(part));
+        const heightPart = tileData.find(part => /^h\d+$/i.test(part));
+        const tileHeight = heightPart ? parseInt(heightPart.slice(1), 10) : 0;
+        tile.userData.tileNumbers = tileNumbers;
+        tile.userData.tileHeight = tileHeight;
+        tile.userData.worldTileHeight = tileHeight;
+      });
+      
+      document.addEventListener('keydown', (e) => {
+        if (!['ArrowUp', 'ArrowDown', 'ArrowLeft', 'ArrowRight'].includes(e.code))
+          return;
+        if (!player || !isOnGround) return;
+        
+        const getGridCoords = (x, z) => ({
+          col: Math.round(x + centerX),
+          row: Math.round(z + centerZ)
+        });
+        
+        const getTileAt = (col, row) => {
+          return gridGroup.children.find(tile => {
+            const tCol = Math.round(tile.position.x + centerX);
+            const tRow = Math.round(tile.position.z + centerZ);
+            return tCol === col && tRow === row;
+          });
+        };
+        
+        const { col: currentCol, row: currentRow } = getGridCoords(player.position.x, player.position.z);
+        const currentTile = getTileAt(currentCol, currentRow);
+        if (!currentTile) return;
+        const currentHeight = currentTile.userData.worldTileHeight;
+        const currentNumbers = currentTile.userData.tileNumbers || [];
+        
+        let destCol = currentCol, destRow = currentRow;
+        switch(e.code) {
+          case 'ArrowUp':
+            destRow = currentRow - 1;
+            break;
+          case 'ArrowDown':
+            destRow = currentRow + 1;
+            break;
+          case 'ArrowLeft':
+            destCol = currentCol - 1;
+            break;
+          case 'ArrowRight':
+            destCol = currentCol + 1;
+            break;
+        }
+        const destTile = getTileAt(destCol, destRow);
+        if (!destTile) {
+          e.preventDefault();
+          e.stopImmediatePropagation();
+          return;
+        }
+        const destHeight = destTile.userData.worldTileHeight;
+        
+        if (destHeight > currentHeight && !currentNumbers.includes("23")) {
+          e.preventDefault();
+          e.stopImmediatePropagation();
+        }
+      }, true);
+    })
+    .catch(err => {
+      console.error("Error in enhanced movement check:", err);
+    });
+});
+
+
