@@ -153,7 +153,7 @@ window.addEventListener('resize', () => {
 
 let playerVelocity = new THREE.Vector3(0, 0, 0);
 let isOnGround = false;
-const jumpSpeed = 0.1;
+const jumpSpeed = 0.075;
 const gravity = -0.005;
 const maxFallSpeed = -0.2;
 let previousPosition = new THREE.Vector3();
