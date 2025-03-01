@@ -6,6 +6,7 @@ fetch('/wyndOS/quest/resources/tilemaps/environment_config.json')
   .then(response => response.json())
   .then(config => {
     environmentConfig = config;
+    extra = environmentConfig.extra || 0;
     applyCanvasStyles(environmentConfig.canvasStyles);
     initializeTilemap();
   })
@@ -162,99 +163,113 @@ function render(currentTime) {
   ctx.clearRect(0, 0, canvas.width, canvas.height);
   ctx.imageSmoothingEnabled = false;
   ctx.save();
+
   ctx.translate(Math.floor(offsetX), Math.floor(offsetY));
   ctx.scale(zoom, zoom);
 
   const A = tileWidth / 2;
   const B = tileHeight / 4;
-  const invA = 1 / A; 
-  const invB = 1 / B;  
+  const playerSize = 20; 
 
-  const effectiveWidth = canvas.width / zoom;
-  const effectiveHeight = canvas.height / zoom;
-
-  const corners = [
-    { x: 0, y: 0 },
-    { x: effectiveWidth, y: 0 },
-    { x: 0, y: effectiveHeight },
-    { x: effectiveWidth, y: effectiveHeight }
-  ];
-  let minCol = Infinity, maxCol = -Infinity, minRow = Infinity, maxRow = -Infinity;
-  for (const corner of corners) {
-    const sx = corner.x;
-    const sy = corner.y;
-    const col = ((sx * invA) + (sy * invB)) / 2;
-    const row = ((sy * invB) - (sx * invA)) / 2;
-    if (col < minCol) minCol = col;
-    if (col > maxCol) maxCol = col;
-    if (row < minRow) minRow = row;
-    if (row > maxRow) maxRow = row;
+  let playerCellRow = -1, playerCellCol = -1, playerIsoX = 0, playerIsoY = 0;
+  if (globalPlayer && baseTileMap) {
+    const baseCols = baseTileMap[0].length;
+    const baseRows = baseTileMap.length;
+    const centerX = baseCols / 2;
+    const centerY = baseRows / 2;
+    playerCellCol = Math.floor(globalPlayer.position.x + centerX + extra);
+    playerCellRow = Math.floor(globalPlayer.position.z + centerY + extra);
+    playerIsoX = (playerCellCol - playerCellRow) * A;
+    playerIsoY = (playerCellCol + playerCellRow) * B - 16 * (globalPlayer.position.y - 0.75);
   }
-  minCol = Math.floor(Math.max(0, minCol) - 1);
-  maxCol = Math.ceil(Math.min(totalCols - 1, maxCol) + 1);
-  minRow = Math.floor(Math.max(0, minRow) - 1);
-  maxRow = Math.ceil(Math.min(totalRows - 1, maxRow) + 1);
 
-  for (let r = minRow; r <= maxRow; r++) {
-    for (let c = minCol; c <= maxCol; c++) {
-      const isoX = Math.round((c - r) * A);
-      const baseY = Math.round((c + r) * B);
+  const playerDepth = playerCellRow + playerCellCol;
+  const maxDiag = totalRows + totalCols - 2;
 
-      let baseTile = (r >= extra && r < extra + baseTileMap.length &&
-                      c >= extra && c < extra + baseTileMap[0].length)
+  function drawPlayer() {
+    ctx.fillStyle = 'red';
+
+    ctx.fillRect(playerIsoX - playerSize / 2, playerIsoY - playerSize, playerSize, playerSize);
+  }
+
+  function drawCell(r, c) {
+    const isoX = (c - r) * A;
+    const baseY = (c + r) * B;
+
+    let tileData =
+      (r >= extra && r < extra + baseTileMap.length &&
+       c >= extra && c < extra + baseTileMap[0].length)
         ? baseTileMap[r - extra][c - extra]
-        : { tiles: [0], height: 'h0' };
+        : { tiles: [0], heights: [0] };
 
-      let baseHeights = baseTile.heights
-        ? baseTile.heights
-        : [parseInt(baseTile.height.replace('h', '')) || 0];
+    tileData.heights.forEach((heightValue) => {
+      const tileY = baseY - 8 * heightValue;
+      tileData.tiles.forEach(tileNum => {
+        const brightnessFactor = 1 + (heightValue * 0.1);
+        drawTile(tileNum, isoX, tileY, brightnessFactor, currentTime);
 
-      baseHeights.forEach((heightValue, idx) => {
-        const baseIsoY = baseY + (heightValue * -8);
-        baseTile.tiles.forEach(tileNum => {
-          const brightnessFactor = 1 + (heightValue * 0.1);
-          drawTile(tileNum, isoX, baseIsoY, brightnessFactor, currentTime);
-          if (tileNum === 0 && idx === 0) {
-            const tintKey = r + ',' + c;
-            if (!waterTileTint[tintKey]) {
-              const hueMin = environmentConfig.waterTints.hueRange[0];
-              const hueMax = environmentConfig.waterTints.hueRange[1];
-              const hue = Math.floor(Math.random() * (hueMax - hueMin + 1)) + hueMin;
-              waterTileTint[tintKey] = `hsla(${hue},${environmentConfig.waterTints.saturation}%,${environmentConfig.waterTints.lightness}%,${environmentConfig.waterTints.alpha})`;
-            }
-            ctx.save();
-            ctx.fillStyle = waterTileTint[tintKey];
-            ctx.fillRect(
-              isoX - tileWidth / environmentConfig.waterTints.xOffset,
-              baseIsoY - tileHeight / environmentConfig.waterTints.yOffset,
-              tileWidth,
-              tileHeight
-            );
-            ctx.restore();
+        if (tileNum === 0) {
+          const tintKey = r + ',' + c;
+          if (!waterTileTint[tintKey]) {
+            const hueMin = environmentConfig.waterTints.hueRange[0];
+            const hueMax = environmentConfig.waterTints.hueRange[1];
+            const hue = Math.floor(Math.random() * (hueMax - hueMin + 1)) + hueMin;
+            waterTileTint[tintKey] = `hsla(${hue},${environmentConfig.waterTints.saturation}%,${environmentConfig.waterTints.lightness}%,${environmentConfig.waterTints.alpha})`;
           }
-        });
+          ctx.save();
+          ctx.fillStyle = waterTileTint[tintKey];
+          ctx.fillRect(
+            isoX - tileWidth / environmentConfig.waterTints.xOffset,
+            tileY - tileHeight / environmentConfig.waterTints.yOffset,
+            tileWidth,
+            tileHeight
+          );
+          ctx.restore();
+        }
       });
+    });
 
-      overlayTileMap.forEach(overlayData => {
-        let overlayTile = (r >= extra && r < extra + overlayData.length &&
-                           c >= extra && c < extra + overlayData[0].length)
-          ? overlayData[r - extra][c - extra]
-          : null;
+    overlayTileMap.forEach(overlayData => {
+      if (r >= extra && r < extra + overlayData.length &&
+          c >= extra && c < extra + overlayData[0].length) {
+        const overlayTile = overlayData[r - extra][c - extra];
         if (overlayTile) {
-          let overlayHeights = overlayTile.heights
-            ? overlayTile.heights
-            : [parseInt(overlayTile.height.replace('h', '')) || 0];
-          overlayHeights.forEach(heightValue => {
-            const overlayIsoY = baseY + (heightValue * -8);
+          overlayTile.heights.forEach(heightValue => {
+            const overlayY = baseY - 8 * heightValue;
             overlayTile.tiles.forEach(tileNum => {
-              const brightnessFactor = 1 + (heightValue * 0.1);
-              drawTile(tileNum, isoX, overlayIsoY, brightnessFactor, currentTime);
+              const brightnessFactor = 1 + (heightValue * 0.15);
+              drawTile(tileNum, isoX, overlayY, brightnessFactor, currentTime);
             });
           });
         }
-      });
+      }
+    });
+  }
+
+  for (let diag = 0; diag < playerDepth; diag++) {
+    for (let r = 0; r < totalRows; r++) {
+      const c = diag - r;
+      if (c < 0 || c >= totalCols) continue;
+      drawCell(r, c);
     }
   }
+
+  for (let r = 0; r < totalRows; r++) {
+    const c = playerDepth - r;
+    if (c < 0 || c >= totalCols) continue;
+    drawCell(r, c);
+  }
+
+  drawPlayer();
+
+  for (let diag = playerDepth + 1; diag <= maxDiag; diag++) {
+    for (let r = 0; r < totalRows; r++) {
+      const c = diag - r;
+      if (c < 0 || c >= totalCols) continue;
+      drawCell(r, c);
+    }
+  }
+
   ctx.restore();
   requestAnimationFrame(render);
 }
@@ -320,36 +335,3 @@ let globalPlayer = null;
 playerReady.then(p => {
   globalPlayer = p;
 });
-
-const originalRender = render;
-
-render = function(currentTime) {
-  originalRender(currentTime);
-  
-  if (globalPlayer && typeof baseTileMap !== 'undefined') {
-    ctx.save();
-    
-    const A = tileWidth / 2;    
-    const B = tileHeight / 4;   
-
-    const baseCols = baseTileMap[0].length;
-    const baseRows = baseTileMap.length;
-    const centerX_grid = (baseCols - 1) / 2;
-    const centerY_grid = (baseRows - 1) / 2;
-    
-    const gridCol = globalPlayer.position.x + centerX_grid + extra;
-    const gridRow = globalPlayer.position.z + centerY_grid + extra;
-    
-    const isoX = (gridCol - gridRow) * A;
-    const isoY = (gridCol + gridRow) * B;
-    
-    const screenX = isoX * zoom + offsetX;
-    const screenY = (isoY - 20 * (globalPlayer.position.y - 0.75)) * zoom + offsetY;
-    
-    const size = 16;
-    ctx.fillStyle = 'red';
-    ctx.fillRect(screenX - size / 2, screenY - 3 - size / 2, size, size);
-    
-    ctx.restore();
-  }
-};

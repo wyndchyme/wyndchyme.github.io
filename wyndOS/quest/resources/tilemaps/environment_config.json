@@ -2,7 +2,7 @@
   "canvasStyles": {
       "filter": "sepia(0.2) saturate(1.2)" 
   },
-  "extra": 0,
+  "extra": 1,
   "waterTints": {
       "hueRange": [190, 210],
       "saturation": 60,
