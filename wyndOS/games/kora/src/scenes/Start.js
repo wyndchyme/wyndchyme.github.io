@@ -13,15 +13,21 @@ export class Start extends Phaser.Scene {
         const tileset = map.addTilesetImage("coast", "tileset");  
 
         const layers = [
-            map.createLayer("h0", tileset, map.widthInPixels / 2, 0),
-            map.createLayer("h0-decor", tileset, map.widthInPixels / 2, 0),
-            map.createLayer("h1", tileset, map.widthInPixels / 2, 0),
-            map.createLayer("h1-decor", tileset, map.widthInPixels / 2, 0),
-            map.createLayer("h2", tileset, map.widthInPixels / 2, 0),
-            map.createLayer("h2-decor", tileset, map.widthInPixels / 2, 0)
-        ];
+    map.createLayer("h0", tileset, map.widthInPixels / 2, 0),
+    map.createLayer("h0-decor", tileset, map.widthInPixels / 2, 0),
+    map.createLayer("h0-foam", tileset, map.widthInPixels / 2, 0),
+    map.createLayer("h1", tileset, map.widthInPixels / 2, 0),
+    map.createLayer("h1-decor", tileset, map.widthInPixels / 2, 0),
+    map.createLayer("h2", tileset, map.widthInPixels / 2, 0),
+    map.createLayer("h2-decor", tileset, map.widthInPixels / 2, 0)
+];
 
-        layers.forEach((layer, index) => layer.setDepth(index + 1));
+layers.forEach((layer, index) => {
+    const layerData = map.getLayer(layer.layer.name); 
+    const offsetY = layerData.y || 0;
+    layer.setY(offsetY);
+    layer.setDepth(index + 1);
+});
 
         this.cameras.main.setBounds(0, 0, map.widthInPixels, map.heightInPixels);
         this.cameras.main.setZoom(2);
