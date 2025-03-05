@@ -914,6 +914,10 @@ details[open]>summary {
     #wallpaperDecor {
         margin-top: -20px;
     }
+    #alphaButton {
+        position: relative;
+        right: 100px !important;
+    }
 }
 .toolbar-icon button {
     background: none;
