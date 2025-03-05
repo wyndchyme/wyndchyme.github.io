@@ -484,6 +484,10 @@ details[open]>summary {
     .questLauncherButton {
         font-size: 15pt !important;
     }
+    #questTry {
+        position: relative;
+        right: 10px;
+    }
     #questContent {
         height: calc(100% + 100px) !important;
     }
@@ -657,6 +661,13 @@ details[open]>summary {
     background-color: grey;
     color: rgb(203, 203, 203);
     cursor: not-allowed;
+}
+#questTry {
+    background-color: rgb(155, 155, 155);
+    color: white;
+}
+#questTry:hover {
+    background-color: rgb(111, 111, 111);
 }
 #qstDiv {
     box-shadow: none !important;

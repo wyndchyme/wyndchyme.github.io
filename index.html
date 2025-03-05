@@ -107,15 +107,20 @@
     </div>
     <div class="draggable" id="updatesDiv" style="display: none; z-index: 1; padding-bottom: 15px; overflow: hidden;">
         <div class="header">
-            Update Notes (v557)
+            Update Notes (v625)
             <button class="close-btn" id="notesClose">X</button>
         </div>
         <div style="width: 100%; height: 10px; background-image: url(/images/background/moroccan-flower-dark.png);" id="notesDecorI"></div>
         <div style="width: 100%; height: 10px; background-image: url(/images/background/moroccan-flower.png);" id="notesDecorII"></div>
         <div class="content-box" style="white-space: wrap;">
+            <span class="updateHeader">Commit 625</span>
+            <ul class="updateUl" style="margin-right: 30px;">
+                <li>wyndQuest public alpha is now avaliable (make sure to clear your cache to see changes!)</li>
+            </ul>
+            <br>
             <span class="updateHeader">Commit 557</span>
             <ul class="updateUl" style="margin-right: 30px;">
-                <li>New site layout is now out of testing (make sure to clear your cache to see changes!)</li>
+                <li>New site layout is now out of testing</li>
             </ul>
             <br>
             <span class="updateHeader">Commit 553</span>
@@ -240,7 +245,7 @@
     <br>
     <div class="dticon" id="questIcon"><img src="/wyndOS/icons/discalt.png">
         <div class="dtcontainer" style="left: -16px; width: 73px;"></div>
-    <div class="dtlabel">wyndQST</div>
+    <div class="dtlabel" style="position: relative; left: -12px;">wyndQST</div>
     <button id="qstButton" class="dtbutton"></button>
     </div>
     <br>
@@ -255,27 +260,41 @@
             <button class="tabbed" onclick="openTab('Munich', this)" style="width: 48px;" id="tab4">About</button>
         </div>
         <div class="questBody">
-        <div style="background-color: #f0f0f0; block; width: 100%; height: 90%; position: relative; bottom: 24px; text-indent: 10px; border-radius: 0 5px 5px 5px;">
+        <div style="background-color: #f0f0f0; width: 100%; height: 90%; position: relative; bottom: 24px; text-indent: 10px; border-radius: 0 5px 5px 5px;">
             <div id="London" class="tab">
                 <h2 style="padding-top: 4px;"><img src="/images/questbanner.png" style="width: 100%; height: 30px; position: relative; left: -10px; filter: none; bottom: 4px; border-radius: 0 5px 0 0; object-fit: cover;" class="qstImage">
                     <img src="/images/questbanneralt.png" style="width: 100%; height: 30px; position: relative; filter: none; bottom: 4px; border-radius: 0 5px 0 0; object-fit: cover;" class="qstImageAlt"></h2>
-                <div style="text-indent: 0; position: relative; left: 10px; bottom: 15px; width: calc(100% - 30px)">wyndQuest is not yet avaliable – please stay tuned for updates.</div>
+                <div style="text-indent: 0; position: relative; left: 10px; bottom: 15px; width: calc(100% - 30px)">wyndQuest has entered early development – try the public alpha by clicking below!</div>
+                <div style="position: absolute; right: 75px; bottom: 15px;"><button class="questLauncherButton" id="questTry" onclick="window.location='https://wyndchyme.github.io/wyndOS/games/kora/';">Try Alpha</button></div>
                 <div style="position: absolute; right: 15px; bottom: 15px;"><button class="questLauncherButton" id="questLaunch">Launch</button></div>
             </div>
             <div id="Paris" class="tab" style="display:none">
                 <h2 style="padding-top: 4px;"><img src="/images/questbanner.png" style="width: 100%; height: 30px; position: relative; left: -10px; filter: none; bottom: 4px; border-radius: 0 5px 0 0; object-fit: cover;" class="qstImage">
                     <img src="/images/questbanneralt.png" style="width: 100%; height: 30px; position: relative; filter: none; bottom: 4px; border-radius: 0 5px 0 0; object-fit: cover;" class="qstImageAlt"></h2>
-                <div style="text-indent: 0; position: relative; left: 10px; bottom: 15px; width: calc(100% - 30px)">wyndQuest is not yet avaliable – please stay tuned for updates.</div>
+                <div style="text-indent: 0; position: relative; left: 10px; bottom: 15px; width: calc(100% - 30px)">Graphics settings have not been implemented – please stay tuned for updates.</div>
             </div>
             <div id="Tokyo" class="tab" style="display:none">
                 <h2 style="padding-top: 4px;"><img src="/images/questbanner.png" style="width: 100%; height: 30px; position: relative; left: -10px; filter: none; bottom: 4px; border-radius: 0 5px 0 0; object-fit: cover;" class="qstImage">
                     <img src="/images/questbanneralt.png" style="width: 100%; height: 30px; position: relative; filter: none; bottom: 4px; border-radius: 0 5px 0 0; object-fit: cover;" class="qstImageAlt"></h2>
-                <div style="text-indent: 0; position: relative; left: 10px; bottom: 15px; width: calc(100% - 30px)">wyndQuest is not yet avaliable – please stay tuned for updates.</div>
+                <div style="text-indent: 0; position: relative; left: 10px; bottom: 15px; width: calc(100% - 30px)">General settings have not been implemented – please stay tuned for updates.</div>
             </div>
-            <div id="Munich" class="tab" style="display:none">
+            <div id="Munich" class="tab" style="display:none;">
                 <h2 style="padding-top: 4px;"><img src="/images/questbanner.png" style="width: 100%; height: 30px; position: relative; left: -10px; filter: none; bottom: 4px; border-radius: 0 5px 0 0; object-fit: cover;" class="qstImage">
                     <img src="/images/questbanneralt.png" style="width: 100%; height: 30px; position: relative; filter: none; bottom: 4px; border-radius: 0 5px 0 0; object-fit: cover;" class="qstImageAlt"></h2>
-                <div style="text-indent: 0; position: relative; left: 10px; bottom: 15px; width: calc(100% - 30px)">wyndQuest is not yet avaliable – please stay tuned for updates.</div>
+                <div style="text-indent: 0; position: relative; left: 10px; bottom: 15px; width: calc(100% - 30px)">
+                    <div style="text-align: center">
+                        <img src="wyndOS/icons/discalt.png" style="animation: sway 3s linear infinite;">
+                        <br>
+                        <span style="position: relative; top: 3px;">
+                            <span style="font-size: 110%;">wyndQuest (Kora)</span><br>
+                            alpha 0.1.0<br>
+                            <br>
+                            <a href="docs/legal/index.html">© 2024-2025 wyndchyme. All Rights Reserved.</a><br>
+                            <a href="https://phaser.io/">Powered by Phaser 3.</a>
+                        </span>
+                    </div>
+                    <br>
+                </div>
             </div>
         </div>
         </div>
