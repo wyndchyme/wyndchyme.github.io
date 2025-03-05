@@ -1481,4 +1481,7 @@ details[open]>summary {
     bottom: 1px;
     background-size: 100%;
   }
+  #Munich a {
+    color: #252525 !important;
+  }
   
