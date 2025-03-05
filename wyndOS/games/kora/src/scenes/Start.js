@@ -12,21 +12,19 @@ export class Start extends Phaser.Scene {
         const map = this.make.tilemap({ key: "map" });
         const tileset = map.addTilesetImage("coast", "tileset");  
 
-        const layer1 = map.createLayer("h0", tileset, map.widthInPixels / 2, 0);
-        const layer2 = map.createLayer("h0-decor", tileset, map.widthInPixels / 2, 0);
-        const layer3 = map.createLayer("h1", tileset, map.widthInPixels / 2, 0);
-        const layer4 = map.createLayer("h1-decor", tileset, map.widthInPixels / 2, 0);
-        const layer5 = map.createLayer("h2", tileset, map.widthInPixels / 2, 0);
-        const layer6 = map.createLayer("h2-decor", tileset, map.widthInPixels / 2, 0);
-        layer1.setDepth(1);
-        layer2.setDepth(2);
-        layer3.setDepth(3);
-        layer4.setDepth(4);
-        layer5.setDepth(5);
-        layer6.setDepth(6);
+        const layers = [
+            map.createLayer("h0", tileset, map.widthInPixels / 2, 0),
+            map.createLayer("h0-decor", tileset, map.widthInPixels / 2, 0),
+            map.createLayer("h1", tileset, map.widthInPixels / 2, 0),
+            map.createLayer("h1-decor", tileset, map.widthInPixels / 2, 0),
+            map.createLayer("h2", tileset, map.widthInPixels / 2, 0),
+            map.createLayer("h2-decor", tileset, map.widthInPixels / 2, 0)
+        ];
+
+        layers.forEach((layer, index) => layer.setDepth(index + 1));
 
         this.cameras.main.setBounds(0, 0, map.widthInPixels, map.heightInPixels);
-        this.cameras.main.setZoom(1);
+        this.cameras.main.setZoom(2);
         this.cameras.main.centerOn(map.widthInPixels / 2, map.heightInPixels / 2);
 
         this.cursors = this.input.keyboard.createCursorKeys();
@@ -35,28 +33,6 @@ export class Start extends Phaser.Scene {
             down: Phaser.Input.Keyboard.KeyCodes.S,
             left: Phaser.Input.Keyboard.KeyCodes.A,
             right: Phaser.Input.Keyboard.KeyCodes.D
-        });
-        this.input.on('pointerdown', (pointer) => {
-            if (pointer.rightButtonDown()) {
-                this.input.mousePointer.isDragging = true;
-                this.input.mousePointer.startX = pointer.x;
-                this.input.mousePointer.startY = pointer.y;
-                this.input.mousePointer.startCamX = this.cameras.main.scrollX;
-                this.input.mousePointer.startCamY = this.cameras.main.scrollY;
-            }
-        });
-        this.input.on('pointermove', (pointer) => {
-            if (this.input.mousePointer.isDragging) {
-                this.cameras.main.scrollX = this.input.mousePointer.startCamX + (this.input.mousePointer.startX - pointer.x);
-                this.cameras.main.scrollY = this.input.mousePointer.startCamY + (this.input.mousePointer.startY - pointer.y);
-            }
-        });
-        this.input.on('pointerup', () => {
-            this.input.mousePointer.isDragging = false;
-        });
-        this.input.on('wheel', (pointer, gameObjects, deltaX, deltaY) => {
-            const zoomFactor = 0.1;
-            this.cameras.main.zoom = Phaser.Math.Clamp(this.cameras.main.zoom - deltaY * zoomFactor * 0.01, 0.5, 2);
         });
 
         const tileAnimations = {
@@ -68,8 +44,6 @@ export class Start extends Phaser.Scene {
         };
 
         this.animatedTiles = [];
-
-        const layers = [layer1, layer2, layer3, layer4, layer5, layer6];
 
         layers.forEach(layer => {
             layer.forEachTile(tile => {
