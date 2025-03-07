@@ -6,6 +6,10 @@ export class Start extends Phaser.Scene {
     preload() {
         this.load.tilemapTiledJSON("map", "assets/tlmap/demo/demo.tmj");  
         this.load.image("tileset", "assets/tls/coast.png");
+        this.load.spritesheet('dude', 
+        'assets/dude.png',
+        { frameWidth: 32, frameHeight: 48 }
+    );
     }
 
     create() {
@@ -44,6 +48,7 @@ layers.forEach((layer, index) => {
         const tileAnimations = {
             9:  [7, 8, 7, 9],
             27: [25, 26, 25, 27],
+            49: [45, 46, 48, 47, 49],
             55: [51, 52, 53, 54, 55, 54, 53, 52],
             65: [61, 62, 63, 64, 65, 64, 63, 62],
             75: [71, 72, 73, 74, 75, 74, 73, 72]
@@ -65,6 +70,12 @@ layers.forEach((layer, index) => {
                 }
             });
         });
+
+        // const player = this.physics.add.sprite(100, 450, 'dude');
+
+        // player.setBounce(0.2);
+        // player.setCollideWorldBounds(true);
+
     }
 
     update(time, delta) {
