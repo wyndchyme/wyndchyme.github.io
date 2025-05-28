@@ -199,7 +199,7 @@ body {
     position: fixed !important;
     bottom: 12px;
     padding-left: 16px;
-    background-image: linear-gradient(skyblue, rgb(110, 182, 211));
+    background-image: linear-gradient(skyblue, rgb(108, 187, 218));
     left: 0;
     right: 1;
     z-index: 9999;
