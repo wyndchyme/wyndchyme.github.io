@@ -752,6 +752,31 @@ details[open]>summary {
     border: none;
     border-radius: 2px;
 }
+.discShadow {
+    display: none;
+}
+#questIcon:hover {
+    img {
+        filter: none;
+        animation: spin 0.2s linear infinite;
+    }
+    .discShadow {
+        display: block;
+        position: absolute;
+        top: 1px;
+        left: 1px;
+        z-index: -1;
+        filter: blur(1px) brightness(0);
+    }
+}
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
 #questLaunch {
     background-color: grey;
     color: rgb(203, 203, 203);
