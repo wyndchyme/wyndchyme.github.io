@@ -1030,13 +1030,12 @@ details[open]>summary {
     .toolbar-icon {
         margin-bottom: 2px;
         position: relative;
-        left: 14px;
+        left: 7px;
         height: 39px;
         top: 2px;
     }
     .toolbar-icon button img {
         position: relative;
-        right: 6px !important;
     }
     #wallpaperDecor {
         margin-top: -20px;
