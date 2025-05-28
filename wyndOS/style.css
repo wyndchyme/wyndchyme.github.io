@@ -217,7 +217,6 @@ body {
     display: inline-block;
     border-radius: 5px 5px 0 0;
     margin-right: 5px;
-    outline: 2px solid rgba(255, 255, 255, 0.2);
 }
 .tbicon:hover {
     background-color: white;
@@ -368,7 +367,7 @@ body {
     top: 25px;
     width: 64px;
     height: 64px;
-    image-rendering:optimizeQuality
+    image-rendering: optimizeQuality;
 }
 .dticon img {
     width: 36px;
