@@ -26,7 +26,7 @@
     <div id="top"></div>
     <div id="bottom"></div>
     <div style="position: fixed; width: 100%; height: 100%; text-align: center; line-height: calc(100vh - 50px); color: rgb(0, 78, 109); font-size: calc(16px + 5vw); opacity: 0.25; pointer-events: none;;" id="wallpaperDecor">
-        <span style="position: relative; left: -4px;">
+        <span style="position: relative; left: -4px;" class="wyndOSlogo">
 <img src="/icons/faviconalt.png" style="width: calc(16px + 3.5vw);"> wyndOS
 </span>
     </div>
@@ -90,7 +90,7 @@
         
         <div class="content" id="aboutLinks">
             <p style="text-align: center;"><img src="/icons/faviconalt.png" style="position: relative; bottom: 10px;"></p>
-            <p style="text-align: center; font-size: 16pt; position: relative; bottom: 24px; color: #252525 !important;" class="boing">wyndOS 0.42</p>
+            <p style="text-align: center; font-size: 16pt; position: relative; bottom: 24px; color: #252525 !important;" class="boing">wyndOS 0.53</p>
             <p style="text-align: center; position: relative; bottom: 38px;"><a href="https://wyndchyme.github.io/docs/legal/">© 2024-2025 wyndchyme. All Rights Reserved.</a></p>
             <p style="text-align: center; position: relative; bottom: 50px;"><a href="https://github.com/wyndchyme/wyndchyme.github.io">Powered by GitHub Pages.</a></p>
         </div>
@@ -107,12 +107,17 @@
     </div>
     <div class="draggable" id="updatesDiv" style="display: none; z-index: 1; padding-bottom: 15px; overflow: hidden;">
         <div class="header">
-            Update Notes (v625)
+            Update Notes (v642)
             <button class="close-btn" id="notesClose">X</button>
         </div>
         <div style="width: 100%; height: 10px; background-image: url(/images/background/moroccan-flower-dark.png);" id="notesDecorI"></div>
         <div style="width: 100%; height: 10px; background-image: url(/images/background/moroccan-flower.png);" id="notesDecorII"></div>
         <div class="content-box" style="white-space: wrap;">
+            <span class="updateHeader">Commit 642</span>
+            <ul class="updateUl" style="margin-right: 30px;">
+                <li>Added text shadows and revamped page border, along with other CSS changes</li>
+            </ul>
+            <br>
             <span class="updateHeader">Commit 625</span>
             <ul class="updateUl" style="margin-right: 30px;">
                 <li>wyndQuest public alpha is now avaliable (make sure to clear your cache to see changes!)</li>
@@ -300,9 +305,9 @@
         </div>
     </div>
 </div>
-<div style="position: fixed; left: 30px; bottom: 75; font-size: 18pt; color: #252525;" class="boing" id="Activate">wyndOS 0.42</div>
+<div style="position: fixed; left: 30px; bottom: 75; font-size: 18pt; color: #252525;" class="boing" id="Activate">wyndOS 0.53</div>
 <div class="toolbar" style="position: absolute; left: 3px; bottom: 15px; display: flex; align-items: center;">
-    <button class="tbclock" id="clockButton"></button>
+    <button class="tbclock" id="clockButton" style="outline: 2px solid rgba(255, 255, 255, 0.2);"></button>
     <button id="startButton" style="border: none; background-color: transparent; width: 40px; z-index: 5;">
       <div class="tbicon" style="width: 40px; text-align: left; position: relative; left: -6px; height: 40px;">
         <img src="/icons/faviconalt.png" style="position: relative; top: 5px; left: 5px; width: 28px;">
