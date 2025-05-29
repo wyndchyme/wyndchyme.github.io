@@ -83,7 +83,7 @@ html {
     }
 }
 html img {
-    filter: drop-shadow(1px 1px 1px black);
+    filter: drop-shadow(2px 2px 1px rgba(0, 0, 0, 0.75));
 }
 @font-face {
     font-family: 'Jersey 10';
@@ -763,8 +763,8 @@ details[open]>summary {
     .discShadow {
         display: block;
         position: absolute;
-        top: 1px;
-        left: 1px;
+        top: 2px;
+        left: 2px;
         z-index: -1;
         filter: blur(1px) brightness(0);
     }
