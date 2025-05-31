@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<head>
+    <title>wyndQST Public Alpha</title>
+    <style>
+        body {
+            background: url("/images/background/moroccan-flower-brown.png");
+            animation: scrollBackground 150s linear infinite;
+            background-size: 600px;
+        }
+        @keyframes scrollBackground {
+            0% {
+                background-position: 0 0;
+            }
+            100% {
+                background-position: 0 1000%;
+            }
+        }
+        canvas {
+            background-color: white;
+            width: 100%;
+            height: 100%;
+        }
+        .windowContainer {
+            position: absolute;
+            left: calc(50vw - 400px);
+            top: calc(50vh - 300px)
+        }
+        @media (max-width: 800px) {
+            .windowContainer {
+                width: 100% !important;
+                height: auto;
+                left: 0;
+                top: calc(50vh - 300px);
+            }
+            .windowBorder {
+                image-rendering: auto;
+            }
+        }
+        @font-face {
+            font-family: 'ashPixel';
+            src: url(/wyndOS/games/wyndQST/assets/font/ashlander-pixel.otf.woff2/ashlander-pixel.otf.woff2);
+        }
+        .windowBorder {
+            position: absolute;
+            left: calc(-1/8 * 100%);
+            top: calc(-1/6 * 102%);
+            width: calc(5/4 * 100%);
+            height: calc(4/3 * 100%);
+            pointer-events: none;
+            filter: drop-shadow(0px 0px 2vw black);
+            image-rendering: pixelated;
+            outline: 5px solid rgb(174, 167, 132);
+            outline-style: ridge;
+        }
+        .text {
+            font-family: 'ashPixel', monospace;
+            image-rendering: pixelated;
+            -webkit-font-smoothing: none;
+            -moz-osx-font-smoothing: grayscale;
+            text-rendering: optimizeSpeed;
+            color: white;
+            position: absolute;
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            text-align: center;
+            display: none;
+            line-height: 1.5;
+        }
+    </style>
+</head>
+<html>
+    <body>
+        <div class="windowContainer">
+            <canvas id="window" width="800" height="600"></canvas>
+
+            <div class="text" id="textA">
+                test
+            </div>
+
+            <div class="text" id="textB">
+                
+            </div>
+
+            <div class="text" id="textC">
+                
+            </div>
+
+
+            <img src="/wyndOS/games/wyndQST/border.png" class="windowBorder">
+        </div>
+    </body>
+    <script src="/wyndOS/games/wyndQST/scripts/main.js"></script>
+</html>
