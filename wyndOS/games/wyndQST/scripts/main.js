@@ -26,6 +26,10 @@ const scenes = {
             this.bgSparkles.src = '/wyndOS/games/wyndQST/assets/scene/initial/bgSparkles.png'
             this.bgSparkles2 = new Image();
             this.bgSparkles2.src = '/wyndOS/games/wyndQST/assets/scene/initial/bgSparkles2.png'
+            this.bgFoam = new Image();
+            this.bgFoam.src = '/wyndOS/games/wyndQST/assets/scene/initial/bgFoam.png'
+            this.bgFoam2 = new Image();
+            this.bgFoam2.src = '/wyndOS/games/wyndQST/assets/scene/initial/bgFoam2.png'
             this.bgStars = new Image();
             this.bgStars.src = '/wyndOS/games/wyndQST/assets/scene/initial/bgStars.png'
             this.bgStars2 = new Image();
@@ -52,6 +56,11 @@ const scenes = {
             this.someAnimIndex = 0;
             this.someAnimLastTime = 0;
             this.someAnimInterval = 600; 
+
+            this.bgFog = new Image();
+            this.bgFog.src = '/wyndOS/games/wyndQST/assets/scene/initial/bgFog.png'
+            this.bgHighlights = new Image();
+            this.bgHighlights.src = '/wyndOS/games/wyndQST/assets/scene/initial/bgHighlights.png'
 
 
         },
@@ -127,6 +136,26 @@ const scenes = {
                 ctx.restore();
             }
 
+            if (this.bgFoam?.complete) {
+                const time = Date.now() * 0.00089; 
+                const alpha = 0.5 + 0.5 * Math.sin(time); 
+
+                ctx.save();
+                ctx.globalAlpha = alpha;
+                ctx.drawImage(this.bgFoam, 0, 0, canvas.width, canvas.height);
+                ctx.restore();
+            }
+
+            if (this.bgFoam2?.complete) {
+                const time = Date.now() * 0.001; 
+                const alpha = 0.5 + 0.5 * Math.sin(time); 
+
+                ctx.save();
+                ctx.globalAlpha = alpha;
+                ctx.drawImage(this.bgFoam2, 0, 0, canvas.width, canvas.height);
+                ctx.restore();
+            }
+
             if (this.bgStars?.complete) {
                 const time = Date.now() * 0.002; 
                 const alpha = 0.5 + 0.5 * Math.sin(time); 
@@ -147,6 +176,16 @@ const scenes = {
                 ctx.restore();
             }
 
+            if (this.bgHighlights?.complete) {
+                const time = Date.now() * 0.0015; 
+                const alpha = 0.025 + 0.025 * Math.sin(time);
+
+                ctx.save();
+                ctx.globalAlpha = alpha;
+                ctx.drawImage(this.bgHighlights, 0, 0, canvas.width, canvas.height);
+                ctx.restore();
+            }
+
             const img = this.frameImages[this.frameIndex];
                 if (img.complete) {
                     ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
@@ -154,26 +193,28 @@ const scenes = {
 
                 const animImg = this.someAnim[this.someAnimIndex];
             if (animImg.complete) {
-                ctx.drawImage(animImg, 0, 0, canvas.width, canvas.height); // change position as needed
+                ctx.drawImage(animImg, 0, 0, canvas.width, canvas.height); 
+            }
+
+            if (this.bgFog?.complete) {
+                ctx.save();
+                ctx.globalAlpha = 0.5; 
+                ctx.drawImage(this.bgFog, this.bgCloudsOffset, 0, canvas.width, canvas.height);
+                ctx.drawImage(this.bgFog, this.bgCloudsOffset + canvas.width, 0, canvas.width, canvas.height);
+                ctx.restore();
             }
 
             showTextA(`
-                wyndQuest
+                <div data-base-font="55" style="position: relative; top: 3.5em; left: 0.7em; line-height: 1">
+                <span style="text-decoration: underline">wyndQuest</span><br>
+                <span data-base-font="30" style="text-decoration: none">Game of the Year Edition</span>
+                </div>
+
+                <div data-base-font="20" style="position: absolute; bottom: 0.5em; right: 1em; text-align: right; font-family: 'Jersey 10'">
+                WYNDMARK INTERACTIVE STUDIOS<br>
+                ©2002–2003 Wyndmark. All rights reserved.
+                </div>
                 `, {
-                width: 'auto',
-                position: 'absolute',
-                top: '200px',
-                left: '175px',
-                color: 'white',
-                fontSize: '30pt',
-                textDecoration: 'underline',
-                transform: 'translate(-50%, -50%)',
-                textShadow: `
-                    -1px -1px 0 #000000,
-                    1px -1px 0 #000000,
-                    -1px  1px 0 #000000,
-                    1px  1px 0 #000000
-                `,
             });
         }
 
