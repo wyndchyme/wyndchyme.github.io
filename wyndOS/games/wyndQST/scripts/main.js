@@ -14,6 +14,18 @@ const scenes = {
         bgCloudsOffset: 0,
         bg: null,
         bgOffset: 0,
+        rainOffsetX: 0,
+        rainOffsetY: 15,
+        rainSpeedX: -0.3,
+        rainSpeedY: 10,
+        lightningAlpha: 0,
+        lightningDecay: 0.92,
+
+        triggerLightning() {
+            this.lightningAlpha = 0.1;
+        },
+
+
 
         init() {
             this.bg = new Image();
@@ -61,6 +73,8 @@ const scenes = {
             this.bgFog.src = '/wyndOS/games/wyndQST/assets/scene/initial/bgFog.png'
             this.bgHighlights = new Image();
             this.bgHighlights.src = '/wyndOS/games/wyndQST/assets/scene/initial/bgHighlights.png'
+            this.bgRain = new Image();
+            this.bgRain.src = '/wyndOS/games/wyndQST/assets/scene/initial/bgRain.png'
 
 
         },
@@ -71,7 +85,7 @@ const scenes = {
 
             // ABOVE IS UNUSED
 
-            this.bgCloudsOffset -= 0.3; 
+            this.bgCloudsOffset -= 0.5; 
                 if (this.bgCloudsOffset <= -canvas.width) {
                     this.bgCloudsOffset = 0;
                 }
@@ -86,6 +100,20 @@ const scenes = {
                 this.someAnimIndex = (this.someAnimIndex + 1) % 2;
                 this.someAnimLastTime = now;
             }
+
+            this.rainOffsetX = (this.rainOffsetX + this.rainSpeedX) % (this.bgRain?.width || 1);
+            this.rainOffsetY = (this.rainOffsetY + this.rainSpeedY) % (this.bgRain?.height || 1);
+
+            if (this.lightningAlpha > 0.01) {
+                this.lightningAlpha *= this.lightningDecay;
+            } else {
+                this.lightningAlpha = 0;
+            }
+
+            if (Math.random() < 0.005) { // 0.5% chance per frame (~every few seconds)
+                this.triggerLightning();
+            }
+
 
 
         },
@@ -203,6 +231,33 @@ const scenes = {
                 ctx.drawImage(this.bgFog, this.bgCloudsOffset + canvas.width, 0, canvas.width, canvas.height);
                 ctx.restore();
             }
+
+            if (this.bgRain?.complete) {
+                const iw = this.bgRain.width;
+                const ih = this.bgRain.height;
+
+                for (let x = -iw; x < canvas.width; x += iw) {
+                    for (let y = -ih; y < canvas.height; y += ih) {
+                        ctx.drawImage(
+                            this.bgRain,
+                            x + this.rainOffsetX,
+                            y + this.rainOffsetY,
+                            canvas.width,
+                            canvas.height
+                        );
+                    }
+                }
+            }
+
+            if (this.lightningAlpha > 0) {
+                ctx.save();
+                ctx.globalAlpha = this.lightningAlpha;
+                ctx.fillStyle = '#ffffff';
+                ctx.fillRect(0, 0, canvas.width, canvas.height);
+                ctx.restore();
+            }
+
+
 
             showTextA(`
                 <div data-base-font="55" style="position: relative; top: 3.5em; left: 0.7em; line-height: 1">
