@@ -136,7 +136,7 @@ const scenes = {
 
             if (this.bgLights?.complete) {
                 const time = Date.now() * 0.002; 
-                const alpha = 0.8 + 0.2 * Math.sin(time); 
+                const alpha = 0.65 + 0.35 * Math.sin(time); 
 
                 ctx.save();
                 ctx.globalAlpha = alpha;
