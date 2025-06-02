@@ -11,7 +11,7 @@ let languageStrings = null;
 
 document.addEventListener('DOMContentLoaded', async () => {
   await loadLanguageJSON('/wyndOS/games/wyndQST/lang/en.json');
-  switchToScene('copyright');
+  switchToScene('disc');
   requestAnimationFrame(gameLoop);
 });
 
@@ -67,8 +67,79 @@ function showTextA(content, styles = {}) {
   Object.assign(textDiv.style, styles);
 }
 
+const frameDuration = 75;
+
 // SCENES
 const scenes = {
+    disc: {
+    init() {
+      this.timer = 0;
+      this.fadeAlpha = 0;
+      this.fadeInTime = 0;
+      this.visibleTime = 2000;
+      this.fadeOutTime = 0;
+
+      this.frameTimer = 0;
+      this.frame = 0;
+
+      this.frameImages = [new Image(), new Image()];
+      this.frameImages[0].src = '/wyndOS/games/wyndQST/assets/scene/disc/disc1.png';
+      this.frameImages[1].src = '/wyndOS/games/wyndQST/assets/scene/disc/disc2.png';
+    },
+
+    update() {
+      this.timer += dt;
+      this.frameTimer += dt;
+
+      if (this.frameTimer > frameDuration) {
+        this.frame = 1 - this.frame;
+        this.frameTimer = 0;
+      }
+
+      if (this.timer < this.fadeInTime) {
+        this.fadeAlpha = this.timer / this.fadeInTime;
+      } else if (this.timer < this.fadeInTime + this.visibleTime) {
+        this.fadeAlpha = 1;
+      } else if (this.timer < this.fadeInTime + this.visibleTime + this.fadeOutTime) {
+        const t = this.timer - this.fadeInTime - this.visibleTime;
+        this.fadeAlpha = 1 - (t / this.fadeOutTime);
+      } else {
+        this.fadeAlpha = 0;
+        setTimeout(() => {
+          switchToScene('copyright');
+        }, 100);
+      }
+    },
+
+    render() {
+        ctx.fillStyle = "black";
+        ctx.fillRect(0, 0, ctx.canvas.width, ctx.canvas.height);
+
+        ctx.imageSmoothingEnabled = false;
+        ctx.webkitImageSmoothingEnabled = false;
+        ctx.mozImageSmoothingEnabled = false;
+        ctx.msImageSmoothingEnabled = false;
+
+        const img = this.frameImages[this.frame];
+        if (!img.complete) return;
+
+        const alpha = Math.max(0, Math.min(1, this.fadeAlpha));
+        ctx.save();
+        ctx.globalAlpha = alpha;
+
+        const scale = 2;
+        const x = (ctx.canvas.width - img.width * scale) / 2;
+        const y = (ctx.canvas.height - img.height * scale) / 2;
+
+        ctx.translate(x, y);
+        ctx.scale(scale, scale);
+        ctx.transform(1, 0, 0.2, 1, 0, 0);
+        ctx.drawImage(img, 0, 0);
+
+        ctx.restore();
+        }
+  },
+
     copyright: {
         timer: 0,
         fadeAlpha: 0,
