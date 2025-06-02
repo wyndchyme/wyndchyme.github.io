@@ -1,16 +1,121 @@
+console.log('LOADED MAIN.JS')
+
 const canvas = document.getElementById('window');
 const ctx = canvas.getContext('2d');
 
-function showTextA(content, styles = {}) {
-    const textDiv = document.getElementById('textA');
-    textDiv.innerHTML = content;
-    textDiv.style.display = 'block';
-    Object.assign(textDiv.style, styles);
+let lastTime = performance.now();
+let dt = 0;
+
+let currentScene = null;
+let languageStrings = null;
+
+document.addEventListener('DOMContentLoaded', async () => {
+  await loadLanguageJSON('/wyndOS/games/wyndQST/lang/en.json');
+  switchToScene('copyright');
+  requestAnimationFrame(gameLoop);
+});
+
+// ESSENTIAL FUNCTIONS
+
+function gameLoop(now) {
+    dt = now - lastTime;
+    lastTime = now;
+
+    if (currentScene) {
+        currentScene.update();
+        currentScene.render();
+    }
+
+    requestAnimationFrame(gameLoop);
 }
 
+function switchToScene(sceneName) {
+    currentScene = scenes[sceneName];
+    currentScene.init();
+}
 
+async function loadLanguageJSON(url) {
+  const response = await fetch(url);
+  if (!response.ok) throw new Error('Failed to load language file');
+  languageStrings = await response.json();
+}
+
+function getStringFromCode(code) {
+  if (!languageStrings) return code;
+  
+  const match = code.match(/^\[string:([^\]]+)\]$/);
+  if (!match) return code;
+
+  const path = match[1].split(':');
+  let str = languageStrings;
+  for (const key of path) {
+    if (str[key] === undefined) return code;
+    str = str[key];
+  }
+  return str;
+}
+
+function showTextA(content, styles = {}) {
+  const textDiv = document.getElementById('textA');
+  const translatedContent = getStringFromCode(content.trim());
+  textDiv.innerHTML = translatedContent;
+  textDiv.style.display = 'block';
+
+  if (styles.opacity === undefined) {
+    textDiv.style.opacity = '1';
+  }
+  Object.assign(textDiv.style, styles);
+}
+
+// SCENES
 const scenes = {
-  initial: {
+    copyright: {
+        timer: 0,
+        fadeAlpha: 0,
+        fadeInTime: 1000,
+        visibleTime: 3000,
+        fadeOutTime: 1000,
+
+        init() {
+            console.log('INIT scene:copyright')
+            this.timer = 0;
+            this.fadeAlpha = 0;
+            // showTextA is called here just to ensure the text starts at opacity 0.
+            showTextA('[string:scene:copyright:copyright]', { opacity: 0 });
+        },
+
+        update() {
+            this.timer += dt;
+
+            if (this.timer < this.fadeInTime) {
+                this.fadeAlpha = this.timer / this.fadeInTime;
+            } else if (this.timer < this.fadeInTime + this.visibleTime) {
+                this.fadeAlpha = 1;
+            } else if (this.timer < this.fadeInTime + this.visibleTime + this.fadeOutTime) {
+                const t = this.timer - this.fadeInTime - this.visibleTime;
+                this.fadeAlpha = 1 - (t / this.fadeOutTime);
+            } else {
+                this.fadeAlpha = 0;
+                setTimeout(() => {
+                    switchToScene('initial');
+                }, 2000);
+            }
+        },
+
+        render() {
+            ctx.fillStyle = 'black';
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+            showTextA(
+                `[string:scene:copyright:copyright]`,
+                {
+                    opacity: this.fadeAlpha,
+                    transition: 'opacity 100ms linear'
+                }
+            );
+        }
+    },
+    initial: {
         bgCloudsOffset: 0,
         bg: null,
         bgOffset: 0,
@@ -25,32 +130,28 @@ const scenes = {
             this.lightningAlpha = 0.1;
         },
 
-
-
         init() {
+            console.log('INIT scene:initial')
             this.bg = new Image();
             this.bg.src = '/wyndOS/games/wyndQST/assets/scene/initial/bg.png';
             this.bgLights = new Image();
-            this.bgLights.src = '/wyndOS/games/wyndQST/assets/scene/initial/bgLights.png'
+            this.bgLights.src = '/wyndOS/games/wyndQST/assets/scene/initial/bgLights.png';
             this.bgClouds = new Image();
-            this.bgClouds.src = '/wyndOS/games/wyndQST/assets/scene/initial/bgClouds.png'
+            this.bgClouds.src = '/wyndOS/games/wyndQST/assets/scene/initial/bgClouds.png';
             this.bgSparkles = new Image();
-            this.bgSparkles.src = '/wyndOS/games/wyndQST/assets/scene/initial/bgSparkles.png'
+            this.bgSparkles.src = '/wyndOS/games/wyndQST/assets/scene/initial/bgSparkles.png';
             this.bgSparkles2 = new Image();
-            this.bgSparkles2.src = '/wyndOS/games/wyndQST/assets/scene/initial/bgSparkles2.png'
+            this.bgSparkles2.src = '/wyndOS/games/wyndQST/assets/scene/initial/bgSparkles2.png';
             this.bgFoam = new Image();
-            this.bgFoam.src = '/wyndOS/games/wyndQST/assets/scene/initial/bgFoam.png'
+            this.bgFoam.src = '/wyndOS/games/wyndQST/assets/scene/initial/bgFoam.png';
             this.bgFoam2 = new Image();
-            this.bgFoam2.src = '/wyndOS/games/wyndQST/assets/scene/initial/bgFoam2.png'
+            this.bgFoam2.src = '/wyndOS/games/wyndQST/assets/scene/initial/bgFoam2.png';
             this.bgStars = new Image();
-            this.bgStars.src = '/wyndOS/games/wyndQST/assets/scene/initial/bgStars.png'
+            this.bgStars.src = '/wyndOS/games/wyndQST/assets/scene/initial/bgStars.png';
             this.bgStars2 = new Image();
-            this.bgStars2.src = '/wyndOS/games/wyndQST/assets/scene/initial/bgStars2.png'
+            this.bgStars2.src = '/wyndOS/games/wyndQST/assets/scene/initial/bgStars2.png';
             this.bgFlag = new Image();
-            this.frameImages = [
-                new Image(),
-                new Image()
-            ];
+            this.frameImages = [new Image(), new Image()];
             this.frameImages[0].src = '/wyndOS/games/wyndQST/assets/scene/initial/bgFlag.png';
             this.frameImages[1].src = '/wyndOS/games/wyndQST/assets/scene/initial/bgFlag2.png';
 
@@ -58,43 +159,33 @@ const scenes = {
             this.lastFrameTime = 0;
             this.frameInterval = 400;
 
-            this.someAnim = [
-                new Image(),
-                new Image()
-            ];
+            this.someAnim = [new Image(), new Image()];
             this.someAnim[0].src = '/wyndOS/games/wyndQST/assets/scene/initial/bgTree.png';
             this.someAnim[1].src = '/wyndOS/games/wyndQST/assets/scene/initial/bgTree2.png';
 
             this.someAnimIndex = 0;
             this.someAnimLastTime = 0;
-            this.someAnimInterval = 600; 
+            this.someAnimInterval = 600;
 
             this.bgFog = new Image();
-            this.bgFog.src = '/wyndOS/games/wyndQST/assets/scene/initial/bgFog.png'
+            this.bgFog.src = '/wyndOS/games/wyndQST/assets/scene/initial/bgFog.png';
             this.bgHighlights = new Image();
-            this.bgHighlights.src = '/wyndOS/games/wyndQST/assets/scene/initial/bgHighlights.png'
+            this.bgHighlights.src = '/wyndOS/games/wyndQST/assets/scene/initial/bgHighlights.png';
             this.bgRain = new Image();
-            this.bgRain.src = '/wyndOS/games/wyndQST/assets/scene/initial/bgRain.png'
-
-
+            this.bgRain.src = '/wyndOS/games/wyndQST/assets/scene/initial/bgRain.png';
         },
 
         update() {
-            const tileSize = this.bg?.width || 1;
-            if (this.bgOffset > tileSize) this.bgOffset = 0;
-
-            // ABOVE IS UNUSED
-
-            this.bgCloudsOffset -= 0.5; 
-                if (this.bgCloudsOffset <= -canvas.width) {
-                    this.bgCloudsOffset = 0;
-                }
+            this.bgCloudsOffset -= 0.5;
+            if (this.bgCloudsOffset <= -canvas.width) {
+                this.bgCloudsOffset = 0;
+            }
 
             const now = Date.now();
-                if (now - this.lastFrameTime > this.frameInterval) {
-                    this.frameIndex = (this.frameIndex + 1) % 2;
-                    this.lastFrameTime = now;
-                }
+            if (now - this.lastFrameTime > this.frameInterval) {
+                this.frameIndex = (this.frameIndex + 1) % 2;
+                this.lastFrameTime = now;
+            }
 
             if (now - this.someAnimLastTime > this.someAnimInterval) {
                 this.someAnimIndex = (this.someAnimIndex + 1) % 2;
@@ -110,123 +201,52 @@ const scenes = {
                 this.lightningAlpha = 0;
             }
 
-            if (Math.random() < 0.005) { // 0.5% chance per frame (~every few seconds)
+            if (Math.random() < 0.005) {
                 this.triggerLightning();
             }
-
-
-
         },
 
         render() {
             ctx.imageSmoothingEnabled = false;
             ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-            if (this.bg?.complete) {
-                ctx.drawImage(this.bg, 0, 0, canvas.width, canvas.height);
-            }
+            const drawImg = (img, alpha = 1) => {
+                if (img?.complete) {
+                    ctx.save();
+                    ctx.globalAlpha = alpha;
+                    ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+                    ctx.restore();
+                }
+            };
 
+            drawImg(this.bg);
+            drawImg(this.bgClouds, 0.5);
             if (this.bgClouds?.complete) {
                 ctx.save();
-                ctx.globalAlpha = 0.5; 
+                ctx.globalAlpha = 0.5;
                 ctx.drawImage(this.bgClouds, this.bgCloudsOffset, 0, canvas.width, canvas.height);
                 ctx.drawImage(this.bgClouds, this.bgCloudsOffset + canvas.width, 0, canvas.width, canvas.height);
                 ctx.restore();
             }
 
-            if (this.bgLights?.complete) {
-                const time = Date.now() * 0.002; 
-                const alpha = 0.65 + 0.35 * Math.sin(time); 
+            drawImg(this.bgLights, 0.65 + 0.35 * Math.sin(Date.now() * 0.002));
+            drawImg(this.bgSparkles, 0.7 + 0.3 * Math.sin(Date.now() * 0.0068));
+            drawImg(this.bgSparkles2, 0.5 + 0.5 * Math.sin(Date.now() * 0.005));
+            drawImg(this.bgFoam, 0.5 + 0.5 * Math.sin(Date.now() * 0.00089));
+            drawImg(this.bgFoam2, 0.5 + 0.5 * Math.sin(Date.now() * 0.001));
+            drawImg(this.bgStars, 0.5 + 0.5 * Math.sin(Date.now() * 0.002));
+            drawImg(this.bgStars2, 0.5 + 0.5 * Math.sin(Date.now() * 0.0013));
+            drawImg(this.bgHighlights, 0.025 + 0.025 * Math.sin(Date.now() * 0.0015));
 
-                ctx.save();
-                ctx.globalAlpha = alpha;
-                ctx.drawImage(this.bgLights, 0, 0, canvas.width, canvas.height);
-                ctx.restore();
-            }
+            const flagImg = this.frameImages[this.frameIndex];
+            if (flagImg.complete) ctx.drawImage(flagImg, 0, 0, canvas.width, canvas.height);
 
-            if (this.bgSparkles?.complete) {
-                const time = Date.now() * 0.0068; 
-                const alpha = 0.7 + 0.3 * Math.sin(time); 
-
-                ctx.save();
-                ctx.globalAlpha = alpha;
-                ctx.drawImage(this.bgSparkles, 0, 0, canvas.width, canvas.height);
-                ctx.restore();
-            }
-
-            if (this.bgSparkles2?.complete) {
-                const time = Date.now() * 0.005; 
-                const alpha = 0.5 + 0.5 * Math.sin(time); 
-
-                ctx.save();
-                ctx.globalAlpha = alpha;
-                ctx.drawImage(this.bgSparkles2, 0, 0, canvas.width, canvas.height);
-                ctx.restore();
-            }
-
-            if (this.bgFoam?.complete) {
-                const time = Date.now() * 0.00089; 
-                const alpha = 0.5 + 0.5 * Math.sin(time); 
-
-                ctx.save();
-                ctx.globalAlpha = alpha;
-                ctx.drawImage(this.bgFoam, 0, 0, canvas.width, canvas.height);
-                ctx.restore();
-            }
-
-            if (this.bgFoam2?.complete) {
-                const time = Date.now() * 0.001; 
-                const alpha = 0.5 + 0.5 * Math.sin(time); 
-
-                ctx.save();
-                ctx.globalAlpha = alpha;
-                ctx.drawImage(this.bgFoam2, 0, 0, canvas.width, canvas.height);
-                ctx.restore();
-            }
-
-            if (this.bgStars?.complete) {
-                const time = Date.now() * 0.002; 
-                const alpha = 0.5 + 0.5 * Math.sin(time); 
-
-                ctx.save();
-                ctx.globalAlpha = alpha;
-                ctx.drawImage(this.bgStars, 0, 0, canvas.width, canvas.height);
-                ctx.restore();
-            }
-
-            if (this.bgStars2?.complete) {
-                const time = Date.now() * 0.0013; 
-                const alpha = 0.5 + 0.5 * Math.sin(time); 
-
-                ctx.save();
-                ctx.globalAlpha = alpha;
-                ctx.drawImage(this.bgStars2, 0, 0, canvas.width, canvas.height);
-                ctx.restore();
-            }
-
-            if (this.bgHighlights?.complete) {
-                const time = Date.now() * 0.0015; 
-                const alpha = 0.025 + 0.025 * Math.sin(time);
-
-                ctx.save();
-                ctx.globalAlpha = alpha;
-                ctx.drawImage(this.bgHighlights, 0, 0, canvas.width, canvas.height);
-                ctx.restore();
-            }
-
-            const img = this.frameImages[this.frameIndex];
-                if (img.complete) {
-                    ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
-                }
-
-                const animImg = this.someAnim[this.someAnimIndex];
-            if (animImg.complete) {
-                ctx.drawImage(animImg, 0, 0, canvas.width, canvas.height); 
-            }
+            const treeImg = this.someAnim[this.someAnimIndex];
+            if (treeImg.complete) ctx.drawImage(treeImg, 0, 0, canvas.width, canvas.height);
 
             if (this.bgFog?.complete) {
                 ctx.save();
-                ctx.globalAlpha = 0.5; 
+                ctx.globalAlpha = 0.5;
                 ctx.drawImage(this.bgFog, this.bgCloudsOffset, 0, canvas.width, canvas.height);
                 ctx.drawImage(this.bgFog, this.bgCloudsOffset + canvas.width, 0, canvas.width, canvas.height);
                 ctx.restore();
@@ -235,7 +255,6 @@ const scenes = {
             if (this.bgRain?.complete) {
                 const iw = this.bgRain.width;
                 const ih = this.bgRain.height;
-
                 for (let x = -iw; x < canvas.width; x += iw) {
                     for (let y = -ih; y < canvas.height; y += ih) {
                         ctx.drawImage(
@@ -257,32 +276,9 @@ const scenes = {
                 ctx.restore();
             }
 
-
-
-            showTextA(`
-                <div data-base-font="55" style="position: relative; top: 3.5em; left: 0.7em; line-height: 1">
-                <span style="text-decoration: underline">wyndQuest</span><br>
-                <span data-base-font="30" style="text-decoration: none">Game of the Year Edition</span>
-                </div>
-
-                <div data-base-font="20" style="position: absolute; bottom: 0.5em; right: 1em; text-align: right; font-family: 'Jersey 10'">
-                WYNDMARK INTERACTIVE STUDIOS<br>
-                ©2002–2003 Wyndmark. All rights reserved.
-                </div>
-                `, {
-            });
+            showTextA(
+                `[string:scene:initial:title]`
+            );
         }
-
     }
 };
-
-let currentScene = scenes.initial;
-currentScene.init();
-
-function gameLoop() {
-    currentScene.update();
-    currentScene.render();
-    requestAnimationFrame(gameLoop);
-}
-
-gameLoop();
