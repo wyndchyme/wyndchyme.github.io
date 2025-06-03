@@ -73,6 +73,7 @@ const frameDuration = 75;
 const scenes = {
     disc: {
     init() {
+    console.log('INIT scene:disc')
       this.timer = 0;
       this.fadeAlpha = 0;
       this.fadeInTime = 0;
@@ -186,6 +187,7 @@ const scenes = {
             );
         }
     },
+    
     initial: {
         bgCloudsOffset: 0,
         bg: null,
@@ -196,6 +198,7 @@ const scenes = {
         rainSpeedY: 10,
         lightningAlpha: 0,
         lightningDecay: 0.92,
+        fadeOverlayAlpha: 1,
 
         triggerLightning() {
             this.lightningAlpha = 0.1;
@@ -275,6 +278,11 @@ const scenes = {
             if (Math.random() < 0.005) {
                 this.triggerLightning();
             }
+
+            if (this.fadeOverlayAlpha > 0) {
+                this.fadeOverlayAlpha -= 0.01;
+                if (this.fadeOverlayAlpha < 0) this.fadeOverlayAlpha = 0;
+            }
         },
 
         render() {
@@ -285,18 +293,19 @@ const scenes = {
                 if (img?.complete) {
                     ctx.save();
                     ctx.globalAlpha = alpha;
-                    ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+                    ctx.drawImage(img, 400, 0, canvas.width, canvas.height); 
                     ctx.restore();
                 }
             };
 
             drawImg(this.bg);
             drawImg(this.bgClouds, 0.5);
+
             if (this.bgClouds?.complete) {
                 ctx.save();
                 ctx.globalAlpha = 0.5;
-                ctx.drawImage(this.bgClouds, this.bgCloudsOffset, 0, canvas.width, canvas.height);
-                ctx.drawImage(this.bgClouds, this.bgCloudsOffset + canvas.width, 0, canvas.width, canvas.height);
+                ctx.drawImage(this.bgClouds, this.bgCloudsOffset + 30, 0, canvas.width, canvas.height); 
+                ctx.drawImage(this.bgClouds, this.bgCloudsOffset + canvas.width + 30, 0, canvas.width, canvas.height); 
                 ctx.restore();
             }
 
@@ -310,16 +319,16 @@ const scenes = {
             drawImg(this.bgHighlights, 0.025 + 0.025 * Math.sin(Date.now() * 0.0015));
 
             const flagImg = this.frameImages[this.frameIndex];
-            if (flagImg.complete) ctx.drawImage(flagImg, 0, 0, canvas.width, canvas.height);
+            if (flagImg.complete) ctx.drawImage(flagImg, 30, -120, canvas.width, canvas.height); 
 
             const treeImg = this.someAnim[this.someAnimIndex];
-            if (treeImg.complete) ctx.drawImage(treeImg, 0, 0, canvas.width, canvas.height);
+            if (treeImg.complete) ctx.drawImage(treeImg, 60, 30, canvas.width, canvas.height); 
 
             if (this.bgFog?.complete) {
                 ctx.save();
                 ctx.globalAlpha = 0.5;
-                ctx.drawImage(this.bgFog, this.bgCloudsOffset, 0, canvas.width, canvas.height);
-                ctx.drawImage(this.bgFog, this.bgCloudsOffset + canvas.width, 0, canvas.width, canvas.height);
+                ctx.drawImage(this.bgFog, this.bgCloudsOffset + 30, 0, canvas.width, canvas.height); 
+                ctx.drawImage(this.bgFog, this.bgCloudsOffset + canvas.width + 30, 0, canvas.width, canvas.height); 
                 ctx.restore();
             }
 
@@ -330,7 +339,7 @@ const scenes = {
                     for (let y = -ih; y < canvas.height; y += ih) {
                         ctx.drawImage(
                             this.bgRain,
-                            x + this.rainOffsetX,
+                            x + this.rainOffsetX + 30,
                             y + this.rainOffsetY,
                             canvas.width,
                             canvas.height
@@ -347,9 +356,15 @@ const scenes = {
                 ctx.restore();
             }
 
-            showTextA(
-                `[string:scene:initial:title]`
-            );
+            showTextA(`[string:scene:initial:title]`);
+
+            if (this.fadeOverlayAlpha > 0) {
+                ctx.save();
+                ctx.globalAlpha = this.fadeOverlayAlpha;
+                ctx.fillStyle = '#000';
+                ctx.fillRect(0, 0, canvas.width, canvas.height);
+                ctx.restore();
+            }
         }
     }
 };
