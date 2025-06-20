@@ -196,8 +196,8 @@ const scenes = {
         bgOffset: 0,
         rainOffsetX: 0,
         rainOffsetY: 15,
-        rainSpeedX: -0.3,
-        rainSpeedY: 10,
+        rainSpeedX: -5,
+        rainSpeedY: 20,
         lightningAlpha: 0,
         lightningDecay: 0.92,
         fadeOverlayAlpha: 1,
@@ -341,7 +341,7 @@ const scenes = {
                     for (let y = -ih; y < canvas.height; y += ih) {
                         ctx.drawImage(
                             this.bgRain,
-                            x + this.rainOffsetX + 30,
+                            x + this.rainOffsetX + 90,
                             y + this.rainOffsetY,
                             canvas.width,
                             canvas.height
