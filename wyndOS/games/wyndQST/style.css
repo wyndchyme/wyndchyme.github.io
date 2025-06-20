@@ -1,0 +1,134 @@
+/* SITE CSS */
+body {
+    background: url("/images/background/moroccan-flower-brown.png");
+    animation: scrollBackground 150s linear infinite;
+    background-size: 600px;
+}
+@keyframes scrollBackground {
+    0% {
+        background-position: 0 0;
+    }
+    100% {
+        background-position: 0 1000%;
+    }
+}
+canvas {
+    background-color: white;
+    width: 100%;
+    height: 100%;
+}
+.windowContainer {
+    position: absolute;
+    left: calc(50vw - 400px);
+    top: calc(50vh - 300px);
+    width: 800px;
+}
+@media (max-width: 800px) {
+    .windowContainer {
+        width: 100% !important;
+        height: auto;
+        left: 0;
+        top: calc(50vh - 300px);
+    }
+    .windowBorder {
+        image-rendering: auto;
+    }
+}
+@font-face {
+    font-family: 'ashPixel';
+    src: url(/wyndOS/games/wyndQST/assets/font/ashlander-pixel.otf.woff2/ashlander-pixel.otf.woff2);
+}
+@font-face {
+    font-family: 'Jersey 10';
+    src: url(/plugins/jersey/Jersey10-Regular.woff2);
+}
+.windowBorder {
+    position: absolute;
+    left: calc(-1/8 * 100%);
+    top: calc(-1/6 * 102%);
+    width: calc(5/4 * 100%);
+    height: calc(4/3 * 100%);
+    pointer-events: none;
+    filter: drop-shadow(0px 0px 2vw black);
+    image-rendering: pixelated;
+    outline: 5px solid rgb(174, 167, 132);
+    outline-style: ridge;
+}
+/* TEXT DIV SETUP */
+.text {
+    font-family: 'ashPixel', monospace;
+    image-rendering: pixelated;
+    -webkit-font-smoothing: none;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeSpeed;
+    color: white;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+}
+
+/* BEGIN LANG CSS */
+/* Classes below are called in the language files and represent the game's user interface. */
+
+/* COPYRIGHT:COPYRIGHT */
+.copyright-flex {
+    width: 94%;
+    height: 30%;
+    display: flex;
+    justify-content: center;
+    gap: 10%;
+    padding: 3%;
+    image-rendering: pixelated;
+}
+.copyright-text {
+    font-family: 'Jersey 10';
+    text-align: center;
+    margin: 1.5%;
+    color: #cfcfcf;
+}
+
+/* INITIAL:TITLE */
+.initial-title-container {
+    line-height: 1;
+    width: 54%;
+    background: url('/wyndOS/games/wyndQST/assets/scene/initial/menuBg.png');
+    background-size: 100%;
+    height: 100%;
+    filter: drop-shadow(0.15em 0.1em 0.025em rgba(0, 0, 0, 0.5));
+    text-shadow: -0.05em -0.05em 0 #000, 0.05em -0.05em 0 #000, -0.05em 0.05em 0 #000, 0.05em 0.05em 0 #000;
+}
+.initial-title-inner {
+    position: relative;
+    top: 3.6em;
+    left: 0.5em;
+}
+.initial-title-img {
+    position: absolute;
+    z-index: -1;
+    width: 2.5em;
+    top: -0.5em;
+    opacity: 0.5;
+    filter: sepia(0.8);
+}
+.initial-title-underline {
+    text-decoration: underline;
+}
+.initial-title-sub {
+    text-decoration: none;
+}
+.initial-title-copyright {
+    position: absolute;
+    bottom: 0.5em;
+    right: 1em;
+    text-align: right;
+    font-family: 'Jersey 10';
+}
+
+/* INITIAL:MENU */
+.initial-menu {
+    line-height: 1.5;
+    color: rgba(36, 25, 36, 0.9);
+    position: absolute;
+}

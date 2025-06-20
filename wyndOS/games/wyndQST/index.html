@@ -1,7 +1,8 @@
 <!DOCTYPE html>
 <head>
-    <title>Hypnagogia</title>
+    <title>Hypnagogia: Game of the Year Edition &#x2022 wyndOS</title>
     <style>
+        /* SITE CSS */
         body {
             background: url("/images/background/moroccan-flower-brown.png");
             animation: scrollBackground 150s linear infinite;
@@ -57,6 +58,7 @@
             outline: 5px solid rgb(174, 167, 132);
             outline-style: ridge;
         }
+        /* TEXT DIV SETUP */
         .text {
             font-family: 'ashPixel', monospace;
             image-rendering: pixelated;
@@ -70,7 +72,72 @@
             top: 0;
             left: 0;
         }
+
+        /* BEGIN LANG CSS */
+        /* Classes below are called in the language files and represent the game's user interface. */
+
+        /* COPYRIGHT */
+        .copyright-flex {
+            width: 94%;
+            height: 30%;
+            display: flex;
+            justify-content: center;
+            gap: 10%;
+            padding: 3%;
+            image-rendering: pixelated;
+        }
+        .copyright-text {
+            font-family: 'Jersey 10';
+            text-align: center;
+            margin: 1.5%;
+            color: #cfcfcf;
+        }
+        /* INITIAL:TITLE */
+        .initial-title-container {
+            line-height: 1;
+            width: 54%;
+            background: url('/wyndOS/games/wyndQST/assets/scene/initial/menuBg.png');
+            background-size: 100%;
+            height: 100%;
+            filter: drop-shadow(0.15em 0.1em 0.025em rgba(0, 0, 0, 0.5));
+            text-shadow: -0.05em -0.05em 0 #000, 0.05em -0.05em 0 #000, -0.05em 0.05em 0 #000, 0.05em 0.05em 0 #000;
+        }
+        .initial-title-inner {
+            position: relative;
+            top: 3.6em;
+            left: 0.5em;
+        }
+        .initial-title-img {
+            position: absolute;
+            z-index: -1;
+            width: 2.5em;
+            top: -0.5em;
+            opacity: 0.5;
+        }
+        .initial-title-underline {
+            text-decoration: underline;
+        }
+        .initial-title-sub {
+            text-decoration: none;
+        }
+        .initial-title-copyright {
+            position: absolute;
+            bottom: 0.5em;
+            right: 1em;
+            text-align: right;
+            font-family: 'Jersey 10';
+        }
+
+        /* INITIAL:MENU */
+        .initial-menu {
+            line-height: 1.5;
+            color: rgba(36, 25, 36, 0.9);
+            position: absolute;
+            top: 11.2em;
+        }
     </style>
+    <link rel="stylesheet" type="text/css" href="/wyndOS/games/wyndQST/style.css">
+    <link rel="shortcut icon" type="image/x-icon" href="/wyndOS/games/wyndQST/favicon.ico">
 </head>
 <html>
     <body>
@@ -78,6 +145,12 @@
             <canvas id="window" width="800" height="600"></canvas>
 
             <div class="text" id="textA">
+                <!--Text is added here via innerHTML args in main.js.-->
+            </div>
+            <div class="text" id="textB">
+                <!--Text is added here via innerHTML args in main.js.-->
+            </div>
+            <div class="text" id="textC">
                 <!--Text is added here via innerHTML args in main.js.-->
             </div>
 
@@ -91,28 +164,35 @@
         // The benefit of doing text in this way is that text size will remain proportional to the game window size.
         function adjustTextSize() {
             const container = document.querySelector('.windowContainer');
-            const width = Math.min(container.clientWidth, 800); // Clamp to 800px max
+            const width = Math.min(container.clientWidth, 800);
             const baseWidth = 800;
-            document
-                .querySelectorAll('#textA [data-base-font]')
-                .forEach(el => {
-                    const baseFont = parseFloat(el.dataset.baseFont);
-                    el.style.fontSize = (width / baseWidth * baseFont) + 'px';
-                });
+            ['textA', 'textB', 'textC'].forEach(id => {
+                const textDiv = document.getElementById(id);
+                if (!textDiv) return;
+                textDiv
+                    .querySelectorAll('[data-base-font]')
+                    .forEach(el => {
+                        const baseFont = parseFloat(el.dataset.baseFont);
+                        el.style.fontSize = (width / baseWidth * baseFont) + 'px';
+                    });
+            });
         }
 
         window.addEventListener('resize', adjustTextSize);
 
-        const textA = document.getElementById('textA');
-        const observer = new MutationObserver(muts => {
-        for (let m of muts) {
-            if (m.type === 'childList' && m.addedNodes.length) {
-            adjustTextSize();
-            break;
-            }
-        }
+        ['textA', 'textB', 'textC'].forEach(id => {
+            const textDiv = document.getElementById(id);
+            if (!textDiv) return;
+            const observer = new MutationObserver(muts => {
+                for (let m of muts) {
+                    if (m.type === 'childList' && m.addedNodes.length) {
+                        adjustTextSize();
+                        break;
+                    }
+                }
+            });
+            observer.observe(textDiv, { childList: true });
         });
-        observer.observe(textA, { childList: true });
 
         window.addEventListener('DOMContentLoaded', adjustTextSize);
 </script>

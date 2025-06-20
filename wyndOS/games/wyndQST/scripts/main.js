@@ -11,7 +11,7 @@ let languageStrings = null;
 
 document.addEventListener('DOMContentLoaded', async () => {
   await loadLanguageJSON('/wyndOS/games/wyndQST/lang/en.json');
-  switchToScene('disc');
+  switchToScene('initial');
   requestAnimationFrame(gameLoop);
 });
 
@@ -55,8 +55,9 @@ function getStringFromCode(code) {
   return str;
 }
 
-function showTextA(content, styles = {}) {
-  const textDiv = document.getElementById('textA');
+function showText(id, content, styles = {}) {
+  const textDiv = document.getElementById(id);
+  if (!textDiv) return;
   const translatedContent = getStringFromCode(content.trim());
   textDiv.innerHTML = translatedContent;
   textDiv.style.display = 'block';
@@ -152,8 +153,8 @@ const scenes = {
             console.log('INIT scene:copyright')
             this.timer = 0;
             this.fadeAlpha = 0;
-            // showTextA is called here just to ensure the text starts at opacity 0.
-            showTextA('[string:scene:copyright:copyright]', { opacity: 0 });
+            // showText is called here just to ensure the text starts at opacity 0.
+            showText('textA', '[string:scene:copyright:copyright]', { opacity: 0 });
         },
 
         update() {
@@ -178,7 +179,8 @@ const scenes = {
             ctx.fillStyle = 'black';
             ctx.fillRect(0, 0, canvas.width, canvas.height);
 
-            showTextA(
+            showText(
+                'textA',
                 `[string:scene:copyright:copyright]`,
                 {
                     opacity: this.fadeAlpha,
@@ -356,7 +358,8 @@ const scenes = {
                 ctx.restore();
             }
 
-            showTextA(`[string:scene:initial:title]`);
+            showText('textA', `[string:scene:initial:title]`);
+            showText('textB', `[string:scene:initial:menu]`);
 
             if (this.fadeOverlayAlpha > 0) {
                 ctx.save();
