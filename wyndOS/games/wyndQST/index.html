@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <head>
-    <title>wyndQuest Public Alpha</title>
+    <title>Hypnagogia</title>
     <style>
         body {
             background: url("/images/background/moroccan-flower-brown.png");
@@ -90,15 +90,15 @@
         // Since text is written from innerHTML args in main.js, a mutation observer is used to update this.
         // The benefit of doing text in this way is that text size will remain proportional to the game window size.
         function adjustTextSize() {
-        const container = document.querySelector('.windowContainer');
-        const width = container.clientWidth;
-        const baseWidth = 800;
-        document
-            .querySelectorAll('#textA [data-base-font]')
-            .forEach(el => {
-            const baseFont = parseFloat(el.dataset.baseFont);
-            el.style.fontSize = (width / baseWidth * baseFont) + 'px';
-            });
+            const container = document.querySelector('.windowContainer');
+            const width = Math.min(container.clientWidth, 800); // Clamp to 800px max
+            const baseWidth = 800;
+            document
+                .querySelectorAll('#textA [data-base-font]')
+                .forEach(el => {
+                    const baseFont = parseFloat(el.dataset.baseFont);
+                    el.style.fontSize = (width / baseWidth * baseFont) + 'px';
+                });
         }
 
         window.addEventListener('resize', adjustTextSize);

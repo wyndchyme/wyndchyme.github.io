@@ -248,7 +248,6 @@ body {
      1px -1px 0 #ffffff6d,
     -1px  1px 0 #ffffff6d,
      1px  1px 0 #ffffff6d;
-
 }
 .tbclock:hover {
     background-color: white;
@@ -1061,6 +1060,7 @@ details[open]>summary {
     font-family: 'Jersey 10';
     font-size: 13pt;
     color: #252525;
+    filter: drop-shadow(0px 5px 1px rgba(18, 43, 77, 0.4));
 }
 .aboutException2 img {
     display: none;
