@@ -96,7 +96,7 @@ canvas {
     background: url('/wyndOS/games/wyndQST/assets/scene/initial/menuBg.png');
     background-size: 100%;
     height: 100%;
-    filter: drop-shadow(0.15em 0.1em 0.025em rgba(0, 0, 0, 0.5));
+    filter: drop-shadow(0.15em 0em 0.025em rgba(0, 0, 0, 0.5));
     text-shadow: -0.05em -0.05em 0 #000, 0.05em -0.05em 0 #000, -0.05em 0.05em 0 #000, 0.05em 0.05em 0 #000;
 }
 .initial-title-inner {
@@ -128,7 +128,36 @@ canvas {
 
 /* INITIAL:MENU */
 .initial-menu {
-    line-height: 1.5;
-    color: rgba(36, 25, 36, 0.9);
+    line-height: 0em;
+    color: rgba(36, 25, 36, 0.7);
     position: absolute;
+    left: 0;
+    top: 13.8em;
+    left: 1em;
+}
+.initial-menu .menuItem {
+    list-style-type: none;
+    display: flex;
+    align-items: center;
+    gap: 0.1em;
+    padding-right: 1em;
+    filter: drop-shadow(0 0.1em 0.1em rgba(0, 0, 0, 0.616));
+}
+.bulletable {
+    filter: sepia(0.9);
+    opacity: 0.2;
+    width: 1.8em;
+    image-rendering: auto;
+}
+.initial-menu .menuItem:hover {
+    .bulletable {
+        opacity: 0.9;
+        filter: sepia(0.2) brightness(0.5);
+        transition: 0.1s;
+    }
+    cursor: pointer;
+    background-color: rgba(43, 53, 109, 0.266);
+    border-radius: 0.1em;
+    transition: 0.1s;
+    color: white;
 }

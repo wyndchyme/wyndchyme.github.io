@@ -2,6 +2,11 @@ console.log('LOADED MAIN.JS')
 
 const canvas = document.getElementById('window');
 const ctx = canvas.getContext('2d');
+const lastTextContent = {
+  textA: '',
+  textB: '',
+  textC: ''
+};
 
 let lastTime = performance.now();
 let dt = 0;
@@ -11,7 +16,7 @@ let languageStrings = null;
 
 document.addEventListener('DOMContentLoaded', async () => {
   await loadLanguageJSON('/wyndOS/games/wyndQST/lang/en.json');
-  switchToScene('disc');
+  switchToScene('initial');
   requestAnimationFrame(gameLoop);
 });
 
@@ -59,13 +64,32 @@ function showText(id, content, styles = {}) {
   const textDiv = document.getElementById(id);
   if (!textDiv) return;
   const translatedContent = getStringFromCode(content.trim());
-  textDiv.innerHTML = translatedContent;
+
+  // Only update if content or style has changed
+  if (lastTextContent[id] !== translatedContent) {
+    textDiv.innerHTML = translatedContent;
+    lastTextContent[id] = translatedContent;
+  }
   textDiv.style.display = 'block';
 
   if (styles.opacity === undefined) {
     textDiv.style.opacity = '1';
   }
   Object.assign(textDiv.style, styles);
+}
+
+function setInteractiveTextDiv(id) {
+  ['textA', 'textB', 'textC'].forEach(divId => {
+    const div = document.getElementById(divId);
+    if (!div) return;
+    if (divId === id) {
+      div.style.pointerEvents = 'auto';
+      div.style.zIndex = 20; // Top
+    } else {
+      div.style.pointerEvents = 'none';
+      div.style.zIndex = 10; // Lower
+    }
+  });
 }
 
 const frameDuration = 75;
@@ -360,6 +384,7 @@ const scenes = {
 
             showText('textA', `[string:scene:initial:title]`);
             showText('textB', `[string:scene:initial:menu]`);
+            setInteractiveTextDiv('textB'); 
 
             if (this.fadeOverlayAlpha > 0) {
                 ctx.save();
