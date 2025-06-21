@@ -16,7 +16,7 @@ let languageStrings = null;
 
 document.addEventListener('DOMContentLoaded', async () => {
   await loadLanguageJSON('/wyndOS/games/wyndQST/lang/en.json');
-  switchToScene('disc');
+  switchToScene('initial');
   requestAnimationFrame(gameLoop);
 });
 
