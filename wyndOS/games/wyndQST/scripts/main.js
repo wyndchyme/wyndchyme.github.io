@@ -16,7 +16,7 @@ let languageStrings = null;
 
 document.addEventListener('DOMContentLoaded', async () => {
   await loadLanguageJSON('/wyndOS/games/wyndQST/lang/en.json');
-  switchToScene('initial');
+  switchToScene('disc');
   requestAnimationFrame(gameLoop);
 });
 
@@ -90,6 +90,16 @@ function setInteractiveTextDiv(id) {
       div.style.zIndex = 10; // Lower
     }
   });
+}
+
+function enableQuitToDesktop() {
+    const quitBtn = document.getElementById("quitToDesktop");
+    if (quitBtn && !quitBtn._listenerSet) {
+        quitBtn.addEventListener("click", function() {
+            window.location.href = "/index.html";
+        });
+        quitBtn._listenerSet = true;
+    }
 }
 
 const frameDuration = 75;
@@ -276,7 +286,7 @@ const scenes = {
         },
 
         update() {
-            this.bgCloudsOffset -= 0.5;
+            this.bgCloudsOffset -= 1;
             if (this.bgCloudsOffset <= -canvas.width) {
                 this.bgCloudsOffset = 0;
             }
@@ -384,6 +394,7 @@ const scenes = {
 
             showText('textA', `[string:scene:initial:title]`);
             showText('textB', `[string:scene:initial:menu]`);
+            enableQuitToDesktop();
             setInteractiveTextDiv('textB'); 
 
             if (this.fadeOverlayAlpha > 0) {
