@@ -16,7 +16,7 @@ let languageStrings = null;
 
 document.addEventListener('DOMContentLoaded', async () => {
   await loadLanguageJSON('/wyndOS/games/wyndQST/lang/en.json');
-  switchToScene('disc');
+  switchToScene('initial');
   requestAnimationFrame(gameLoop);
 });
 
@@ -394,6 +394,7 @@ const scenes = {
 
             showText('textA', `[string:scene:initial:title]`);
             showText('textB', `[string:scene:initial:menu]`);
+            showText('textC', `[string:scene:initial:version]`)
             enableQuitToDesktop();
             setInteractiveTextDiv('textB'); 
 
