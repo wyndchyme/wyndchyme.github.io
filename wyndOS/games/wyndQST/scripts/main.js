@@ -13,6 +13,7 @@ let dt = 0;
 
 let currentScene = null;
 let languageStrings = null;
+let currentInteractiveTextDiv = 'textB';
 
 document.addEventListener('DOMContentLoaded', async () => {
   await loadLanguageJSON('/wyndOS/games/wyndQST/lang/en.json');
@@ -189,6 +190,7 @@ const scenes = {
             this.fadeAlpha = 0;
             // showText is called here just to ensure the text starts at opacity 0.
             showText('textA', '[string:scene:copyright:copyright]', { opacity: 0 });
+            currentInteractiveTextDiv = 'textB';
         },
 
         update() {
@@ -202,11 +204,14 @@ const scenes = {
                 const t = this.timer - this.fadeInTime - this.visibleTime;
                 this.fadeAlpha = 1 - (t / this.fadeOutTime);
             } else {
-                this.fadeAlpha = 0;
-                setTimeout(() => {
-                    switchToScene('initial');
-                }, 2000);
-            }
+              this.fadeAlpha = 0;
+              if (!this._sceneSwitched) {
+                  this._sceneSwitched = true;
+                  setTimeout(() => {
+                      switchToScene('initial');
+                  }, 2000);
+              }
+}
         },
 
         render() {
@@ -283,6 +288,8 @@ const scenes = {
             this.bgHighlights.src = '/wyndOS/games/wyndQST/assets/scene/initial/bgHighlights.png';
             this.bgRain = new Image();
             this.bgRain.src = '/wyndOS/games/wyndQST/assets/scene/initial/bgRain.png';
+
+            currentInteractiveTextDiv = 'textB';
         },
 
         update() {
@@ -394,9 +401,31 @@ const scenes = {
 
             showText('textA', `[string:scene:initial:title]`);
             showText('textB', `[string:scene:initial:menu]`);
-            showText('textC', `[string:scene:initial:version]`)
             enableQuitToDesktop();
-            setInteractiveTextDiv('textB'); 
+            
+            setInteractiveTextDiv(currentInteractiveTextDiv);
+
+            const settingsBtn = document.getElementById('settingsButton');
+              if (settingsBtn && !settingsBtn._listenerSet) {
+                  settingsBtn.addEventListener('click', () => {
+                      showText('textC', '[string:scene:initial:settings]');
+                      currentInteractiveTextDiv = 'textC';
+                      setInteractiveTextDiv(currentInteractiveTextDiv);
+                  });
+                  settingsBtn._listenerSet = true;
+              }
+
+            const settingsCloseBtn = document.getElementById('settingsCloseButton');
+              if (settingsCloseBtn && !settingsCloseBtn._listenerSet) {
+                  settingsCloseBtn.addEventListener('click', () => {
+                      const textC = document.getElementById('textC')
+                      if (textC) textC.style.display = 'none';
+
+                      currentInteractiveTextDiv = 'textB';
+                      setInteractiveTextDiv(currentInteractiveTextDiv);
+                  });
+                  settingsBtn._listenerSet = true;
+              }
 
             if (this.fadeOverlayAlpha > 0) {
                 ctx.save();
