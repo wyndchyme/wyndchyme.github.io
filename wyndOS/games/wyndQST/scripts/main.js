@@ -402,7 +402,7 @@ const scenes = {
             if (flagImg.complete) ctx.drawImage(flagImg, 30, -120, canvas.width, canvas.height); 
 
             const treeImg = this.someAnim[this.someAnimIndex];
-            if (treeImg.complete) ctx.drawImage(treeImg, 60, 30, canvas.width, canvas.height); 
+            if (treeImg.complete) ctx.drawImage(treeImg, 60, 28, canvas.width, canvas.height); 
 
             if (this.bgFog?.complete) {
                 ctx.save();
