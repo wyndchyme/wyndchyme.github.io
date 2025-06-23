@@ -54,6 +54,56 @@ canvas {
     outline: 5px solid rgb(174, 167, 132);
     outline-style: ridge;
 }
+.crt {
+    position: relative;
+}
+.crt::before {
+    content: " ";
+    display: block;
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%), linear-gradient(90deg, rgba(255, 0, 0, 0.06), rgba(0, 255, 0, 0.02), rgba(0, 0, 255, 0.06));
+    z-index: 99;
+    background-size: 100% 2px, 3px 100%;
+    pointer-events: none;
+}
+@keyframes flicker {
+    0% {
+        opacity: 0.27861;
+    }
+    5% {
+        opacity: 0.34769;
+    }
+    10% {
+        opacity: 0.23604;
+    }
+    15% {
+        opacity: 0.10626;
+    }
+    20% {
+        opacity: 0.18128;
+    }
+    25% {
+        opacity: 0.10626;
+    }
+    30% {
+        opacity: 0.18128;
+    }
+    35% {
+        opacity: 0.23604;
+    }
+}
+.crt::after {
+    content: " ";
+    display: block;
+    position: absolute;
+    inset: 0;
+    background: rgba(18, 16, 16, 0.1);
+    opacity: 0;
+    z-index: 98;
+    pointer-events: none;
+    animation: flicker 0.15s infinite;
+}
 /* TEXT DIV SETUP */
 .text {
     font-family: 'ashPixel', monospace;
@@ -192,6 +242,7 @@ canvas {
     z-index: 1;
     box-sizing: border-box;
     border: 0.4em solid rgb(174, 167, 132);
+    border-style: double;
     outline: 0.2em solid rgb(75, 49, 32);
     display: flex;
     align-items: top;
@@ -232,4 +283,67 @@ canvas {
     z-index: 1;
     left: 10%;
     top: 13%;
+}
+.tabs {
+    width: 100%;
+}
+.tab-buttons {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(0, 1fr));
+    gap: 0.2em;
+    margin: 0.2em;
+}
+.tab-buttons button {
+    all: unset;
+    padding: 0.2em;
+    cursor: pointer;
+    font-family: 'AshPixel';
+    text-align: center;
+    height: 1em;
+    padding-bottom: 0.5em;
+    border: 0.15em solid rgba(225, 183, 127, 0.5);
+    color: rgb(255, 253, 241);
+}
+.tab-buttons button:active {
+    color: rgb(149, 149, 255);
+}
+.tabHeader {
+    position: relative;
+    bottom: 0.2em;
+}
+.tab-buttons button:hover {
+    text-decoration: underline;
+}
+.tab-buttons button.active {
+    background-color: #333;
+    color: rgb(149, 149, 255);
+}
+.tab-content .tab {
+    display: none;
+    margin: 0.5em;
+    overflow-y: scroll;
+}
+.tab-content .tab.active {
+    display: block;
+}
+.checkbox {
+  display: flex;
+  align-items: center;
+  height: 100%;
+  gap: 0.2em;
+  width: fit-content;
+}
+.checkbox:hover {
+    cursor: pointer;
+    img {
+        filter: brightness(1.25);
+    }
+}
+.checkbox img {
+    width: 2em;
+}
+.checkbox label {
+  display: flex;
+  align-items: center;
+  gap: 0.5em;
 }

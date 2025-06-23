@@ -10,6 +10,7 @@
 <html>
     <body>
         <div class="windowContainer">
+            <div id="filterDiv">
             <canvas id="window" width="800" height="600"></canvas>
 
             <div class="text" id="textA">
@@ -21,47 +22,10 @@
             <div class="text" id="textC">
                 <!--Text is added here via innerHTML args in main.js.-->
             </div>
+            </div>
 
             <img src="/wyndOS/games/wyndQST/border.png" class="windowBorder">
         </div>
     </body>
     <script src="/wyndOS/games/wyndQST/scripts/main.js"></script>
-    <script>
-        // This manages reading text sizes from data-base-font applied to divs.
-        // Since text is written from innerHTML args in main.js, a mutation observer is used to update this.
-        // The benefit of doing text in this way is that text size will remain proportional to the game window size.
-        function adjustTextSize() {
-            const container = document.querySelector('.windowContainer');
-            const width = Math.min(container.clientWidth, 800);
-            const baseWidth = 800;
-            ['textA', 'textB', 'textC'].forEach(id => {
-                const textDiv = document.getElementById(id);
-                if (!textDiv) return;
-                textDiv
-                    .querySelectorAll('[data-base-font]')
-                    .forEach(el => {
-                        const baseFont = parseFloat(el.dataset.baseFont);
-                        el.style.fontSize = (width / baseWidth * baseFont) + 'px';
-                    });
-            });
-        }
-
-        window.addEventListener('resize', adjustTextSize);
-
-        ['textA', 'textB', 'textC'].forEach(id => {
-            const textDiv = document.getElementById(id);
-            if (!textDiv) return;
-            const observer = new MutationObserver(muts => {
-                for (let m of muts) {
-                    if (m.type === 'childList' && m.addedNodes.length) {
-                        adjustTextSize();
-                        break;
-                    }
-                }
-            });
-            observer.observe(textDiv, { childList: true });
-        });
-
-        window.addEventListener('DOMContentLoaded', adjustTextSize);
-</script>
 </html>

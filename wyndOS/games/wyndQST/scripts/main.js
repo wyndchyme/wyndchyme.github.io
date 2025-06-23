@@ -79,6 +79,40 @@ function showText(id, content, styles = {}) {
   Object.assign(textDiv.style, styles);
 }
 
+function adjustTextSize() {
+            const container = document.querySelector('.windowContainer');
+            const width = Math.min(container.clientWidth, 800);
+            const baseWidth = 800;
+            ['textA', 'textB', 'textC'].forEach(id => {
+                const textDiv = document.getElementById(id);
+                if (!textDiv) return;
+                textDiv
+                    .querySelectorAll('[data-base-font]')
+                    .forEach(el => {
+                        const baseFont = parseFloat(el.dataset.baseFont);
+                        el.style.fontSize = (width / baseWidth * baseFont) + 'px';
+                    });
+            });
+        }
+
+        window.addEventListener('resize', adjustTextSize);
+
+        ['textA', 'textB', 'textC'].forEach(id => {
+            const textDiv = document.getElementById(id);
+            if (!textDiv) return;
+            const observer = new MutationObserver(muts => {
+                for (let m of muts) {
+                    if (m.type === 'childList' && m.addedNodes.length) {
+                        adjustTextSize();
+                        break;
+                    }
+                }
+            });
+            observer.observe(textDiv, { childList: true });
+        });
+
+        window.addEventListener('DOMContentLoaded', adjustTextSize);
+
 function setInteractiveTextDiv(id) {
   ['textA', 'textB', 'textC'].forEach(divId => {
     const div = document.getElementById(divId);
@@ -240,6 +274,9 @@ const scenes = {
         lightningAlpha: 0,
         lightningDecay: 0.92,
         fadeOverlayAlpha: 1,
+
+        _crtHandlerSet: false,
+        _crtEnabled: false, 
 
         triggerLightning() {
             this.lightningAlpha = 0.1;
@@ -427,6 +464,37 @@ const scenes = {
                   settingsBtn._listenerSet = true;
               }
 
+            if (!this._crtHandlerSet) {
+                this._crtHandlerSet = true;
+                const observer = new MutationObserver(() => {
+                    const crtCheckbox = document.getElementById('crtCheckbox');
+                    const crtUncheck = document.getElementById('crtUncheck');
+                    const crtCheck = document.getElementById('crtCheck');
+                    const windowDiv = document.getElementById('filterDiv');
+                    if (crtCheckbox && crtUncheck && crtCheck && windowDiv) {
+                        crtCheck.style.display = this._crtEnabled ? '' : 'none';
+                        crtUncheck.style.display = this._crtEnabled ? 'none' : '';
+                        if (this._crtEnabled) {
+                            windowDiv.classList.add('crt');
+                        } else {
+                            windowDiv.classList.remove('crt');
+                        }
+                        crtCheckbox.addEventListener('click', () => {
+                            this._crtEnabled = !this._crtEnabled;
+                            crtCheck.style.display = this._crtEnabled ? '' : 'none';
+                            crtUncheck.style.display = this._crtEnabled ? 'none' : '';
+                            if (this._crtEnabled) {
+                                windowDiv.classList.add('crt');
+                            } else {
+                                windowDiv.classList.remove('crt');
+                            }
+                        });
+                        observer.disconnect();
+                    }
+                });
+                observer.observe(document.body, { childList: true, subtree: true });
+            }
+
             if (this.fadeOverlayAlpha > 0) {
                 ctx.save();
                 ctx.globalAlpha = this.fadeOverlayAlpha;
@@ -434,6 +502,16 @@ const scenes = {
                 ctx.fillRect(0, 0, canvas.width, canvas.height);
                 ctx.restore();
             }
+
+            document.querySelectorAll('.tab-buttons button').forEach(button => {
+            button.addEventListener('click', () => {
+              document.querySelectorAll('.tab-buttons button').forEach(b => b.classList.remove('active'));
+              document.querySelectorAll('.tab-content .tab').forEach(t => t.classList.remove('active'));
+
+              button.classList.add('active');
+              document.getElementById(button.dataset.tab).classList.add('active');
+            });
+          });
         }
     }
 };
