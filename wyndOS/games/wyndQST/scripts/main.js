@@ -17,7 +17,7 @@ let currentInteractiveTextDiv = 'textB';
 
 document.addEventListener('DOMContentLoaded', async () => {
   await loadLanguageJSON('/wyndOS/games/wyndQST/lang/en.json');
-  switchToScene('disc');
+  switchToScene('initial');
   requestAnimationFrame(gameLoop);
 });
 
@@ -78,6 +78,7 @@ function showText(id, content, styles = {}) {
   }
   Object.assign(textDiv.style, styles);
 }
+
 
 function adjustTextSize() {
             const container = document.querySelector('.windowContainer');
@@ -556,6 +557,7 @@ const scenes = {
                     if (fullCheckbox && fullUncheck && fullCheck) {
                         fullCheck.style.display = this._fullscreenEnabled ? '' : 'none';
                         fullUncheck.style.display = this._fullscreenEnabled ? 'none' : '';
+                        window.dispatchEvent(new Event('resize'));
                         if (this._fullscreenEnabled) {
                             document.documentElement.classList.add('full');
                             if (!this._fitFilterDivHandlerSet) {
@@ -607,12 +609,14 @@ const scenes = {
                                     this._fitFilterDivHandlerSet = true;
                                 }
                                 fitFilterDivToViewport();
+                                window.dispatchEvent(new Event('resize'));
                             } else {
                                 document.documentElement.classList.remove('full');
                                 if (this._fitFilterDivHandlerSet) {
                                     window.removeEventListener('resize', fitFilterDivToViewport);
                                     window.removeEventListener('DOMContentLoaded', fitFilterDivToViewport);
                                     this._fitFilterDivHandlerSet = false;
+                                    window.dispatchEvent(new Event('resize'));
                                 }
                                 const filterDiv = document.getElementById('filterDiv');
                                 if (filterDiv) {
