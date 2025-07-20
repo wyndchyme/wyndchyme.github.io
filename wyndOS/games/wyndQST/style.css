@@ -292,6 +292,8 @@ canvas {
 }
 .closeButton:active {
     background-color: rgb(255, 0, 0);
+    border-bottom: 0.1em solid rgba(0, 0, 0, 0.25);
+    transform: translateY(0.1em);
 }
 .popUpMenu {
     position: absolute;
@@ -322,6 +324,7 @@ canvas {
     height: 1em;
     padding-bottom: 0.5em;
     border: 0.15em solid rgba(225, 183, 127, 0.5);
+    box-shadow: 0 0.2em 0 rgba(225, 183, 127, 0.25);
     color: rgb(255, 253, 241);
 }
 .tab-buttons button:active {
@@ -333,6 +336,7 @@ canvas {
 }
 .tab-buttons button:hover {
     background-color: rgba(66, 113, 255, 0.25);
+    transform: translateY(0.1em);
 }
 .tab-buttons button.active {
     background-color: #333;
@@ -355,12 +359,19 @@ canvas {
 }
 .checkbox:hover {
     cursor: pointer;
+    padding-right: 0.5em;
     img {
-        filter: brightness(1.25);
+        filter: brightness(1.4) drop-shadow(0 0.2em 0 rgba(225, 183, 127, 0.25));
+    }
+}
+.checkbox:active {
+    img {
+        transform: translateY(0.1em);
     }
 }
 .checkbox img {
     width: 2em;
+    filter: drop-shadow(0 0.2em 0 rgba(225, 183, 127, 0.2));
 }
 .checkbox label {
   display: flex;

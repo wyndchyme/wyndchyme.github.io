@@ -17,7 +17,7 @@ let currentInteractiveTextDiv = 'textB';
 
 document.addEventListener('DOMContentLoaded', async () => {
   await loadLanguageJSON('/wyndOS/games/wyndQST/lang/en.json');
-  switchToScene('initial');
+  switchToScene('disc');
   requestAnimationFrame(gameLoop);
 });
 
