@@ -139,6 +139,52 @@ function enableQuitToDesktop() {
 
 const frameDuration = 75;
 
+function fitFilterDivToViewport() {
+    const filterDiv = document.getElementById('filterDiv');
+    if (!filterDiv) return;
+
+    const baseWidth = 800;
+    const baseHeight = 600;
+
+    const vw = window.innerWidth;
+    const vh = window.innerHeight;
+
+    const scale = Math.min(vw / baseWidth, vh / baseHeight);
+
+    filterDiv.style.width = baseWidth + 'px';
+    filterDiv.style.height = baseHeight + 'px';
+    filterDiv.style.position = 'absolute';
+    filterDiv.style.left = '0';
+    filterDiv.style.top = '0';
+    filterDiv.style.transform = `scale(${scale})`;
+    filterDiv.style.transformOrigin = 'center center';
+
+    setTimeout(() => {
+        const rect = filterDiv.getBoundingClientRect();
+        const filterDivCenterX = rect.left + rect.width / 2;
+        const filterDivCenterY = rect.top + rect.height / 2;
+        const viewportCenterX = window.innerWidth / 2;
+        const viewportCenterY = window.innerHeight / 2;
+        const offsetX = viewportCenterX - filterDivCenterX;
+        const offsetY = viewportCenterY - filterDivCenterY;
+
+        const windowContainer = document.querySelector('.windowContainer');
+        if (windowContainer) {
+            windowContainer.style.position = 'fixed';
+            windowContainer.style.left = '0';
+            windowContainer.style.top = '0';
+            windowContainer.style.transform = `translate(${offsetX}px, ${offsetY}px)`;
+            windowContainer.style.width = `${baseWidth * scale}px`;
+            windowContainer.style.height = `${baseHeight * scale}px`;
+            windowContainer.style.zIndex = '10';
+        }
+
+        document.body.style.overflow = 'hidden';
+        document.documentElement.style.overflow = 'hidden';
+        window.scrollTo(0, 0);
+    }, 50);
+}
+
 // SCENES
 const scenes = {
     disc: {
@@ -277,6 +323,9 @@ const scenes = {
 
         _crtHandlerSet: false,
         _crtEnabled: false, 
+        _fullscreenHandlerSet: false,
+        _fullscreenEnabled: false,
+        _fitFilterDivHandlerSet: false,
 
         triggerLightning() {
             this.lightningAlpha = 0.1;
@@ -464,6 +513,7 @@ const scenes = {
                   settingsBtn._listenerSet = true;
               }
 
+            // CRT TOGGLE HANDLER
             if (!this._crtHandlerSet) {
                 this._crtHandlerSet = true;
                 const observer = new MutationObserver(() => {
@@ -495,6 +545,107 @@ const scenes = {
                 observer.observe(document.body, { childList: true, subtree: true });
             }
 
+
+            // FULLSCREEN TOGGLE HANDLER
+            if (!this._fullscreenHandlerSet) {
+                this._fullscreenHandlerSet = true;
+                const observer = new MutationObserver(() => {
+                    const fullCheckbox = document.getElementById('fullCheckbox');
+                    const fullUncheck = document.getElementById('fullUncheck');
+                    const fullCheck = document.getElementById('fullCheck');
+                    if (fullCheckbox && fullUncheck && fullCheck) {
+                        fullCheck.style.display = this._fullscreenEnabled ? '' : 'none';
+                        fullUncheck.style.display = this._fullscreenEnabled ? 'none' : '';
+                        if (this._fullscreenEnabled) {
+                            document.documentElement.classList.add('full');
+                            if (!this._fitFilterDivHandlerSet) {
+                                window.addEventListener('resize', fitFilterDivToViewport);
+                                window.addEventListener('DOMContentLoaded', fitFilterDivToViewport);
+                                this._fitFilterDivHandlerSet = true;
+                            }
+                            fitFilterDivToViewport();
+                        } else {
+                            document.documentElement.classList.remove('full');
+                            if (this._fitFilterDivHandlerSet) {
+                                window.removeEventListener('resize', fitFilterDivToViewport);
+                                window.removeEventListener('DOMContentLoaded', fitFilterDivToViewport);
+                                this._fitFilterDivHandlerSet = false;
+                            }
+                            const filterDiv = document.getElementById('filterDiv');
+                            if (filterDiv) {
+                                filterDiv.style.transform = '';
+                                filterDiv.style.width = '';
+                                filterDiv.style.height = '';
+                                filterDiv.style.position = '';
+                                filterDiv.style.left = '';
+                                filterDiv.style.top = '';
+                                filterDiv.style.transformOrigin = '';
+                            }
+                            document.body.style.zoom = "";
+                            document.body.style.overflow = '';
+                            document.documentElement.style.overflow = '';
+                            const windowContainer = document.querySelector('.windowContainer');
+                            if (windowContainer) {
+                                windowContainer.style.position = '';
+                                windowContainer.style.left = '';
+                                windowContainer.style.top = '';
+                                windowContainer.style.transform = '';
+                                windowContainer.style.zIndex = '';
+                                windowContainer.style.width = '';
+                                windowContainer.style.height = '';
+                            }
+                        }
+                        fullCheckbox.addEventListener('click', () => {
+                            this._fullscreenEnabled = !this._fullscreenEnabled;
+                            fullCheck.style.display = this._fullscreenEnabled ? '' : 'none';
+                            fullUncheck.style.display = this._fullscreenEnabled ? 'none' : '';
+                            if (this._fullscreenEnabled) {
+                                document.documentElement.classList.add('full');
+                                if (!this._fitFilterDivHandlerSet) {
+                                    window.addEventListener('resize', fitFilterDivToViewport);
+                                    window.addEventListener('DOMContentLoaded', fitFilterDivToViewport);
+                                    this._fitFilterDivHandlerSet = true;
+                                }
+                                fitFilterDivToViewport();
+                            } else {
+                                document.documentElement.classList.remove('full');
+                                if (this._fitFilterDivHandlerSet) {
+                                    window.removeEventListener('resize', fitFilterDivToViewport);
+                                    window.removeEventListener('DOMContentLoaded', fitFilterDivToViewport);
+                                    this._fitFilterDivHandlerSet = false;
+                                }
+                                const filterDiv = document.getElementById('filterDiv');
+                                if (filterDiv) {
+                                    filterDiv.style.transform = '';
+                                    filterDiv.style.width = '';
+                                    filterDiv.style.height = '';
+                                    filterDiv.style.position = '';
+                                    filterDiv.style.left = '';
+                                    filterDiv.style.top = '';
+                                    filterDiv.style.transformOrigin = '';
+                                }
+                                document.body.style.zoom = "";
+                                document.body.style.overflow = '';
+                                document.documentElement.style.overflow = '';
+                                const windowContainer = document.querySelector('.windowContainer');
+                                if (windowContainer) {
+                                    windowContainer.style.position = '';
+                                    windowContainer.style.left = '';
+                                    windowContainer.style.top = '';
+                                    windowContainer.style.transform = '';
+                                    windowContainer.style.zIndex = '';
+                                    windowContainer.style.width = '';
+                                    windowContainer.style.height = '';
+                                }
+                            }
+                        });
+                        observer.disconnect();
+                    }
+                });
+                observer.observe(document.body, { childList: true, subtree: true });
+            }
+
+
             if (this.fadeOverlayAlpha > 0) {
                 ctx.save();
                 ctx.globalAlpha = this.fadeOverlayAlpha;
@@ -515,3 +666,15 @@ const scenes = {
         }
     }
 };
+                ctx.fillRect(0, 0, canvas.width, canvas.height);
+                ctx.restore();
+
+            document.querySelectorAll('.tab-buttons button').forEach(button => {
+            button.addEventListener('click', () => {
+              document.querySelectorAll('.tab-buttons button').forEach(b => b.classList.remove('active'));
+              document.querySelectorAll('.tab-content .tab').forEach(t => t.classList.remove('active'));
+
+              button.classList.add('active');
+              document.getElementById(button.dataset.tab).classList.add('active');
+            });
+          });

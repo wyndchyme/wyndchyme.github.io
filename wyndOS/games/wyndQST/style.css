@@ -54,6 +54,21 @@ canvas {
     outline: 5px solid rgb(174, 167, 132);
     outline-style: ridge;
 }
+.full .windowBorder {
+    display: none;
+}
+.full body {
+    background: black;
+}
+.full .windowContainer {
+    position: fixed !important;
+    left: 50% !important;
+    top: 50% !important;
+    transform: translate(-50%, -50%) !important;
+    width: 800px !important;
+    height: 600px !important;
+    z-index: 10 !important;
+}
 .crt {
     position: relative;
 }
@@ -196,7 +211,8 @@ canvas {
     gap: 0.1em;
     padding-right: 1em;
     filter: drop-shadow(0 0.1em 0.1em rgba(0, 0, 0, 0.6));
-    border-radius: 0.1em;
+    border-bottom: 0.1em solid transparent;
+    transition: 0.1s;
 }
 .bulletable {
     filter: sepia(0.9);
@@ -212,11 +228,14 @@ canvas {
     }
     cursor: pointer;
     background-color: rgba(43, 53, 109, 0.25);
+    border-bottom: 0.4em solid rgba(49, 47, 71, 0.25);
+    box-sizing: border-box;
     transition: 0.1s;
     color: white;
 }
 .initial-menu .menuItem:active {
     background-color: rgba(41, 60, 167, 0.5);
+    border-bottom: 0.4em solid rgba(49, 47, 71, 0.25);
 }
 .version {
     color: rgba(36, 25, 36, 0.7) !important;
@@ -254,7 +273,7 @@ canvas {
 }
 .closeButton {
     position: absolute;
-    top: 0.4em;
+    top: 0.3em;
     right: 0.5em;
     width: 1.25em;
     height: 1em;
@@ -263,7 +282,8 @@ canvas {
     align-items: center;
     padding-bottom: 0.15em;
     padding-left: 0.05em;
-    border-radius: 0.1em;
+    background-color: #333;
+    border-bottom: 0.2em solid rgba(0, 0, 0, 0.25);
 }
 .closeButton:hover {
     background-color: rgba(255, 0, 0, 0.5);
@@ -312,7 +332,7 @@ canvas {
     bottom: 0.2em;
 }
 .tab-buttons button:hover {
-    text-decoration: underline;
+    background-color: rgba(66, 113, 255, 0.25);
 }
 .tab-buttons button.active {
     background-color: #333;
@@ -346,4 +366,7 @@ canvas {
   display: flex;
   align-items: center;
   gap: 0.5em;
+}
+.full body, .full html {
+    overflow: hidden !important;
 }
