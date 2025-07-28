@@ -17,6 +17,9 @@ let currentInteractiveTextDiv = 'textB';
 
 document.addEventListener('DOMContentLoaded', async () => {
   await loadLanguageJSON('/wyndOS/games/wyndQST/lang/en.json');
+  applyInitialGammaBrightness();
+  applyInitialFullscreen();
+  applyInitialCRT();
   switchToScene('disc');
   requestAnimationFrame(gameLoop);
 });
@@ -78,6 +81,23 @@ function showText(id, content, styles = {}) {
   }
   Object.assign(textDiv.style, styles);
 }
+
+function centerWindowContainerMobile() {
+    const container = document.querySelector('.windowContainer');
+    if (!container) return;
+    if (window.innerWidth <= 800) {
+        setTimeout(() => {
+            const height = container.offsetHeight;
+            const top = Math.max(0, (window.innerHeight - height) / 2);
+            container.style.top = `${top}px`;
+        }, 0);
+    } else {
+        container.style.top = 'calc(50vh - 300px)';
+    }
+}
+
+window.addEventListener('resize', centerWindowContainerMobile);
+window.addEventListener('DOMContentLoaded', centerWindowContainerMobile);
 
 
 function adjustTextSize() {
@@ -523,9 +543,12 @@ const scenes = {
                     const crtCheck = document.getElementById('crtCheck');
                     const windowDiv = document.getElementById('filterDiv');
                     if (crtCheckbox && crtUncheck && crtCheck && windowDiv) {
-                        crtCheck.style.display = this._crtEnabled ? '' : 'none';
-                        crtUncheck.style.display = this._crtEnabled ? 'none' : '';
-                        if (this._crtEnabled) {
+                        // Sync checkbox state with localStorage
+                        let crtEnabled = localStorage.getItem('crtEnabled') === 'true';
+                        this._crtEnabled = crtEnabled;
+                        crtCheck.style.display = crtEnabled ? '' : 'none';
+                        crtUncheck.style.display = crtEnabled ? 'none' : '';
+                        if (crtEnabled) {
                             windowDiv.classList.add('crt');
                         } else {
                             windowDiv.classList.remove('crt');
@@ -539,6 +562,7 @@ const scenes = {
                             } else {
                                 windowDiv.classList.remove('crt');
                             }
+                            localStorage.setItem('crtEnabled', this._crtEnabled ? 'true' : 'false');
                         });
                         observer.disconnect();
                     }
@@ -555,10 +579,12 @@ const scenes = {
                     const fullUncheck = document.getElementById('fullUncheck');
                     const fullCheck = document.getElementById('fullCheck');
                     if (fullCheckbox && fullUncheck && fullCheck) {
-                        fullCheck.style.display = this._fullscreenEnabled ? '' : 'none';
-                        fullUncheck.style.display = this._fullscreenEnabled ? 'none' : '';
-                        window.dispatchEvent(new Event('resize'));
-                        if (this._fullscreenEnabled) {
+                        // Sync checkbox state with localStorage
+                        let fullEnabled = localStorage.getItem('fullscreenEnabled') === 'true';
+                        this._fullscreenEnabled = fullEnabled;
+                        fullCheck.style.display = fullEnabled ? '' : 'none';
+                        fullUncheck.style.display = fullEnabled ? 'none' : '';
+                        if (fullEnabled) {
                             document.documentElement.classList.add('full');
                             if (!this._fitFilterDivHandlerSet) {
                                 window.addEventListener('resize', fitFilterDivToViewport);
@@ -642,13 +668,13 @@ const scenes = {
                                     windowContainer.style.height = '';
                                 }
                             }
+                            localStorage.setItem('fullscreenEnabled', this._fullscreenEnabled ? 'true' : 'false');
                         });
                         observer.disconnect();
                     }
                 });
                 observer.observe(document.body, { childList: true, subtree: true });
             }
-
 
             if (this.fadeOverlayAlpha > 0) {
                 ctx.save();
@@ -670,15 +696,221 @@ const scenes = {
         }
     }
 };
-                ctx.fillRect(0, 0, canvas.width, canvas.height);
-                ctx.restore();
 
-            document.querySelectorAll('.tab-buttons button').forEach(button => {
-            button.addEventListener('click', () => {
-              document.querySelectorAll('.tab-buttons button').forEach(b => b.classList.remove('active'));
-              document.querySelectorAll('.tab-content .tab').forEach(t => t.classList.remove('active'));
+// GAMMA SLIDER HANDLER
+function setupGammaSlider() {
+    const thumb = document.getElementById('gammaThumb');
+    const track = thumb ? thumb.parentElement : null;
+    if (!thumb || !track) return;
 
-              button.classList.add('active');
-              document.getElementById(button.dataset.tab).classList.add('active');
+    const minValue = 0.5;
+    const maxValue = 1.5;
+    const defaultValue = 1.0;
+
+    function clamp(val, min, max) {
+        return Math.max(min, Math.min(max, val));
+    }
+
+    let gammaValue = localStorage.getItem('gammaValue');
+    gammaValue = gammaValue === null ? defaultValue : parseFloat(gammaValue);
+    if (isNaN(gammaValue)) gammaValue = defaultValue;
+
+    function updateThumbPosition(val) {
+        if (track.offsetWidth > 0 && thumb.offsetWidth > 0) {
+            const trackWidth = track.offsetWidth;
+            const thumbWidth = thumb.offsetWidth;
+            const minX = 0;
+            const maxX = trackWidth - thumbWidth;
+            const percent = (val - minValue) / (maxValue - minValue);
+            const x = minX + percent * maxX;
+            thumb.style.left = `${x}px`;
+            thumb._lastLeft = x;
+            setGammaFilterOnDiv(val);
+        }
+    }
+
+    updateThumbPosition(gammaValue);
+
+    let dragging = false;
+    let startX = 0;
+    let startLeft = 0;
+
+    thumb.onmousedown = null;
+
+    thumb.onmousedown = function(e) {
+        dragging = true;
+        const trackRect = track.getBoundingClientRect();
+        startX = (e.clientX - trackRect.left) * (track.offsetWidth / trackRect.width);
+        startLeft = parseFloat(thumb.style.left) || 0;
+        document.body.style.userSelect = 'none';
+        e.preventDefault();
+    };
+
+    function mousemoveHandler(e) {
+        if (!dragging) return;
+        const trackRect = track.getBoundingClientRect();
+        const trackWidth = track.offsetWidth;
+        const thumbWidth = thumb.offsetWidth;
+        const minX = 0;
+        const maxX = trackWidth - thumbWidth;
+        let mouseX = (e.clientX - trackRect.left) * (trackWidth / trackRect.width);
+        let dx = mouseX - startX;
+        let newLeft = clamp(startLeft + dx, minX, maxX);
+        const percent = (newLeft - minX) / (maxX - minX);
+        let value = minValue + percent * (maxValue - minValue);
+        value = Math.round(value * 100) / 100;
+        value = clamp(value, minValue, maxValue);
+        thumb.style.left = `${newLeft}px`;
+        thumb._lastLeft = newLeft;
+        localStorage.setItem('gammaValue', value);
+        setGammaFilterOnDiv(value);
+    }
+
+    function mouseupHandler() {
+        if (dragging) {
+            dragging = false;
+            document.body.style.userSelect = '';
+        }
+    }
+
+    document.removeEventListener('mousemove', mousemoveHandler);
+    document.removeEventListener('mouseup', mouseupHandler);
+
+    document.addEventListener('mousemove', mousemoveHandler);
+    document.addEventListener('mouseup', mouseupHandler);
+
+    function safeUpdateThumbPosition() {
+        let gammaValue = localStorage.getItem('gammaValue');
+        gammaValue = gammaValue === null ? defaultValue : parseFloat(gammaValue);
+        if (isNaN(gammaValue)) gammaValue = defaultValue;
+        updateThumbPosition(gammaValue);
+    }
+
+    if (!track._gammaObserver) {
+        const observer = new MutationObserver(safeUpdateThumbPosition);
+        observer.observe(track, { attributes: true, childList: true, subtree: true });
+        track._gammaObserver = observer;
+    }
+
+    document.querySelectorAll('.tab-buttons button[data-tab="tab3"]').forEach(btn => {
+        if (!btn._gammaListener) {
+            btn.addEventListener('click', () => {
+                setTimeout(safeUpdateThumbPosition, 0);
             });
-          });
+            btn._gammaListener = true;
+        }
+    });
+
+    window.addEventListener('resize', safeUpdateThumbPosition);
+}
+
+function observeGammaSlider() {
+    const observer = new MutationObserver(() => {
+        if (document.getElementById('gammaThumb')) {
+            setupGammaSlider();
+            observer.disconnect();
+        }
+    });
+    observer.observe(document.body, { childList: true, subtree: true });
+}
+observeGammaSlider();
+
+function gammaToCSSFilter(gamma) {
+    return gamma;
+}
+
+function ensureGammaSVGFilter(gamma) {
+    let svg = document.getElementById('gamma-svg-filter');
+    if (!svg) {
+        svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+        svg.setAttribute('id', 'gamma-svg-filter');
+        svg.setAttribute('width', '0');
+        svg.setAttribute('height', '0');
+        svg.style.position = 'absolute';
+        svg.style.left = '-9999px';
+        svg.innerHTML = `
+        <filter id="gamma-correction">
+            <feComponentTransfer>
+                <feFuncR type="gamma" amplitude="1" exponent="1" offset="0"/>
+                <feFuncG type="gamma" amplitude="1" exponent="1" offset="0"/>
+                <feFuncB type="gamma" amplitude="1" exponent="1" offset="0"/>
+            </feComponentTransfer>
+        </filter>
+        `;
+        document.body.appendChild(svg);
+    }
+    const feFuncR = svg.querySelector('feFuncR');
+    const feFuncG = svg.querySelector('feFuncG');
+    const feFuncB = svg.querySelector('feFuncB');
+    const exp = 1 / gamma;
+    if (feFuncR && feFuncG && feFuncB) {
+        feFuncR.setAttribute('exponent', exp);
+        feFuncG.setAttribute('exponent', exp);
+        feFuncB.setAttribute('exponent', exp);
+    }
+}
+
+function setGammaFilterOnDiv(gamma) {
+    ensureGammaSVGFilter(gamma);
+    const filterDiv = document.getElementById('filterDiv');
+    if (filterDiv) {
+        filterDiv.style.filter = 'url(#gamma-correction)';
+    }
+}
+
+function applyInitialGammaBrightness() {
+    const minValue = 0.5;
+    const maxValue = 1.5;
+    const defaultValue = 1.0;
+    let gammaValue = localStorage.getItem('gammaValue');
+    gammaValue = gammaValue === null ? defaultValue : parseFloat(gammaValue);
+    if (isNaN(gammaValue)) gammaValue = defaultValue;
+    gammaValue = Math.max(minValue, Math.min(maxValue, gammaValue));
+    setGammaFilterOnDiv(gammaValue);
+}
+
+// --- FULLSCREEN/CRT ON GAME START ---
+function applyInitialFullscreen() {
+    const fullEnabled = localStorage.getItem('fullscreenEnabled') === 'true';
+    if (fullEnabled) {
+        document.documentElement.classList.add('full');
+        if (typeof fitFilterDivToViewport === 'function') fitFilterDivToViewport();
+    } else {
+        document.documentElement.classList.remove('full');
+        if (typeof fitFilterDivToViewport === 'function') {
+            const filterDiv = document.getElementById('filterDiv');
+            if (filterDiv) {
+                filterDiv.style.transform = '';
+                filterDiv.style.width = '';
+                filterDiv.style.height = '';
+                filterDiv.style.position = '';
+                filterDiv.style.left = '';
+                filterDiv.style.top = '';
+                filterDiv.style.transformOrigin = '';
+            }
+            const windowContainer = document.querySelector('.windowContainer');
+            if (windowContainer) {
+                windowContainer.style.position = '';
+                windowContainer.style.left = '';
+                windowContainer.style.top = '';
+                windowContainer.style.transform = '';
+                windowContainer.style.zIndex = '';
+                windowContainer.style.width = '';
+                windowContainer.style.height = '';
+            }
+        }
+    }
+    window.dispatchEvent(new Event('resize'));
+}
+
+function applyInitialCRT() {
+    const crtEnabled = localStorage.getItem('crtEnabled') === 'true';
+    const filterDiv = document.getElementById('filterDiv');
+    if (filterDiv) {
+        if (crtEnabled) {
+            filterDiv.classList.add('crt');
+        } else {
+            filterDiv.classList.remove('crt');
+        }
+    }
+}
