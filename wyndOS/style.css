@@ -620,6 +620,9 @@ details[open]>summary {
     #catEasterEgg {
         bottom: 70px !important;
     }
+    .aboutHypnagogia {
+        font-size: 12pt;
+    }
 }
 @media screen and (max-height: 550px) {
     #Activate {
@@ -721,6 +724,9 @@ details[open]>summary {
     }
     #catEasterEgg {
         bottom:  77px !important;
+    }
+    .aboutHypnagogia {
+        font-size: 16pt;
     }
 }
 .tabbed {
@@ -1654,4 +1660,3 @@ details[open]>summary {
   #Munich a {
     color: #252525 !important;
   }
-  

@@ -20,11 +20,22 @@ document.addEventListener('DOMContentLoaded', async () => {
   applyInitialGammaBrightness();
   applyInitialFullscreen();
   applyInitialCRT();
-  switchToScene('disc');
+  switchToScene('debugHud');
   requestAnimationFrame(gameLoop);
 });
 
 // ESSENTIAL FUNCTIONS
+
+function clearTextDivs() {
+  ['textA', 'textB', 'textC'].forEach(id => {
+    const div = document.getElementById(id);
+    if (div) {
+      div.innerHTML = '';
+      div.style.display = 'none';
+      lastTextContent[id] = '';
+    }
+  });
+}
 
 function gameLoop(now) {
     dt = now - lastTime;
@@ -69,7 +80,7 @@ function showText(id, content, styles = {}) {
   if (!textDiv) return;
   const translatedContent = getStringFromCode(content.trim());
 
-  // Only update if content or style has changed
+  // Only updates if content or style has changed.
   if (lastTextContent[id] !== translatedContent) {
     textDiv.innerHTML = translatedContent;
     lastTextContent[id] = translatedContent;
@@ -140,10 +151,10 @@ function setInteractiveTextDiv(id) {
     if (!div) return;
     if (divId === id) {
       div.style.pointerEvents = 'auto';
-      div.style.zIndex = 20; // Top
+      div.style.zIndex = 20; 
     } else {
       div.style.pointerEvents = 'none';
-      div.style.zIndex = 10; // Lower
+      div.style.zIndex = 10; 
     }
   });
 }
@@ -210,6 +221,7 @@ function fitFilterDivToViewport() {
 const scenes = {
     disc: {
     init() {
+    clearTextDivs();
     console.log('INIT scene:disc')
       this.timer = 0;
       this.fadeAlpha = 0;
@@ -286,6 +298,7 @@ const scenes = {
         fadeOutTime: 1000,
 
         init() {
+            clearTextDivs();
             console.log('INIT scene:copyright')
             this.timer = 0;
             this.fadeAlpha = 0;
@@ -353,6 +366,7 @@ const scenes = {
         },
 
         init() {
+            clearTextDivs();
             console.log('INIT scene:initial')
             this.bg = new Image();
             this.bg.src = '/wyndOS/games/wyndQST/assets/scene/initial/bg.png';
@@ -397,6 +411,139 @@ const scenes = {
             this.bgRain.src = '/wyndOS/games/wyndQST/assets/scene/initial/bgRain.png';
 
             currentInteractiveTextDiv = 'textB';
+
+            setTimeout(() => {
+                const textB = document.getElementById('textB');
+                if (textB && !textB._settingsDelegation) {
+                    textB.addEventListener('click', function(e) {
+                        if (e.target && e.target.id === 'settingsButton') {
+                            showText('textC', '[string:scene:initial:settings]');
+                            currentInteractiveTextDiv = 'textC';
+                            setInteractiveTextDiv(currentInteractiveTextDiv);
+
+                            setTimeout(() => {
+                                setupGammaSlider();
+
+                                // CRT Checkbox
+                                const crtCheckbox = document.getElementById('crtCheckbox');
+                                const crtUncheck = document.getElementById('crtUncheck');
+                                const crtCheck = document.getElementById('crtCheck');
+                                const windowDiv = document.getElementById('filterDiv');
+                                if (crtCheckbox && crtUncheck && crtCheck && windowDiv) {
+                                    let crtEnabled = localStorage.getItem('crtEnabled') === 'true';
+                                    crtCheck.style.display = crtEnabled ? '' : 'none';
+                                    crtUncheck.style.display = crtEnabled ? 'none' : '';
+                                    if (crtEnabled) {
+                                        windowDiv.classList.add('crt');
+                                    } else {
+                                        windowDiv.classList.remove('crt');
+                                    }
+                                    crtCheckbox.onclick = () => {
+                                        crtEnabled = !crtEnabled;
+                                        crtCheck.style.display = crtEnabled ? '' : 'none';
+                                        crtUncheck.style.display = crtEnabled ? 'none' : '';
+                                        if (crtEnabled) {
+                                            windowDiv.classList.add('crt');
+                                        } else {
+                                            windowDiv.classList.remove('crt');
+                                        }
+                                        localStorage.setItem('crtEnabled', crtEnabled ? 'true' : 'false');
+                                    };
+                                }
+
+                                // Fullscreen Checkbox
+                                const fullCheckbox = document.getElementById('fullCheckbox');
+                                const fullUncheck = document.getElementById('fullUncheck');
+                                const fullCheck = document.getElementById('fullCheck');
+                                if (fullCheckbox && fullUncheck && fullCheck) {
+                                    let fullEnabled = localStorage.getItem('fullscreenEnabled') === 'true';
+                                    fullCheck.style.display = fullEnabled ? '' : 'none';
+                                    fullUncheck.style.display = fullEnabled ? 'none' : '';
+                                    if (fullEnabled) {
+                                        document.documentElement.classList.add('full');
+                                        fitFilterDivToViewport();
+                                    } else {
+                                        document.documentElement.classList.remove('full');
+                                        const filterDiv = document.getElementById('filterDiv');
+                                        if (filterDiv) {
+                                            filterDiv.style.transform = '';
+                                            filterDiv.style.width = '';
+                                            filterDiv.style.height = '';
+                                            filterDiv.style.position = '';
+                                            filterDiv.style.left = '';
+                                            filterDiv.style.top = '';
+                                            filterDiv.style.transformOrigin = '';
+                                        }
+                                        document.body.style.zoom = "";
+                                        document.body.style.overflow = '';
+                                        document.documentElement.style.overflow = '';
+                                        const windowContainer = document.querySelector('.windowContainer');
+                                        if (windowContainer) {
+                                            windowContainer.style.position = '';
+                                            windowContainer.style.left = '';
+                                            windowContainer.style.top = '';
+                                            windowContainer.style.transform = '';
+                                            windowContainer.style.zIndex = '';
+                                            windowContainer.style.width = '';
+                                            windowContainer.style.height = '';
+                                        }
+                                    }
+                                    fullCheckbox.onclick = () => {
+                                        fullEnabled = !fullEnabled;
+                                        fullCheck.style.display = fullEnabled ? '' : 'none';
+                                        fullUncheck.style.display = fullEnabled ? 'none' : '';
+                                        if (fullEnabled) {
+                                            document.documentElement.classList.add('full');
+                                            fitFilterDivToViewport();
+                                            window.dispatchEvent(new Event('resize'));
+                                        } else {
+                                            document.documentElement.classList.remove('full');
+                                            const filterDiv = document.getElementById('filterDiv');
+                                            if (filterDiv) {
+                                                filterDiv.style.transform = '';
+                                                filterDiv.style.width = '';
+                                                filterDiv.style.height = '';
+                                                filterDiv.style.position = '';
+                                                filterDiv.style.left = '';
+                                                filterDiv.style.top = '';
+                                                filterDiv.style.transformOrigin = '';
+                                            }
+                                            document.body.style.zoom = "";
+                                            document.body.style.overflow = '';
+                                            document.documentElement.style.overflow = '';
+                                            const windowContainer = document.querySelector('.windowContainer');
+                                            if (windowContainer) {
+                                                windowContainer.style.position = '';
+                                                windowContainer.style.left = '';
+                                                windowContainer.style.top = '';
+                                                windowContainer.style.transform = '';
+                                                windowContainer.style.zIndex = '';
+                                                windowContainer.style.width = '';
+                                                windowContainer.style.height = '';
+                                            }
+                                            window.dispatchEvent(new Event('resize'));
+                                        }
+                                        localStorage.setItem('fullscreenEnabled', fullEnabled ? 'true' : 'false');
+                                    };
+                                }
+                            }, 0);
+                        }
+                    });
+                    textB._settingsDelegation = true;
+                }
+
+                const textC = document.getElementById('textC');
+                if (textC && !textC._settingsCloseDelegation) {
+                    textC.addEventListener('click', function(e) {
+                        if (e.target && e.target.id === 'settingsCloseButton') {
+                            textC.style.display = 'none';
+                            currentInteractiveTextDiv = 'textB';
+                            setInteractiveTextDiv(currentInteractiveTextDiv);
+                        }
+                    });
+                    textC._settingsCloseDelegation = true;
+                }
+            }, 0);
         },
 
         update() {
@@ -511,28 +658,6 @@ const scenes = {
             enableQuitToDesktop();
             
             setInteractiveTextDiv(currentInteractiveTextDiv);
-
-            const settingsBtn = document.getElementById('settingsButton');
-              if (settingsBtn && !settingsBtn._listenerSet) {
-                  settingsBtn.addEventListener('click', () => {
-                      showText('textC', '[string:scene:initial:settings]');
-                      currentInteractiveTextDiv = 'textC';
-                      setInteractiveTextDiv(currentInteractiveTextDiv);
-                  });
-                  settingsBtn._listenerSet = true;
-              }
-
-            const settingsCloseBtn = document.getElementById('settingsCloseButton');
-              if (settingsCloseBtn && !settingsCloseBtn._listenerSet) {
-                  settingsCloseBtn.addEventListener('click', () => {
-                      const textC = document.getElementById('textC')
-                      if (textC) textC.style.display = 'none';
-
-                      currentInteractiveTextDiv = 'textB';
-                      setInteractiveTextDiv(currentInteractiveTextDiv);
-                  });
-                  settingsBtn._listenerSet = true;
-              }
 
             // CRT TOGGLE HANDLER
             if (!this._crtHandlerSet) {
@@ -694,6 +819,29 @@ const scenes = {
             });
           });
         }
+    },
+    debugHud: {
+        init() {
+            clearTextDivs();
+            console.log('INIT scene:debugHud')
+            let currentInteractiveTextDiv = 'textB';
+            setInteractiveTextDiv(currentInteractiveTextDiv);
+        },
+
+        update() {
+            
+        },
+
+        render() {
+            showText(
+                'textA',
+                `[string:scene:debugHud:debugHudInfo]`,
+            );
+            showText(
+                'textB',
+                `[string:scene:debugHud:debugHud]`,
+            );
+        },
     }
 };
 
@@ -874,9 +1022,13 @@ function applyInitialFullscreen() {
     const fullEnabled = localStorage.getItem('fullscreenEnabled') === 'true';
     if (fullEnabled) {
         document.documentElement.classList.add('full');
-        if (typeof fitFilterDivToViewport === 'function') fitFilterDivToViewport();
+        window.addEventListener('resize', fitFilterDivToViewport);
+        window.addEventListener('DOMContentLoaded', fitFilterDivToViewport);
+        fitFilterDivToViewport();
     } else {
         document.documentElement.classList.remove('full');
+        window.removeEventListener('resize', fitFilterDivToViewport);
+        window.removeEventListener('DOMContentLoaded', fitFilterDivToViewport);
         if (typeof fitFilterDivToViewport === 'function') {
             const filterDiv = document.getElementById('filterDiv');
             if (filterDiv) {
