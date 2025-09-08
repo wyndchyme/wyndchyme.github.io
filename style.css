@@ -218,3 +218,8 @@ body {
     font-size: 1.35rem;
 }
 }
+.docsHeader {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}

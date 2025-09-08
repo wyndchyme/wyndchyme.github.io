@@ -160,7 +160,7 @@ body {
 .wyndOSlogo img {
     position: relative;
     top: 0.1em;
-    filter: drop-shadow(2px 2px 0 rgba(0, 0, 0, 0.85));
+    filter: drop-shadow(0.05em 0.05em 0 rgba(0, 0, 0, 0.85));
 }
 
 #top::before {
@@ -287,7 +287,7 @@ body {
     background: #f0f0f0;
     background-image:
         linear-gradient(skyblue, skyblue),
-        linear-gradient(#f0f0f0, #f0f0f0) border: 1px solid skyblue;
+        linear-gradient(#f0f0f0, #f0f0f0);
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
     position: absolute;
     top: 50px;
@@ -623,6 +623,17 @@ details[open]>summary {
     .aboutHypnagogia {
         font-size: 12pt;
     }
+    .graphicsBlurb {
+        font-size: 12pt;
+    }
+    .graphics {
+    transform: translateY(-7px) !important;
+  }
+}
+@media screen and (max-width: 1000px) {
+    .graphics {
+    transform: translateY(-2px) !important;
+  }
 }
 @media screen and (max-height: 550px) {
     #Activate {
@@ -726,6 +737,9 @@ details[open]>summary {
         bottom:  77px !important;
     }
     .aboutHypnagogia {
+        font-size: 16pt;
+    }
+    .graphicsBlurb {
         font-size: 16pt;
     }
 }
@@ -1066,7 +1080,7 @@ details[open]>summary {
     font-family: 'Jersey 10';
     font-size: 13pt;
     color: #252525;
-    filter: drop-shadow(0px 5px 1px rgba(18, 43, 77, 0.4));
+    filter: drop-shadow(0 0.15em 0 rgba(18, 43, 77, 0.2));
 }
 .aboutException2 img {
     display: none;
@@ -1659,4 +1673,15 @@ details[open]>summary {
   }
   #Munich a {
     color: #252525 !important;
+  }
+  .aboutHypnagogia a:hover {
+    text-decoration: underline;
+  }
+  #fullscreenLabel {
+    position: relative;
+    bottom: 1px;
+    left: 2px;
+  }
+  .graphics {
+    transform: translateY(-8px);
   }

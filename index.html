@@ -281,7 +281,21 @@
             <div id="Paris" class="tab" style="display:none">
                 <h2 style="padding-top: 4px;"><img src="/images/questbanner.png" style="width: 100%; height: 30px; position: relative; left: -10px; filter: none; bottom: 4px; border-radius: 0 5px 0 0; object-fit: cover;" class="qstImage">
                     <img src="/images/questbanneralt.png" style="width: 100%; height: 30px; position: relative; filter: none; bottom: 4px; border-radius: 0 5px 0 0; object-fit: cover;" class="qstImageAlt"></h2>
-                <div style="text-indent: 0; position: relative; left: 10px; bottom: 15px; width: calc(100% - 30px)">Graphics settings have not been implemented – please stay tuned for updates.</div>
+                <div style="text-indent: 0; position: relative; left: 10px; bottom: 15px; width: calc(100% - 30px)" class="graphics">
+                    <label for="gamma">Gamma Correction</label><br>
+                    <input type="range" name="gamma" id="gamma" min="0.5" max="1.5" step="0.01">
+                    <span id="gammaValueLabel"></span>
+                    <div>
+                        <input type="checkbox" id="fullscreen" name="fullscreen">
+                        <label for="fullscreen" id="fullscreenLabel">Fullscreen</label>
+                    </div>
+                    <div>
+                        <input type="checkbox" id="crtCheckboxWeb" name="crtCheckboxWeb">
+                        <label for="crtCheckboxWeb" id="crtCheckboxWebLabel">CRT Filter</label>
+                    </div>
+                    <hr>
+                    <span class="graphicsBlurb">For the best experience, please run this game using the latest version of Google Chrome.</span>
+                </div>
             </div>
             <div id="Tokyo" class="tab" style="display:none">
                 <h2 style="padding-top: 4px;"><img src="/images/questbanner.png" style="width: 100%; height: 30px; position: relative; left: -10px; filter: none; bottom: 4px; border-radius: 0 5px 0 0; object-fit: cover;" class="qstImage">
@@ -299,8 +313,8 @@
                             <span style="font-size: 110%;">Hypnagogia</span><br>
                             pre-alpha<br>
                             <br>
-                            <a href="docs/legal/index.html">© 2024-2025 wyndchyme. All rights reserved.</a><br>
-                            <a href="https://phaser.io/">Powered by isoMATRIX.</a>
+                            <a href="/docs/legal/index.html">© 2024-2025 wyndchyme. All rights reserved.</a><br>
+                            <a href="/docs/legal/hypnagogia/index.html" style="color: rgb(67, 67, 122) !important">See full credits</a>
                         </span>
                     </div>
                     <br>
@@ -456,6 +470,70 @@
     <script src="/wyndOS/scripts/pageshow.js"></script>
     <script src="/wyndOS/scripts/cat.js"></script>
     <script src="/wyndOS/scripts/explorer.js"></script>
+    <script>
+document.addEventListener('DOMContentLoaded', function() {
+    // Gross patchwork fixes for the graphics options in the Hypnagogia launcher
+    const gammaSlider = document.getElementById('gamma');
+    const gammaLabel = document.getElementById('gammaValueLabel');
+    const gammaMin = 0.5;
+    const gammaMax = 1.5;
+    const gammaDefault = 1.0;
+    let gammaValue = localStorage.getItem('gammaValue');
+    gammaValue = gammaValue === null ? gammaDefault : parseFloat(gammaValue);
+    if (isNaN(gammaValue)) gammaValue = gammaDefault;
+    gammaValue = Math.max(gammaMin, Math.min(gammaMax, gammaValue));
+    if (gammaSlider) {
+        gammaSlider.value = gammaValue;
+        gammaLabel.textContent = gammaValue.toFixed(2);
+        gammaSlider.addEventListener('input', function() {
+            let val = parseFloat(gammaSlider.value);
+            val = Math.max(gammaMin, Math.min(gammaMax, val));
+            localStorage.setItem('gammaValue', val);
+            gammaLabel.textContent = val.toFixed(2);
+        });
+    }
+
+    const fullscreenCheckbox = document.getElementById('fullscreen');
+    const fullscreenEnabled = localStorage.getItem('fullscreenEnabled') === 'true';
+    if (fullscreenCheckbox) {
+        fullscreenCheckbox.checked = fullscreenEnabled;
+        fullscreenCheckbox.addEventListener('change', function() {
+            localStorage.setItem('fullscreenEnabled', fullscreenCheckbox.checked ? 'true' : 'false');
+        });
+    }
+
+    const crtCheckboxWeb = document.getElementById('crtCheckboxWeb');
+    let crtEnabled = localStorage.getItem('crtEnabled') === 'true';
+    if (crtCheckboxWeb) {
+        crtCheckboxWeb.checked = crtEnabled;
+        crtCheckboxWeb.addEventListener('change', function() {
+            crtEnabled = crtCheckboxWeb.checked;
+            localStorage.setItem('crtEnabled', crtEnabled ? 'true' : 'false');
+            syncCRTVisual(crtEnabled);
+        });
+    }
+
+    const crtToggleBtn = document.getElementById('crtToggleBtn');
+    if (crtToggleBtn) {
+        crtToggleBtn.addEventListener('click', function() {
+            crtEnabled = !crtEnabled;
+            localStorage.setItem('crtEnabled', crtEnabled ? 'true' : 'false');
+            if (crtCheckboxWeb) crtCheckboxWeb.checked = crtEnabled;
+            syncCRTVisual(crtEnabled);
+        });
+    }
+
+    function syncCRTVisual(enabled) {
+        document.body.classList.toggle('crt', enabled);
+    }
+
+    syncCRTVisual(crtEnabled);
+});
+</script>
+      
+</body>
+</html>
+</script>
       
 </body>
 </html>

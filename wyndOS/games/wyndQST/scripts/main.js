@@ -20,7 +20,7 @@ document.addEventListener('DOMContentLoaded', async () => {
   applyInitialGammaBrightness();
   applyInitialFullscreen();
   applyInitialCRT();
-  switchToScene('disc');
+  scene('initial');
   requestAnimationFrame(gameLoop);
 });
 
@@ -49,7 +49,7 @@ function gameLoop(now) {
     requestAnimationFrame(gameLoop);
 }
 
-function switchToScene(sceneName) {
+function scene(sceneName) {
     currentScene = scenes[sceneName];
     currentScene.init();
 }
@@ -163,7 +163,7 @@ function enableQuitToDesktop() {
     const quitBtn = document.getElementById("quitToDesktop");
     if (quitBtn && !quitBtn._listenerSet) {
         quitBtn.addEventListener("click", function() {
-            window.location.href = "/index.html";
+            window.location.href = "/";
         });
         quitBtn._listenerSet = true;
     }
@@ -256,7 +256,7 @@ const scenes = {
       } else {
         this.fadeAlpha = 0;
         setTimeout(() => {
-          switchToScene('copyright');
+          scene('copyright');
         }, 100);
       }
     },
@@ -322,7 +322,7 @@ const scenes = {
               if (!this._sceneSwitched) {
                   this._sceneSwitched = true;
                   setTimeout(() => {
-                      switchToScene('initial');
+                      scene('initial');
                   }, 2000);
               }
 }
@@ -344,71 +344,15 @@ const scenes = {
     },
     
     initial: {
-        bgCloudsOffset: 0,
-        bg: null,
-        bgOffset: 0,
-        rainOffsetX: 0,
-        rainOffsetY: 15,
-        rainSpeedX: -5,
-        rainSpeedY: 20,
-        lightningAlpha: 0,
-        lightningDecay: 0.92,
-        fadeOverlayAlpha: 1,
-
         _crtHandlerSet: false,
         _crtEnabled: false, 
         _fullscreenHandlerSet: false,
         _fullscreenEnabled: false,
         _fitFilterDivHandlerSet: false,
 
-        triggerLightning() {
-            this.lightningAlpha = 0.1;
-        },
-
         init() {
             clearTextDivs();
             console.log('INIT scene:initial')
-            this.bg = new Image();
-            this.bg.src = '/wyndOS/games/wyndQST/assets/scene/initial/bg.png';
-            this.bgLights = new Image();
-            this.bgLights.src = '/wyndOS/games/wyndQST/assets/scene/initial/bgLights.png';
-            this.bgClouds = new Image();
-            this.bgClouds.src = '/wyndOS/games/wyndQST/assets/scene/initial/bgClouds.png';
-            this.bgSparkles = new Image();
-            this.bgSparkles.src = '/wyndOS/games/wyndQST/assets/scene/initial/bgSparkles.png';
-            this.bgSparkles2 = new Image();
-            this.bgSparkles2.src = '/wyndOS/games/wyndQST/assets/scene/initial/bgSparkles2.png';
-            this.bgFoam = new Image();
-            this.bgFoam.src = '/wyndOS/games/wyndQST/assets/scene/initial/bgFoam.png';
-            this.bgFoam2 = new Image();
-            this.bgFoam2.src = '/wyndOS/games/wyndQST/assets/scene/initial/bgFoam2.png';
-            this.bgStars = new Image();
-            this.bgStars.src = '/wyndOS/games/wyndQST/assets/scene/initial/bgStars.png';
-            this.bgStars2 = new Image();
-            this.bgStars2.src = '/wyndOS/games/wyndQST/assets/scene/initial/bgStars2.png';
-            this.bgFlag = new Image();
-            this.frameImages = [new Image(), new Image()];
-            this.frameImages[0].src = '/wyndOS/games/wyndQST/assets/scene/initial/bgFlag.png';
-            this.frameImages[1].src = '/wyndOS/games/wyndQST/assets/scene/initial/bgFlag2.png';
-
-            this.frameIndex = 0;
-            this.lastFrameTime = 0;
-            this.frameInterval = 400;
-
-            this.someAnim = [new Image(), new Image()];
-            this.someAnim[0].src = '/wyndOS/games/wyndQST/assets/scene/initial/bgTree.png';
-            this.someAnim[1].src = '/wyndOS/games/wyndQST/assets/scene/initial/bgTree2.png';
-
-            this.someAnimIndex = 0;
-            this.someAnimLastTime = 0;
-            this.someAnimInterval = 600;
-
-            this.bgFog = new Image();
-            this.bgFog.src = '/wyndOS/games/wyndQST/assets/scene/initial/bgFog.png';
-            this.bgHighlights = new Image();
-            this.bgHighlights.src = '/wyndOS/games/wyndQST/assets/scene/initial/bgHighlights.png';
-            this.bgRain = new Image();
-            this.bgRain.src = '/wyndOS/games/wyndQST/assets/scene/initial/bgRain.png';
 
             currentInteractiveTextDiv = 'textB';
 
@@ -547,117 +491,15 @@ const scenes = {
         },
 
         update() {
-            this.bgCloudsOffset -= 1;
-            if (this.bgCloudsOffset <= -canvas.width) {
-                this.bgCloudsOffset = 0;
-            }
-
-            const now = Date.now();
-            if (now - this.lastFrameTime > this.frameInterval) {
-                this.frameIndex = (this.frameIndex + 1) % 2;
-                this.lastFrameTime = now;
-            }
-
-            if (now - this.someAnimLastTime > this.someAnimInterval) {
-                this.someAnimIndex = (this.someAnimIndex + 1) % 2;
-                this.someAnimLastTime = now;
-            }
-
-            this.rainOffsetX = (this.rainOffsetX + this.rainSpeedX) % (this.bgRain?.width || 1);
-            this.rainOffsetY = (this.rainOffsetY + this.rainSpeedY) % (this.bgRain?.height || 1);
-
-            if (this.lightningAlpha > 0.01) {
-                this.lightningAlpha *= this.lightningDecay;
-            } else {
-                this.lightningAlpha = 0;
-            }
-
-            if (Math.random() < 0.005) {
-                this.triggerLightning();
-            }
-
-            if (this.fadeOverlayAlpha > 0) {
-                this.fadeOverlayAlpha -= 0.01;
-                if (this.fadeOverlayAlpha < 0) this.fadeOverlayAlpha = 0;
-            }
         },
 
         render() {
-            ctx.imageSmoothingEnabled = false;
-            ctx.clearRect(0, 0, canvas.width, canvas.height);
-
-            const drawImg = (img, alpha = 1) => {
-                if (img?.complete) {
-                    ctx.save();
-                    ctx.globalAlpha = alpha;
-                    ctx.drawImage(img, 400, 0, canvas.width, canvas.height); 
-                    ctx.restore();
-                }
-            };
-
-            drawImg(this.bg);
-            drawImg(this.bgClouds, 0.5);
-
-            if (this.bgClouds?.complete) {
-                ctx.save();
-                ctx.globalAlpha = 0.5;
-                ctx.drawImage(this.bgClouds, this.bgCloudsOffset + 30, 0, canvas.width, canvas.height); 
-                ctx.drawImage(this.bgClouds, this.bgCloudsOffset + canvas.width + 30, 0, canvas.width, canvas.height); 
-                ctx.restore();
-            }
-
-            drawImg(this.bgLights, 0.65 + 0.35 * Math.sin(Date.now() * 0.002));
-            drawImg(this.bgSparkles, 0.7 + 0.3 * Math.sin(Date.now() * 0.0068));
-            drawImg(this.bgSparkles2, 0.5 + 0.5 * Math.sin(Date.now() * 0.005));
-            drawImg(this.bgFoam, 0.5 + 0.5 * Math.sin(Date.now() * 0.00089));
-            drawImg(this.bgFoam2, 0.5 + 0.5 * Math.sin(Date.now() * 0.001));
-            drawImg(this.bgStars, 0.5 + 0.5 * Math.sin(Date.now() * 0.002));
-            drawImg(this.bgStars2, 0.5 + 0.5 * Math.sin(Date.now() * 0.0013));
-            drawImg(this.bgHighlights, 0.025 + 0.025 * Math.sin(Date.now() * 0.0015));
-
-            const flagImg = this.frameImages[this.frameIndex];
-            if (flagImg.complete) ctx.drawImage(flagImg, 30, -120, canvas.width, canvas.height); 
-
-            const treeImg = this.someAnim[this.someAnimIndex];
-            if (treeImg.complete) ctx.drawImage(treeImg, 60, 28, canvas.width, canvas.height); 
-
-            if (this.bgFog?.complete) {
-                ctx.save();
-                ctx.globalAlpha = 0.5;
-                ctx.drawImage(this.bgFog, this.bgCloudsOffset + 30, 0, canvas.width, canvas.height); 
-                ctx.drawImage(this.bgFog, this.bgCloudsOffset + canvas.width + 30, 0, canvas.width, canvas.height); 
-                ctx.restore();
-            }
-
-            if (this.bgRain?.complete) {
-                const iw = this.bgRain.width;
-                const ih = this.bgRain.height;
-                for (let x = -iw; x < canvas.width; x += iw) {
-                    for (let y = -ih; y < canvas.height; y += ih) {
-                        ctx.drawImage(
-                            this.bgRain,
-                            x + this.rainOffsetX + 90,
-                            y + this.rainOffsetY,
-                            canvas.width,
-                            canvas.height
-                        );
-                    }
-                }
-            }
-
-            if (this.lightningAlpha > 0) {
-                ctx.save();
-                ctx.globalAlpha = this.lightningAlpha;
-                ctx.fillStyle = '#ffffff';
-                ctx.fillRect(0, 0, canvas.width, canvas.height);
-                ctx.restore();
-            }
-
             showText('textA', `[string:scene:initial:title]`);
             showText('textB', `[string:scene:initial:menu]`);
             enableQuitToDesktop();
             
             setInteractiveTextDiv(currentInteractiveTextDiv);
+
 
             // CRT TOGGLE HANDLER
             if (!this._crtHandlerSet) {
@@ -829,7 +671,6 @@ const scenes = {
         },
 
         update() {
-            
         },
 
         render() {
@@ -841,6 +682,66 @@ const scenes = {
                 'textB',
                 `[string:scene:debugHud:debugHud]`,
             );
+        },
+    },
+    isomatrix: {
+        tilemap: [
+            [1, 1, 1, 1, 1],
+            [1, 0, 0, 0, 1],
+            [1, 0, 1, 0, 1],
+            [1, 0, 0, 0, 1],
+            [1, 1, 1, 1, 1]
+        ],
+        tileImg: null,
+        tileWidth: 32,
+        tileHeight: 24,
+        topHeight: 16,
+
+        init() {
+            // Load tile image (should be 32x24, PNG with transparency)
+            clearTextDivs();
+            console.log('INIT scene:isomatrix')
+            this.tileImg = new Image();
+            this.tileImg.src = '/wyndOS/games/wyndQST/assets/scene/isomatrix/debug/debugTile.png';
+        },
+
+        update() {
+            // No logic for now
+        },
+
+        render() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            ctx.imageSmoothingEnabled = false;
+
+            ctx.save();
+            ctx.scale(2, 2);
+
+            // Center the map (align originY to center of middle tile)
+            const rows = this.tilemap.length;
+            const cols = this.tilemap[0].length;
+            const centerX = Math.floor(cols / 2);
+            const centerY = Math.floor(rows / 2);
+            const originX = canvas.width / 4 - 16;
+            // Calculate center tile's isometric position
+            const centerIsoY = ((centerX + centerY) * (this.topHeight / 2)) - (this.tileHeight / 2);
+            const originY = (canvas.height / 4) - centerIsoY;
+
+            for (let y = 0; y < rows; y++) {
+                for (let x = 0; x < cols; x++) {
+                    if (this.tilemap[y][x] === 0) continue;
+                    // Isometric (dimetric) projection
+                    const isoX = originX + (x - y) * (this.tileWidth / 2);
+                    const isoY = originY + (x + y) * (this.topHeight / 2) - (this.tileHeight / 2);
+
+                    if (this.tileImg && this.tileImg.complete) {
+                        ctx.drawImage(
+                            this.tileImg,
+                            isoX, isoY
+                        );
+                    }
+                }
+            }
+            ctx.restore();
         },
     }
 };
@@ -1017,7 +918,6 @@ function applyInitialGammaBrightness() {
     setGammaFilterOnDiv(gammaValue);
 }
 
-// --- FULLSCREEN/CRT ON GAME START ---
 function applyInitialFullscreen() {
     const fullEnabled = localStorage.getItem('fullscreenEnabled') === 'true';
     if (fullEnabled) {
@@ -1066,3 +966,4 @@ function applyInitialCRT() {
         }
     }
 }
+
