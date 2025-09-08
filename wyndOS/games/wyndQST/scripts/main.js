@@ -20,7 +20,7 @@ document.addEventListener('DOMContentLoaded', async () => {
   applyInitialGammaBrightness();
   applyInitialFullscreen();
   applyInitialCRT();
-  scene('initial');
+  scene('disc');
   requestAnimationFrame(gameLoop);
 });
 
