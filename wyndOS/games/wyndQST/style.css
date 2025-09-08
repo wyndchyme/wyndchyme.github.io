@@ -340,6 +340,11 @@ canvas {
     color: white;
 }
 .initial-menu .menuItem:active {
+    .bulletable {
+        opacity: 0.9;
+        filter: sepia(0.2) brightness(0.65);
+        transition: 0.1s;
+    }
     margin-top: 0.2em;
     background-color: rgba(41, 60, 167, 0.5);
     border-bottom: 0.2em solid rgba(49, 47, 71, 0.25);
